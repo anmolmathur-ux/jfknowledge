@@ -101,7 +101,7 @@ export default function RecruitmentIndex() {
                     <div style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
                         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.85) 100%)', zIndex: 2 }} />
                         <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35, filter: 'grayscale(40%)' }}>
-                            <source src="/assets/images/about/Global-Delivery-Network.mp4" type="video/mp4" />
+                            <source src="/assets/images/about/global-Delivery-Network.mp4" type="video/mp4" />
                         </video>
                     </div>
 
