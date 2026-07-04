@@ -1,0 +1,248 @@
+/* ==========================================================================
+   GLOBAL DESIGN SYSTEM & VARIANT CONSTANTS (Pastel Accents + Slate Typography)
+   ========================================================================== */
+:root {
+    /* 1. Surfaces & Canvas Layers (Strictly White Backings) */
+    --bg-main: #FFFFFF;
+    /* Pure white background canvas */
+    --bg-surface: #FFFFFF;
+    /* White surface for cards, tables, inputs */
+    --bg-muted: #2c77c2;
+    /* Light slate-tinted background block layout dividers */
+
+    /* 2. Core Pastel Palette Roles */
+    --brand-peach: #FEDCB4;
+    /* Left Card Accent */
+    --brand-mint: #D3F0EC;
+    /* Middle Card Accent */
+    --brand-lime: #E1F2C6;
+    /* Right Card Accent */
+
+    /* 3. Typography Variables (Swapped to High-Readability Slate/Grey System) */
+    --text-primary: rgba(216, 147, 110, 0.55);
+    /* Mid slate grey for clean, crisp body typography */
+    --text-heading: #1E293B;
+    /* Deep slate for clear, high-contrast structural headers */
+    --text-muted: rgba(211, 103, 45, 0.55);
+    /* Muted slate for descriptions, captions, and metadata */
+    --text-placeholder: #94A3B8;
+    /* Soft placeholder grey for form input fields */
+
+    /* 4. Borders & Subtle Layout Strokes */
+    --border-light: #E2E8F0;
+    /* Light clean border separating cells and panels */
+    --border-visible: #CBD5E1;
+    /* High-visibility divider accents */
+
+    /* 5. Utility Shadows (Using clean, subtle grey drops for soft elevation) */
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.03);
+    --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
+    --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.04);
+}
+
+/* ==========================================================================
+   BASE CANVAS OVERRIDES
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-heading);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+a {
+    color: #475569;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--text-heading);
+}
+
+/* ==========================================================================
+   GLOBAL REUSABLE WEB INTERFACE ELEMENTS
+   ========================================================================== */
+
+/* 1. Buttons Integration */
+.jf-btn-primary {
+    background-color: var(--brand-mint);
+    color: var(--text-heading) !important;
+    /* Kept dark text over light pastel button for clarity */
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.jf-btn-primary:hover {
+    background-color: var(--brand-peach);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.jf-btn-primary:active {
+    transform: scale(0.97);
+}
+
+.jf-btn-secondary {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1.5px solid var(--border-visible);
+    padding: 11px 26px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+}
+
+.jf-btn-secondary:hover {
+    background-color: var(--bg-muted);
+    color: var(--text-heading) !important;
+    border-color: var(--text-heading);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* 2. Premium Grid Components & Elevation Cards */
+.jf-grid-3x {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    width: 100%;
+}
+
+@media (max-width: 960px) {
+    .jf-grid-3x {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .jf-grid-3x {
+        grid-template-columns: 1fr;
+    }
+}
+
+.jf-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.jf-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--border-visible);
+    box-shadow: var(--shadow-lg);
+}
+
+/* 3. Global Inputs, Text Areas and Newsletter Backings */
+.jf-input-text {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jf-input-text::placeholder {
+    color: var(--text-placeholder);
+}
+
+.jf-input-text:focus {
+    border-color: var(--text-muted);
+    box-shadow: var(--shadow-sm);
+}
+
+/* 4. Structured Informational Tables Layout */
+.jf-table-wrapper {
+    overflow-x: auto;
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+    background-color: var(--bg-surface);
+}
+
+.jf-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+}
+
+.jf-data-table th {
+    background-color: var(--bg-muted);
+    color: var(--text-heading);
+    font-weight: 700;
+    padding: 16px 24px;
+    border-bottom: 2px solid var(--border-visible);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.jf-data-table td {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-primary);
+    vertical-align: middle;
+    line-height: 1.5;
+    transition: background-color 0.15s ease;
+}
+
+.jf-data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.jf-data-table tr:hover td {
+    background-color: var(--bg-muted);
+    color: var(--text-heading);
+}

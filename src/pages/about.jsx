@@ -1,126 +1,101 @@
 import React from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import { companyInfo } from '../data/companyInfo';
-
-const navigate = (href) => {
-    window.history.pushState({}, '', href);
-    window.dispatchEvent(new PopStateEvent('popstate'));
-};
-
-const valueIcons = { Excellence: '⭐', Innovation: '💡', Integrity: '🔒', Partnership: '🤝', Impact: '🎯' };
-const valueColors = ['#9747FF', '#22d3ee', '#f59e0b', '#34d399', '#f472b6'];
 
 export default function AboutPage() {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: '#040406', fontFamily: "'Poppins', sans-serif" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: "var(--bg-main)", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
             <Header />
-            <main style={{ flex: 1, paddingTop: '68px' }}>
-
-                <style>{`
-                    .value-card {
-                        background: rgba(255,255,255,0.01);
-                        border: 1px solid rgba(255,255,255,0.04);
-                        border-radius: 24px;
-                        padding: 40px;
-                        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-                        position: relative;
-                        overflow: hidden;
-                    }
-                    .value-card:hover {
-                        transform: translateY(-6px);
-                        background: rgba(255,255,255,0.02);
-                    }
-                    .mv-card {
-                        background: rgba(151,71,255,0.02);
-                        border: 1px solid rgba(151,71,255,0.1);
-                        border-radius: 28px;
-                        padding: 50px;
-                        transition: all 0.3s ease;
-                    }
-                    .mv-card:hover {
-                        border-color: rgba(151,71,255,0.3);
-                        box-shadow: 0 20px 40px rgba(151,71,255,0.05);
-                    }
-                `}</style>
-
-                {/* Hero banner */}
-                <section style={{ position: 'relative', padding: '140px 40px 100px', overflow: 'hidden', background: 'radial-gradient(circle at 80% 20%, #0f0e1a 0%, #040406 100%)' }}>
-                    <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(151,71,255,0.12) 0%, transparent 70%)', filter: 'blur(70px)', pointerEvents: 'none' }} />
-                    <div style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative' }}>
-                        <span style={{ display: 'inline-block', fontSize: '12px', fontWeight: '800', color: '#9747FF', textTransform: 'uppercase', letterSpacing: '0.25em', marginBottom: '20px' }}>
-                            Global Multi-Disciplinary Practice
-                        </span>
-                        <h1 style={{ fontSize: 'clamp(36px, 5.5vw, 64px)', fontWeight: '800', color: '#ffffff', margin: '0 0 28px 0', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-                            About <span style={{ background: 'linear-gradient(95deg, #9747FF, #d8b4fe)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>JF Knowledge Centre</span>
+            <main style={{ flex: 1, paddingTop: '140px', paddingBottom: '100px', overflow: 'hidden', position: 'relative' }}>
+                
+                {/* Header Section */}
+                <section style={{ padding: '0 40px 80px', textAlign: 'center' }}>
+                    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                        <h1 style={{ fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: '800', color: "var(--text-primary)", marginBottom: '24px', letterSpacing: '-0.03em' }}>
+                            About JF Knowledge Centre
                         </h1>
-                        <p style={{ fontSize: '18px', lineHeight: 1.8, color: 'rgba(255,255,255,0.6)', maxWidth: '800px', margin: 0 }}>
-                            {companyInfo.whyChooseUs}
+                        <p style={{ fontSize: '18px', color: "var(--text-muted)", lineHeight: 1.8, marginBottom: '32px' }}>
+                            JF Knowledge Centre is a globally oriented, multi-disciplinary professional services organisation committed to transforming the way businesses learn, hire, and grow. Founded with a clear vision to bridge the gap between talent demand and capability supply, we operate across three powerful verticals — E-Learning & Digital Learning Solutions, Recruitment & Staffing, and Financial Consultancy & Accounting Services.
+                        </p>
+                        <p style={{ fontSize: '18px', color: "var(--text-muted)", lineHeight: 1.8 }}>
+                            Headquartered with a global delivery footprint spanning the US, UK, Europe, GCC, and India, JF Knowledge Centre serves a diverse portfolio of clients — from ambitious start-ups to established Fortune 500 enterprises — delivering customised, scalable, and results-driven solutions that create lasting impact.
                         </p>
                     </div>
                 </section>
 
-                {/* Mission & Vision */}
-                <section style={{ padding: '100px 40px', background: '#07070a', borderTop: '1px solid rgba(255,255,255,0.03)' }}>
-                    <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
-                        {[
-                            { label: 'Our Mission', text: companyInfo.mission, color: '#9747FF', icon: '🚀' },
-                            { label: 'Our Vision', text: companyInfo.vision, color: '#22d3ee', icon: '🔭' }
-                        ].map((item, idx) => (
-                            <div key={idx} className="mv-card">
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                                    <span style={{ fontSize: '32px', background: 'rgba(255,255,255,0.03)', padding: '12px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>{item.icon}</span>
-                                    <h2 style={{ fontSize: '26px', fontWeight: '800', color: '#ffffff', margin: 0 }}>{item.label}</h2>
+                {/* Mission & Vision Section */}
+                <section style={{ padding: '0 40px 80px' }}>
+                    <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
+                        
+                        <div style={{ background: "var(--bg-surface)", border: "1px solid var(--border-light)", borderRadius: '24px', padding: '48px', boxShadow: "var(--shadow-sm)" }}>
+                            <h2 style={{ fontSize: '28px', fontWeight: '800', color: "var(--text-primary)", marginBottom: '20px' }}>Our Mission</h2>
+                            <p style={{ fontSize: '16px', color: "var(--text-muted)", lineHeight: 1.8 }}>
+                                To empower organisations and individuals with innovative learning experiences, world-class talent solutions, and strategic financial expertise — enabling them to thrive in a rapidly evolving global landscape.
+                            </p>
+                        </div>
+
+                        <div style={{ background: "var(--bg-surface)", border: "1px solid var(--border-light)", borderRadius: '24px', padding: '48px', boxShadow: "var(--shadow-sm)" }}>
+                            <h2 style={{ fontSize: '28px', fontWeight: '800', color: "var(--text-primary)", marginBottom: '20px' }}>Our Vision</h2>
+                            <p style={{ fontSize: '16px', color: "var(--text-muted)", lineHeight: 1.8 }}>
+                                To be the most trusted and transformative professional services partner across learning, talent, and finance — known for quality, innovation, and measurable outcomes.
+                            </p>
+                        </div>
+
+                    </div>
+                </section>
+
+                {/* Core Values Section */}
+                <section style={{ position: 'relative', padding: '0 40px 80px', background: "var(--bg-surface)", borderTop: "1px solid var(--border-light)", borderBottom: "1px solid var(--border-light)", paddingTop: '80px', overflow: 'hidden' }}>
+                    
+                    {/* Background Video Layer for Core Values */}
+                    <div style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, var(--bg-surface) 0%, rgba(255,255,255,0.85) 50%, var(--bg-surface) 100%)', zIndex: 2 }} />
+                        <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15, filter: 'grayscale(50%)' }}>
+                            <source src="/assets/images/about/corevalues.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+
+                    <div style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 3 }}>
+                        <h2 style={{ fontSize: '36px', fontWeight: '800', color: "var(--text-primary)", marginBottom: '48px', textAlign: 'center' }}>Our Core Values</h2>
+                        
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+                            {[
+                                { title: 'Excellence', text: 'We pursue the highest standards in everything we deliver.' },
+                                { title: 'Innovation', text: 'We continuously evolve our solutions to stay ahead of industry trends.' },
+                                { title: 'Integrity', text: 'We operate with transparency, honesty, and accountability.' },
+                                { title: 'Partnership', text: 'We build long-term relationships grounded in mutual trust.' },
+                                { title: 'Impact', text: 'We measure our success by the tangible outcomes we create for our clients.' }
+                            ].map((val, idx) => (
+                                <div key={idx} style={{ background: "var(--bg-main)", padding: '32px', borderRadius: '16px', border: "1px solid var(--border-light)", borderLeft: '4px solid var(--brand-teal)' }}>
+                                    <h3 style={{ fontSize: '20px', fontWeight: '700', color: "var(--text-primary)", marginBottom: '12px' }}>{val.title}</h3>
+                                    <p style={{ fontSize: '15px', color: "var(--text-muted)", margin: 0, lineHeight: 1.7 }}>{val.text}</p>
                                 </div>
-                                <p style={{ fontSize: '16px', lineHeight: 1.75, color: 'rgba(255,255,255,0.6)', margin: 0 }}>{item.text}</p>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* Core Values */}
-                <section style={{ padding: '120px 40px', background: '#040406' }}>
-                    <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-                        <div style={{ textAlign: 'center', marginBottom: '70px' }}>
-                            <span style={{ fontSize: '12px', fontWeight: '800', color: '#9747FF', textTransform: 'uppercase', letterSpacing: '0.2em' }}>Principles That Drive Us</span>
-                            <h2 style={{ fontSize: '38px', fontWeight: '800', color: '#ffffff', margin: '12px 0 0 0', letterSpacing: '-0.02em' }}>Our Core Values</h2>
-                        </div>
-
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
-                            {companyInfo.values.map((v, i) => {
-                                const color = valueColors[i % valueColors.length];
-                                return (
-                                    <div key={i} className="value-card" style={{ borderTop: `4px solid ${color}` }}>
-                                        <div style={{ fontSize: '36px', marginBottom: '24px' }}>{valueIcons[v.title] || '✨'}</div>
-                                        <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#ffffff', margin: '0 0 14px 0' }}>{v.title}</h3>
-                                        <p style={{ fontSize: '14px', lineHeight: 1.65, color: 'rgba(255,255,255,0.5)', margin: 0 }}>{v.desc}</p>
-                                    </div>
-                                );
-                            })}
+                            ))}
                         </div>
                     </div>
                 </section>
 
-                {/* Bottom CTA frame replacement link block */}
-                <section style={{ padding: '0 40px 120px', background: '#040406' }}>
-                    <div style={{ maxWidth: '1280px', margin: '0 auto', background: 'linear-gradient(135deg, #110c1f 0%, #08070f 100%)', border: '1px solid rgba(151,71,255,0.2)', padding: '60px', borderRadius: '32px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-                        <div style={{ position: 'absolute', bottom: '-50px', left: '50%', transform: 'translateX(-50%)', width: '400px', height: '150px', background: 'rgba(151,71,255,0.2)', filter: 'blur(50px)', borderRadius: '50%' }} />
-                        <h2 style={{ fontSize: '32px', fontWeight: '800', color: '#ffffff', margin: '0 0 16px 0', letterSpacing: '-0.02em' }}>Ready to discover the JF advantage?</h2>
-                        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.5)', maxWidth: '540px', margin: '0 auto 36px', lineHeight: 1.6 }}>Connect with our global consultants for personalized operations architecture optimization.</p>
-                        <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
-                            <button onClick={() => navigate('/contact')} style={{ padding: '16px 36px', borderRadius: '12px', background: '#9747FF', border: 'none', color: '#ffffff', fontSize: '14px', fontWeight: '700', cursor: 'pointer', letterSpacing: '0.08em', textTransform: 'uppercase', fontFamily: "'Poppins', sans-serif", boxShadow: '0 8px 30px rgba(151,71,255,0.3)', transition: 'all 0.25s' }}
-                                onMouseEnter={e => { e.target.style.background = '#7c2fe0'; e.target.style.transform = 'translateY(-2px)'; }}
-                                onMouseLeave={e => { e.target.style.background = '#9747FF'; e.target.style.transform = 'translateY(0)'; }}>
-                                Contact Us
-                            </button>
-                            <button onClick={() => navigate('/why-jf')} style={{ padding: '16px 36px', borderRadius: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', color: '#ffffff', fontSize: '14px', fontWeight: '600', cursor: 'pointer', letterSpacing: '0.06em', fontFamily: "'Poppins', sans-serif", transition: 'all 0.25s' }}
-                                onMouseEnter={e => { e.target.style.background = 'rgba(255,255,255,0.08)'; }}
-                                onMouseLeave={e => { e.target.style.background = 'rgba(255,255,255,0.03)'; }}>
-                                Why JF Knowledge Centre
-                            </button>
-                        </div>
+                {/* Why Choose Us Section */}
+                <section style={{ position: 'relative', padding: '100px 40px', textAlign: 'center', overflow: 'hidden' }}>
+                    
+                    {/* Background Video Layer for Why Choose Us */}
+                    <div style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+                        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle, rgba(249,250,252,0.8) 0%, var(--bg-main) 100%)', zIndex: 2 }} />
+                        <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.2 }}>
+                            <source src="/assets/images/about/whyus.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+
+                    <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 3 }}>
+                        <h2 style={{ fontSize: '36px', fontWeight: '800', color: "var(--text-primary)", marginBottom: '24px' }}>
+                            Why Choose JF Knowledge Centre?
+                        </h2>
+                        <p style={{ fontSize: '18px', color: "var(--text-muted)", lineHeight: 1.8 }}>
+                            We are not just a service provider — we are a strategic partner. Our cross-functional expertise allows us to offer integrated solutions that save time, reduce cost, and drive measurable business outcomes. Whether you need to upskill your workforce, build a high-performance team, or streamline your financial operations, JF Knowledge Centre is your single point of excellence.
+                        </p>
                     </div>
                 </section>
+
             </main>
             <Footer />
         </div>

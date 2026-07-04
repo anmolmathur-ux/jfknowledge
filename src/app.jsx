@@ -13,11 +13,7 @@ import RecruitmentIndex from './pages/recruitment-staffing/index';
 import FinancialConsultancyIndex from './pages/financial-consultancy/index';
 
 // Import sub-modality views
-import InstructorLedPage from './pages/e-learning/instructor-led';
-import VirtualInstructorLedPage from './pages/e-learning/virtual-instructor-led';
-import CustomElearningPage from './pages/e-learning/custom-elearning';
-import MicrolearningPage from './pages/e-learning/microlearning';
-import LearningConsultingPage from './pages/e-learning/learning-consulting';
+// Removed as per IA consolidation
 
 export default function App() {
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -41,10 +37,6 @@ export default function App() {
             return <AboutPage />;
         case '/contact':
             return <ContactPage />;
-        case '/why-jf':
-            return <WhyJfPage />;
-        case '/global-footprint':
-            return <GlobalFootprintPage />;
 
         // Divisions
         case '/e-learning':
@@ -53,18 +45,6 @@ export default function App() {
             return <RecruitmentIndex />;
         case '/financial-consultancy':
             return <FinancialConsultancyIndex />;
-
-        // E-learning sub-paths
-        case '/e-learning/instructor-led':
-            return <InstructorLedPage />;
-        case '/e-learning/virtual-instructor-led':
-            return <VirtualInstructorLedPage />;
-        case '/e-learning/custom-elearning':
-            return <CustomElearningPage />;
-        case '/e-learning/microlearning':
-            return <MicrolearningPage />;
-        case '/e-learning/learning-consulting':
-            return <LearningConsultingPage />;
 
         default:
             return (

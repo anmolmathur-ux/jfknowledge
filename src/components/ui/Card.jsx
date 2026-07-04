@@ -4,11 +4,11 @@ export default function Card({ title, subtitle, children, className = '', style 
     const [isHovered, setIsHovered] = useState(false);
 
     const cardStyle = {
-        background: '#ffffff',
-        border: '1px solid #e2e8f0',
+        background: 'var(--bg-surface)',
+        border: '1px solid var(--border-light)',
         borderRadius: '20px',
         padding: '32px',
-        boxShadow: isHovered ? '0 20px 40px rgba(15, 23, 42, 0.08)' : '0 4px 20px rgba(15, 23, 42, 0.02)',
+        boxShadow: isHovered ? 'var(--shadow-lg)' : 'var(--shadow-sm)',
         transform: isHovered ? 'translateY(-6px)' : 'none',
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         display: 'flex',
@@ -42,7 +42,7 @@ export default function Card({ title, subtitle, children, className = '', style 
 
             {subtitle && (
                 <span style={{
-                    color: '#0052cc',
+                    color: 'var(--brand-teal)',
                     fontSize: '11px',
                     fontWeight: '700',
                     letterSpacing: '1.5px',
@@ -58,7 +58,7 @@ export default function Card({ title, subtitle, children, className = '', style 
                     margin: 0,
                     fontSize: '22px',
                     fontWeight: '800',
-                    color: '#0f172a',
+                    color: 'var(--text-heading)',
                     letterSpacing: '-0.01em',
                     lineHeight: '1.3'
                 }}>
@@ -67,7 +67,7 @@ export default function Card({ title, subtitle, children, className = '', style 
             )}
 
             <div style={{
-                color: '#475569',
+                color: 'var(--text-muted)',
                 fontSize: '15px',
                 lineHeight: '1.6',
                 display: 'flex',

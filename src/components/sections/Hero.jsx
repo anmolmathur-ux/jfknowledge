@@ -5,11 +5,11 @@ export default function Hero() {
 
     const pillars = [
         {
-            label: 'E-Learning Solutions',
-            title: 'Digital Learning Platforms',
+            label: 'E-Learning',
+            title: 'Digital Learning Solutions',
             stat: '94%',
             statLabel: 'Completion Rate',
-            tagline: 'Transform complex institutional knowledge into engaging, bite-sized digital courses for teams anywhere on Earth.',
+            tagline: 'Transform complex knowledge, skills, and compliance requirements into engaging, impactful, and measurable learning journeys.',
             link: '/e-learning',
             linkLabel: 'Explore Digital Learning',
             color: '#22d3ee'
@@ -26,9 +26,9 @@ export default function Hero() {
         },
         {
             label: 'Financial Consultancy',
-            title: 'Strategic Capital Growth',
+            title: 'Accounting Services',
             stat: '100%',
-            statLabel: 'Tax Compliance',
+            statLabel: 'Compliance',
             tagline: 'Navigate complex global accounting standards with expert-led corporate bookkeeping and fractional CFO services.',
             link: '/financial-consultancy',
             linkLabel: 'Consult Financial Experts',
@@ -46,288 +46,379 @@ export default function Hero() {
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
+                /* Override template styles that shrink or misalign the center viewport content */
+                #root {
+                    max-width: 100% !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    text-align: inherit !important;
+                }
+
+                /* Premium Nav Tabs Styling */
                 .hero-tab-nav {
                     display: flex;
-                    gap: 6px;
-                    background: rgba(255, 255, 255, 0.03);
-                    border: 1px solid rgba(255, 255, 255, 0.06);
-                    padding: 5px;
-                    border-radius: 12px;
-                    margin-bottom: 32px;
+                    gap: 8px;
+                    background: var(--bg-surface);
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    padding: 8px;
+                    border-radius: 20px;
+                    margin-bottom: 24px;
                     position: relative;
+                    width: 100%;
+                    max-width: 640px;
+                    backdrop-filter: blur(20px);
+                    box-shadow: 0 20px 40px rgba(13, 148, 136,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
                 }
                 .hero-tab-btn {
                     flex: 1;
-                    padding: 10px 16px;
-                    border-radius: 8px;
+                    padding: 14px 24px;
+                    border-radius: 14px;
                     border: none;
                     cursor: pointer;
-                    font-size: 13px;
-                    font-weight: 600;
+                    font-size: 13.5px;
+                    font-weight: 700;
                     font-family: 'Plus Jakarta Sans', sans-serif;
                     white-space: nowrap;
                     background: transparent;
-                    color: rgba(255, 255, 255, 0.45);
+                    color: rgba(255, 255, 255, 0.5);
                     position: relative;
                     z-index: 2;
+                    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                 }
                 .hero-tab-btn:hover {
-                    color: rgba(255, 255, 255, 0.9);
+                    color: rgba(211, 103, 45, 0.55);
                 }
                 .hero-tab-btn.active {
-                    color: #ffffff;
+                    color: rgba(211, 103, 45, 0.55);;
                 }
                 .tab-slider {
                     position: absolute;
-                    top: 5px;
-                    bottom: 5px;
-                    border-radius: 8px;
-                    background: rgba(255, 255, 255, 0.06);
-                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    top: 8px;
+                    bottom: 8px;
+                    border-radius: 14px;
+                    background: rgba(255, 255, 255, 0.08);
+                    border: 1px solid rgba(255, 255, 255, 0.15);
                     z-index: 1;
+                    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                    box-shadow: 0 4px 24px rgba(13, 148, 136,0.5);
                 }
+
+                /* Modernized Micro-Interactive CTA Buttons */
                 .hero-cta-fill {
-                    height: 52px;
-                    padding: 0 28px;
-                    border-radius: 10px;
-                    color: #04060b;
-                    font-size: 14px;
+                    height: 56px;
+                    padding: 0 36px;
+                    border-radius: 14px;
+                    color: var(--bg-main);
+                    font-size: 15px;
+                    font-weight: 800;
+                    cursor: pointer;
+                    font-family: 'Plus Jakarta Sans', sans-serif;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    border: none;
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                    box-shadow: 0 4px 20px var(--shadow-color);
+                }
+                .hero-cta-fill:hover {
+                    filter: brightness(1.1) saturate(1.1);
+                    transform: translateY(-2px);
+                    box-shadow: 0 12px 32px var(--shadow-color);
+                }
+                .hero-cta-outline {
+                    height: 56px;
+                    padding: 0 32px;
+                    border-radius: 14px;
+                    background: var(--bg-surface);
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                    color: #64c48fff;
+                    font-size: 14.5px;
                     font-weight: 700;
                     cursor: pointer;
                     font-family: 'Plus Jakarta Sans', sans-serif;
                     display: inline-flex;
                     align-items: center;
-                    gap: 8px;
-                    border: none;
-                }
-                .hero-cta-fill:hover {
-                    filter: brightness(1.1);
-                }
-                .hero-cta-outline {
-                    height: 52px;
-                    padding: 0 26px;
-                    border-radius: 10px;
-                    background: rgba(255, 255, 255, 0.03);
-                    border: 1px solid rgba(255, 255, 255, 0.08);
-                    color: rgba(255, 255, 255, 0.85);
-                    font-size: 14px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    font-family: 'Plus Jakarta Sans', sans-serif;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                    backdrop-filter: blur(8px);
+                    gap: 10px;
+                    backdrop-filter: blur(16px);
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
                 }
                 .hero-cta-outline:hover {
-                    background: rgba(255, 255, 255, 0.07);
-                    border-color: rgba(255, 255, 255, 0.2);
-                    color: #ffffff;
-                }
-                .hero-pill-link {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 6px;
-                    font-size: 14px;
-                    font-weight: 600;
-                    text-decoration: none;
-                    margin-top: 24px;
-                    cursor: pointer;
-                    background: none;
-                    border: none;
-                    padding: 0;
-                    font-family: 'Plus Jakarta Sans', sans-serif;
-                }
-                .hero-pill-link:hover { opacity: 0.9; }
-                
-                .metric-ring-container {
-                    position: relative;
-                    width: 100px;
-                    height: 100px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-                .ring-bg { fill: none; stroke: rgba(255, 255, 255, 0.05); stroke-width: 6; }
-                .ring-glow {
-                    fill: none;
-                    stroke-width: 6;
-                    stroke-linecap: round;
-                    transform: rotate(-90deg);
-                    transform-origin: 50% 50%;
+                    background: rgba(255, 255, 255, 0.08);
+                    border-color: rgba(255, 255, 255, 0.35);
+                    transform: translateY(-2px);
                 }
                 .brand-logo-strip svg {
-                    opacity: 0.2;
-                    filter: grayscale(100%);
+                    opacity: 0.35;
+                    filter: drop-shadow(0 2px 8px rgba(13, 148, 136,0.5));
+                    transition: all 0.3s ease;
+                }
+                .brand-logo-strip svg:hover {
+                    opacity: 0.85;
+                    transform: scale(1.05);
+                }
+                @media (max-width: 768px) {
+                    .pillars-summary-card {
+                        flex-direction: column !important;
+                        gap: 20px !important;
+                        padding: 20px !important;
+                    }
+                    .pillar-item-box {
+                        border-right: none !important;
+                        border-bottom: 1px solid var(--border-light);
+                        padding-bottom: 16px;
+                    }
+                    .pillar-item-box:last-child {
+                        border-bottom: none !important;
+                    }
                 }
             `}</style>
 
             <section style={{
                 position: 'relative',
-                width: '100%',
+                width: '100vw',
                 minHeight: '100vh',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                padding: '140px 0 60px 0',
+                alignItems: 'center',
+                padding: '120px 0 40px 0',
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 overflow: 'hidden',
-                backgroundColor: '#04060b',
-
-                /* Modified to blend a 10% opacity black gradient over the background image */
-                backgroundImage: "linear-gradient(rgba(4, 6, 11, 0.1), rgba(4, 6, 11, 0.1)), url('/assets/images/about/herobg2.png')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
+                backgroundColor: "var(--bg-main)",
                 zIndex: 1
             }}>
 
-                {/* --- CONTENT AREA --- */}
-                <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 40px', width: '100%', display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '60px', alignItems: 'center', zIndex: 5, flex: 1 }}>
+                {/* Background Video Layer */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 0,
+                    overflow: 'hidden',
+                    pointerEvents: 'none'
+                }}>
+                    {/* Corrected Overlay: Lower opacity gradient so the video can actually shine through */}
+                    <div style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        background: 'radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.85) 100%)',
+                        zIndex: 2
+                    }} />
 
-                    {/* Left Column */}
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {/* Dynamic Tag Pill */}
-                        <div style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            background: 'rgba(255, 255, 255, 0.03)',
-                            border: '1px solid rgba(255, 255, 255, 0.07)',
-                            borderRadius: '999px',
-                            padding: '6px 14px',
-                            width: 'fit-content',
-                            marginBottom: '28px',
-                            backdropFilter: 'blur(4px)'
-                        }}>
-                            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: pillars[activeTab].color, display: 'inline-block' }} />
-                            <span style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.65)' }}>
-                                GLOBAL PROFESSIONAL NETWORK
-                            </span>
-                        </div>
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="auto"
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            zIndex: 1,
+                            opacity: 0.95, /* Increased slightly from 0.15 so it's clearly visible against the pure white theme */
+                        }}
+                    >
+                        <source src="/assets/images/about/bgvid.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
 
-                        {/* Crisp Bold Typography with Trendy Multi-color Gradient Line */}
-                        <h1 style={{
-                            margin: '0 0 24px 0',
-                            fontSize: 'clamp(42px, 4.5vw, 62px)',
-                            fontWeight: '800',
-                            lineHeight: 1.12,
-                            letterSpacing: '-0.03em',
-                            color: '#ffffff'
-                        }}>
-                            Empowering Talent.<br />
-                            <span style={{
-                                background: 'linear-gradient(90deg, #9747FF 0%, #22d3ee 50%, #34d399 100%)',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                backgroundClip: 'text',
-                                display: 'inline-block'
-                            }}>
-                                Elevating Business.
-                            </span>
-                        </h1>
+                {/* Ambient Glow Effects */}
+                <div style={{
+                    position: 'absolute',
+                    top: '35%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '650px',
+                    height: '650px',
+                    borderRadius: '50%',
+                    background: pillars[activeTab].color,
+                    opacity: 0.22,
+                    filter: 'blur(140px)',
+                    pointerEvents: 'none',
+                    zIndex: 1,
+                    transition: 'background 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                }} />
 
-                        {/* Highly Legible Body Prose */}
-                        <p style={{
-                            margin: '0 0 40px 0',
-                            fontSize: '16px',
-                            color: 'rgba(250, 250, 250, 0.83)',
-                            lineHeight: 1.75,
-                            maxWidth: '510px'
-                        }}>
-                            We are your single, trusted international partner providing top-tier solutions in digital corporate education, flexible staffing, and expert financial management.
-                        </p>
+                {/* --- CENTRAL HERO GRID CONTAINER --- */}
+                <div style={{
+                    maxWidth: '1140px',
+                    margin: 'auto',
+                    padding: '0 24px',
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    zIndex: 5,
+                    position: 'relative'
+                }}>
 
-                        {/* Action Buttons Container */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-                            <button className="hero-cta-fill" style={{ background: pillars[activeTab].color }} onClick={() => navigate('/contact')}>
-                                Get Started Now
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                    <polyline points="12 5 19 12 12 19" />
-                                </svg>
-                            </button>
-                            <button className="hero-cta-outline" onClick={() => navigate('/overview')}>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ color: pillars[activeTab].color }}>
-                                    <path d="M8 5v14l11-7z" />
-                                </svg>
-                                Watch Overview
-                            </button>
-                        </div>
+                    {/* Meta Tag Badge */}
+                    <div style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '10px',
+
+                        border: `1px solid ${pillars[activeTab].color}4D`,
+                        borderRadius: '999px',
+                        padding: '6px 16px',
+                        marginBottom: '24px',
+                        boxShadow: `0 8px 24px rgba(13, 148, 136,0.3), 0 0 15px ${pillars[activeTab].color}1A`,
+                        transition: 'border-color 0.4s ease'
+                    }}>
+                        {/* Logo Image */}
+                        <img
+                            src="/assets/images/about/logo-only.png"
+                            alt="Logo"
+                            style={{
+                                height: '96px', // Adjust height to fit nicely inside your pill container
+                                width: 'auto',
+                                objectFit: 'contain'
+                            }}
+                        />
                     </div>
 
-                    {/* Right Column */}
-                    <div style={{ background: 'rgba(10, 14, 23, 0.45)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '24px', backdropFilter: 'blur(24px)', padding: '36px', boxShadow: '0 30px 70px rgba(0,0,0,0.6)' }}>
-                        <p style={{ fontSize: '11px', fontWeight: '700', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 16px 4px' }}>CLICK TO EXPLORE OUR WORK:</p>
+                    {/* Balanced Centered Header H1 with Text Shadow protection */}
+                    <h1 style={{
+                        margin: '0 0 16px 0',
+                        padding: '50px 0px',
+                        fontSize: 'clamp(40px, 5.2vw, 64px)',
+                        fontWeight: '800',
+                        lineHeight: 1.15,
+                        letterSpacing: '-0.04em',
+                        color: '#608bd1ff',
+                        textShadow: '0 3px 2px rgba(135, 197, 140, 1)'
+                    }}>
+                        Empowering Talent.<br />
+                        <span style={{
+                            background: "#608bd1ff", WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                            display: 'inline-block',
+                            filter: 'drop-shadow(0px 4px 12px rgba(13, 148, 136,0.3))'
+                        }}>
+                            Elevating Growth and Business.
+                        </span>
+                    </h1>
 
-                        <div className="hero-tab-nav">
-                            <div className="tab-slider" style={{
-                                width: `calc((100% - 10px) / 3)`,
-                                left: `calc(5px + (${activeTab} * (100% - 10px) / 3))`
-                            }} />
-                            {pillars.map((p, i) => (
-                                <button key={i} className={`hero-tab-btn ${activeTab === i ? 'active' : ''}`} onClick={() => setActiveTab(i)}>
-                                    {p.label}
-                                </button>
-                            ))}
-                        </div>
+                    {/* Focused Body Description with Text Shadow protection */}
+                    <p style={{
+                        margin: '0 0 32px 0',
+                        fontSize: 'clamp(0.97rem, 0.8rem + 0.5vw, 1.1rem)',
+                        color: "Grey",
+                        lineHeight: 1.7,
+                        padding: '0px 100px',
+                        maxWidth: '780px',
+                        textShadow: "none"
+                    }}>
+                        JF Knowledge Centre is a globally oriented, multi-disciplinary professional services organisation committed to transforming the way businesses learn, hire, and grow.
+                    </p>
 
-                        <div style={{ minHeight: '220px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '28px', marginBottom: '24px' }}>
-                                <div className="metric-ring-container">
-                                    <svg width="84" height="84" viewBox="0 0 60 60">
-                                        <circle className="ring-bg" cx="30" cy="30" r="26" />
-                                        <circle className="ring-glow" cx="30" cy="30" r="26"
-                                            stroke={pillars[activeTab].color}
-                                            style={{
-                                                strokeDasharray: '163.36',
-                                                strokeDashoffset: activeTab === 0 ? '9.8' : activeTab === 1 ? '35.5' : '0'
-                                            }}
-                                        />
-                                    </svg>
-                                    <span style={{ position: 'absolute', fontSize: '19px', fontWeight: '800', color: '#ffffff', letterSpacing: '-0.02em' }}>
-                                        {pillars[activeTab].stat}
+                    {/* Active Tab Panel Summary - Enhanced compact view rendering all 3 pillars side-by-side */}
+                    <div className="pillars-summary-card" style={{
+                        width: '100%',
+                        background: "var(--bg-surface)",
+                        border: "1px solid var(--border-light)",
+                        borderRadius: '20px',
+                        padding: '24px 28px',
+                        marginBottom: '36px',
+                        backdropFilter: 'blur(24px)',
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'stretch',
+                        justifyContent: 'space-between',
+                        gap: '24px',
+                        boxShadow: '0 20px 45px rgba(13, 148, 136,0.25)',
+                        textAlign: 'left'
+                    }}>
+                        {pillars.map((pillar, index) => (
+                            <div
+                                key={index}
+                                className="pillar-item-box"
+                                style={{
+                                    flex: 1,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'space-between',
+                                    paddingRight: index !== 2 ? '16px' : '0',
+                                    borderRight: index !== 2 ? '1px solid var(--border-light)' : 'none',
+                                    opacity: activeTab === index ? 1 : 0.65,
+                                    transform: activeTab === index ? 'scale(1.01)' : 'scale(1)',
+                                    transition: 'all 0.3s ease'
+                                }}
+                            >
+                                <div>
+                                    <h4 style={{ margin: '0 0 6px 0', fontSize: '14px', fontWeight: '800', color: pillar.color }}>
+                                        {pillar.label}
+                                    </h4>
+                                    <p style={{ color: "var(--text-primary)", fontSize: '13px', lineHeight: '1.5', margin: '0 0 16px 0', fontWeight: '500' }}>
+                                        {pillar.tagline}
+                                    </p>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: 'auto' }}>
+                                    <span style={{ fontSize: '24px', fontWeight: '800', color: pillar.color }}>
+                                        {pillar.stat}
+                                    </span>
+                                    <span style={{ fontSize: '11px', fontWeight: '700', color: "var(--text-muted)", textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                                        {pillar.statLabel}
                                     </span>
                                 </div>
-
-                                <div>
-                                    <div style={{ fontSize: '11px', fontWeight: '700', color: pillars[activeTab].color, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
-                                        {pillars[activeTab].statLabel}
-                                    </div>
-                                    <div style={{ fontSize: '22px', fontWeight: '700', color: '#ffffff', letterSpacing: '-0.01em' }}>
-                                        {pillars[activeTab].title}
-                                    </div>
-                                </div>
                             </div>
+                        ))}
+                    </div>
 
-                            <div style={{ height: '1px', background: 'linear-gradient(90deg, rgba(255,255,255,0.08) 0%, transparent 100%)', marginBottom: '20px' }} />
+                    {/* Action Execution Rows */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyYContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+                        <button
+                            className="hero-cta-fill"
+                            style={{
+                                background: pillars[activeTab].color,
+                                '--shadow-color': `${pillars[activeTab].color}4D`
+                            }}
+                            onClick={() => navigate('/contact')}
+                        >
+                            Get Started Now
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </button>
 
-                            <p style={{ fontSize: '14.5px', color: 'rgba(255,255,255,0.48)', lineHeight: 1.65, margin: '0' }}>
-                                {pillars[activeTab].tagline}
-                            </p>
+                        <button className="hero-cta-outline" onClick={() => navigate(pillars[activeTab].link)}>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style={{ color: pillars[activeTab].color, transition: 'color 0.4s' }}>
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                            </svg>
+                            {pillars[activeTab].linkLabel}
+                        </button>
+                    </div>
 
-                            <div>
-                                <button className="hero-pill-link" style={{ color: pillars[activeTab].color }} onClick={() => navigate(pillars[activeTab].link)}>
-                                    {pillars[activeTab].linkLabel}
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
-                                </button>
-                            </div>
+                </div>
+
+                {/* Footer Enterprise Strip */}
+                <div style={{ width: '100%', borderTop: '1px solid rgba(255,255,255,0.08)', background: "var(--bg-surface)", backdropFilter: 'blur(12px)', paddingTop: '28px', marginTop: 'auto' }}>
+                    <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 32px', display: 'flex', alignItems: 'center', justifyCcontent: 'space-between', gap: '32px', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '11.5px', fontWeight: '800', color: "var(--text-muted)", letterSpacing: '0.18em' }}>TRUSTED BY ENTERPRISES GLOBALLY</span>
+                        <div className="brand-logo-strip" style={{ display: 'flex', alignItems: 'center', gap: '44px', flexWrap: 'wrap' }}>
+                            <svg width="85" height="24" viewBox="0 0 100 28" fill="currentColor" style={{ color: "var(--text-primary)" }}><path d="M10 5h12v3H10zm0 7h16v3H10zm0 7h10v3H10z" /></svg>
+                            <svg width="75" height="22" viewBox="0 0 100 28" fill="currentColor" style={{ color: "var(--text-primary)" }}><path d="M5 14a9 9 0 1 1 18 0 9 9 0 0 1-18 0z" /></svg>
+                            <svg width="90" height="23" viewBox="0 0 100 28" fill="currentColor" style={{ color: "var(--text-primary)" }}><path d="M4 6h6v16H4zm12 0h14v4H16zm0 8h10v4H16z" /></svg>
+                            <svg width="80" height="25" viewBox="0 0 100 28" fill="currentColor" style={{ color: "var(--text-primary)" }}><path d="M12 4l8 16H4z" /></svg>
                         </div>
                     </div>
                 </div>
 
-                {/* Corporate Strip */}
-                <div style={{ width: '100%', borderTop: '1px solid rgba(255,255,255,0.04)', paddingTop: '40px', marginTop: '60px' }}>
-                    <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '40px', flexWrap: 'wrap' }}>
-                        <span style={{ fontSize: '11px', fontWeight: '600', color: 'rgba(255,255,255,0.22)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>TRUSTED BY ENTERPRISES GLOBALLY</span>
-                        <div className="brand-logo-strip" style={{ display: 'flex', alignItems: 'center', gap: '48px', flexWrap: 'wrap' }}>
-                            <svg width="85" height="24" viewBox="0 0 100 28" fill="currentColor" style={{ color: '#fff' }}><path d="M10 5h12v3H10zm0 7h16v3H10zm0 7h10v3H10z" /></svg>
-                            <svg width="75" height="22" viewBox="0 0 100 28" fill="currentColor" style={{ color: '#fff' }}><path d="M5 14a9 9 0 1 1 18 0 9 9 0 0 1-18 0z" /></svg>
-                            <svg width="90" height="23" viewBox="0 0 100 28" fill="currentColor" style={{ color: '#fff' }}><path d="M4 6h6v16H4zm12 0h14v4H16zm0 8h10v4H16z" /></svg>
-                            <svg width="80" height="25" viewBox="0 0 100 28" fill="currentColor" style={{ color: '#fff' }}><path d="M12 4l8 16H4z" /></svg>
-                        </div>
-                    </div>
-                </div>
             </section>
         </>
     );

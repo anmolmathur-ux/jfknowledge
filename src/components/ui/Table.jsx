@@ -7,9 +7,9 @@ export default function Table({ headers = [], data = [], className = '', style =
         overflowX: 'auto',
         width: '100%',
         borderRadius: '16px',
-        border: '1px solid #e2e8f0',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.02)',
-        backgroundColor: '#ffffff'
+        border: '1px solid var(--border-light)',
+        boxShadow: 'var(--shadow-sm)',
+        backgroundColor: 'var(--bg-surface)'
     };
 
     const tableStyle = {
@@ -22,11 +22,11 @@ export default function Table({ headers = [], data = [], className = '', style =
     };
 
     const thStyle = {
-        backgroundColor: '#f8fafc',
-        color: '#0f172a',
+        backgroundColor: 'var(--bg-muted)',
+        color: 'var(--text-heading)',
         fontWeight: '700',
         padding: '16px 24px',
-        borderBottom: '2px solid #e2e8f0',
+        borderBottom: '2px solid var(--border-light)',
         fontSize: '13px',
         textTransform: 'uppercase',
         letterSpacing: '0.5px'
@@ -49,7 +49,7 @@ export default function Table({ headers = [], data = [], className = '', style =
                             onMouseEnter={() => setHoveredRow(rowIdx)}
                             onMouseLeave={() => setHoveredRow(null)}
                             style={{
-                                backgroundColor: hoveredRow === rowIdx ? '#f1f5f9' : rowIdx % 2 === 0 ? '#ffffff' : '#f8fafc',
+                                backgroundColor: hoveredRow === rowIdx ? 'var(--bg-muted)' : rowIdx % 2 === 0 ? 'var(--bg-surface)' : 'var(--bg-main)',
                                 transition: 'background-color 0.15s ease'
                             }}
                         >
@@ -58,8 +58,8 @@ export default function Table({ headers = [], data = [], className = '', style =
                                     key={cellIdx}
                                     style={{
                                         padding: '16px 24px',
-                                        borderBottom: rowIdx === data.length - 1 ? 'none' : '1px solid #e2e8f0',
-                                        color: '#334155',
+                                        borderBottom: rowIdx === data.length - 1 ? 'none' : '1px solid var(--border-light)',
+                                        color: 'var(--text-muted)',
                                         verticalAlign: 'middle',
                                         lineHeight: '1.5'
                                     }}

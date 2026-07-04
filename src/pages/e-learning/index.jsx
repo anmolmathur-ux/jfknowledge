@@ -1,245 +1,475 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
-import { elearningServices, elearningIndustries } from '../../data/elearningServices';
-
-const navigate = (href) => {
-    window.history.pushState({}, '', href);
-    window.dispatchEvent(new PopStateEvent('popstate'));
-};
-
-const serviceLinks = [
-    { label: 'Instructor-Led Training', href: '/e-learning/instructor-led' },
-    { label: 'Virtual ILT (VILT)', href: '/e-learning/virtual-instructor-led' },
-    { label: 'Microlearning', href: '/e-learning/microlearning' },
-    { label: 'Custom eLearning', href: '/e-learning/custom-elearning' },
-    { label: 'Learning Consulting', href: '/e-learning/learning-consulting' },
-];
 
 export default function ElearningIndex() {
-    const [activeService, setActiveService] = useState(0);
-    const active = elearningServices[activeService];
+    const services = [
+        {
+            title: "1. Instructor-Led Training (ILT)",
+            desc: "Instructor-Led Training remains one of the most powerful modalities for immersive, deep-dive learning. Our ILT programmes are expertly designed and facilitated by seasoned subject matter experts and certified trainers who bring real-world experience into the classroom.",
+            points: [
+                "Customised curriculum design aligned with business objectives and learning outcomes",
+                "In-person training delivery at client premises, training centres, or conference venues",
+                "Industry-specific programmes across leadership, technical, compliance, soft skills, and domain knowledge",
+                "Pre- and post-training assessments to measure knowledge gain and ROI",
+                "Comprehensive facilitator guides, participant workbooks, and support materials",
+                "Training needs analysis (TNA) to identify skill gaps and recommend optimal programmes"
+            ]
+        },
+        {
+            title: "2. Virtual Instructor-Led Training (VILT)",
+            desc: "Our VILT solutions bring the richness of classroom learning to the digital environment. Leveraging industry-leading platforms such as Zoom, Microsoft Teams, Webex, and Adobe Connect, we deliver interactive, high-engagement virtual training experiences that rival in-person sessions.",
+            points: [
+                "Live, synchronous virtual training sessions hosted by expert facilitators",
+                "Interactive features including polls, breakout rooms, whiteboards, and Q&A",
+                "Cohort-based learning that fosters collaboration and peer engagement",
+                "Hybrid VILT models combining recorded modules with live facilitated sessions",
+                "Session recordings, transcripts, and post-session learning materials",
+                "Multi-timezone delivery to support globally distributed teams",
+                "Technical support and participant management throughout training delivery"
+            ]
+        },
+        {
+            title: "3. Microlearning",
+            desc: "Attention spans are shrinking and workloads are increasing. Microlearning delivers focused, bite-sized learning content designed to be consumed in 3–7 minutes — perfectly suited to the modern, on-the-go learner. Our microlearning solutions drive knowledge retention through repetition, relevance, and rapid accessibility.",
+            points: [
+                "Short-form video modules, animated explainers, and knowledge snippets",
+                "Topic-specific skill pills that target individual learning objectives",
+                "Mobile-first content optimised for smartphones and tablets",
+                "Spaced repetition tools and push notification-based delivery",
+                "Integrated quizzes and reinforcement activities for knowledge retention",
+                "Just-in-time learning resources embedded within workflows and tools",
+                "Rapid development with turnaround times of days, not months"
+            ]
+        },
+        {
+            title: "4. Gamification",
+            desc: "We harness the power of game mechanics to transform learning from a passive obligation into an energising experience. Our gamification frameworks apply behavioural psychology, motivational design, and technology to dramatically improve learner engagement, completion rates, and knowledge retention.",
+            points: [
+                "Points, badges, leaderboards, and rewards systems integrated into learning journeys",
+                "Narrative-driven learning quests and scenario-based challenges",
+                "Timed challenges, streak systems, and level progression structures",
+                "Team-based competitions and collaborative missions",
+                "Custom gamified assessments and knowledge-check games",
+                "Real-time dashboards tracking learner progress, scores, and achievements",
+                "Enterprise-grade gamification platforms compatible with existing LMS infrastructure"
+            ]
+        },
+        {
+            title: "5. Learning Experience Platforms (LXP)",
+            desc: "Moving beyond traditional Learning Management Systems, our LXP solutions place the learner at the centre, offering personalised, AI-driven, and socially collaborative learning environments. We help organisations select, configure, and implement the right LXP to drive a culture of continuous learning.",
+            points: [
+                "Advisory and consulting on LXP selection (Degreed, EdCast, Cornerstone, 360Learning, and more)",
+                "Platform implementation, configuration, and integration with existing HR tech stack",
+                "AI-powered content recommendations based on learner role, history, and goals",
+                "Curated content libraries and third-party content aggregation (LinkedIn Learning, Coursera, Udemy)",
+                "Social learning features including user-generated content, forums, and peer coaching",
+                "Skills gap mapping and career pathing tools integrated within the platform",
+                "Comprehensive analytics dashboards for learners, managers, and L&D teams",
+                "Ongoing platform support, user training, and performance optimisation"
+            ]
+        },
+        {
+            title: "6. Interactive PDFs",
+            desc: "Interactive PDFs represent a powerful, cost-effective format for delivering rich, self-paced learning content without requiring an LMS. JF Knowledge Centre's design team creates visually stunning, highly functional interactive PDFs that feel more like digital experiences than static documents.",
+            points: [
+                "Clickable navigation, hyperlinks, and table of contents for seamless reading",
+                "Embedded multimedia — video, audio, and animated infographics",
+                "Fillable form fields for self-assessments, reflections, and action planning",
+                "Pop-up glossary definitions, expandable content sections, and hover tooltips",
+                "Brand-aligned design with custom typography, icons, and visual elements",
+                "Universal accessibility — usable on all devices without internet connectivity",
+                "Ideal for compliance documentation, onboarding guides, product training, and SOPs"
+            ]
+        },
+        {
+            title: "7. Custom eLearning Development (SCORM / xAPI)",
+            desc: "Our custom eLearning development team brings together instructional designers, visual artists, developers, and voice artists to craft fully bespoke digital learning modules that align with your brand, content, and learner needs.",
+            points: [
+                "End-to-end development from storyboard to final delivery",
+                "SCORM 1.2, SCORM 2004, xAPI (Tin Can), and AICC compliant outputs",
+                "Authoring tool expertise: Articulate Storyline, Rise 360, Adobe Captivate, Lectora",
+                "Scenario-based and branching simulations for real-world decision making",
+                "Software simulations and system walkthroughs (ERP, CRM, proprietary tools)",
+                "Multilingual development and voice-over in 30+ languages",
+                "Accessibility compliance: WCAG 2.1 AA standards"
+            ]
+        },
+        {
+            title: "8. Learning Management System (LMS) Services",
+            desc: "",
+            points: [
+                "LMS selection consulting and procurement support",
+                "Implementation, configuration, and content migration",
+                "Platform integration with HRMS, payroll, and talent management tools",
+                "Custom reporting and analytics dashboards",
+                "User administration, LMS management, and helpdesk support",
+                "Compliance tracking and mandatory training workflows"
+            ]
+        },
+        {
+            title: "9. Content Strategy & Instructional Design",
+            desc: "",
+            points: [
+                "Comprehensive Training Needs Analysis (TNA) and skills gap assessments",
+                "Learning architecture and curriculum mapping",
+                "Blended learning journey design combining multiple modalities",
+                "Assessment design: formative, summative, and competency-based evaluations",
+                "Content curation, licensing, and third-party content sourcing"
+            ]
+        }
+    ];
+
+    const industries = [
+        "Banking & Financial Services", "Healthcare & Life Sciences", "Manufacturing & Engineering",
+        "Retail & FMCG", "Technology & IT", "Oil & Gas", "Hospitality & Travel",
+        "Government & Public Sector", "Education & Professional Services"
+    ];
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: '#04060b', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: "var(--bg-main)", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
             <Header />
 
-            <main style={{ flex: 1, paddingTop: '100px', overflow: 'hidden', position: 'relative' }}>
-                {/* Stunning Glowing Backdrop Elements */}
-                <div style={{ position: 'absolute', top: '10%', left: '-10%', width: '40vw', height: '40vw', borderRadius: '50%', background: 'radial-gradient(circle, rgba(151,71,255,0.08) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
-                <div style={{ position: 'absolute', bottom: '20%', right: '-10%', width: '50vw', height: '50vw', borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,211,238,0.06) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none' }} />
+            <main style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
+                <section style={{ position: 'relative', padding: '60px 40px 100px', textAlign: 'center', overflow: 'hidden' }}>
 
-                {/* --- HERO SECTION --- */}
-                <section style={{ position: 'relative', padding: '60px 40px 80px', maxWidth: '1440px', margin: '0 auto', width: '100%' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1.10fr 0.90fr', gap: '80px', alignItems: 'center' }}>
+                    {/* Background Video Layer */}
+                    <div style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+                        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.85) 100%)' }} />
+                        <video
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="..."
+                        >
+                            <source
+                                src="/assets/images/about/e-learning.mp4"
+                                type="video/mp4"
+                            />
+                        </video>
+                    </div>
+                    <div
+                        style={{
+                            maxWidth: "1200px",
+                            margin: "0 auto",
+                            padding: "0 32px",
+                            position: "relative",
+                            zIndex: 3,
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <div
+                            style={{
+                                maxWidth: "920px",
+                                textAlign: "center",
+                                background: "rgba(8,12,20,0.55)",
+                                backdropFilter: "blur(16px)",
+                                border: "1px solid rgba(255,255,255,0.08)",
+                                borderRadius: "28px",
+                                padding: "60px 55px",
+                                boxShadow: "0 30px 80px rgba(0,0,0,.35)",
+                            }}
+                        >
+                            {/* Eyebrow */}
 
-                        {/* LEFT HEADER AREA */}
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            {/* Glass Tag Pill */}
-                            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '999px', padding: '8px 16px', width: 'fit-content', marginBottom: '32px', backdropFilter: 'blur(8px)' }}>
-                                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#9747FF', display: 'inline-block', boxShadow: '0 0 12px #9747FF' }} />
-                                <span style={{ fontSize: '11px', fontWeight: '800', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.75)', textTransform: 'uppercase' }}>
-                                    Enterprise Knowledge Systems
+                            <div
+                                style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: "8px",
+                                        height: "8px",
+
+
+                                    }}
+                                />
+
+                                <span>
+                                    <img
+                                        src="/assets/images/about/logo-only.png"
+                                        alt="Logo"
+                                        style={{
+                                            height: '72px', // Adjust height to fit nicely inside your pill container
+                                            width: 'auto',
+                                            objectFit: 'contain'
+                                        }}
+                                    />
                                 </span>
                             </div>
 
-                            {/* Trendy Typography */}
-                            <h1 style={{ margin: '0 0 28px 0', fontSize: 'clamp(44px, 5vw, 64px)', fontWeight: '800', lineHeight: 1.1, letterSpacing: '-0.03em', color: '#ffffff' }}>
-                                Scalable Systems.<br />
-                                <span style={{ background: 'linear-gradient(90deg, #9747FF 0%, #22d3ee 50%, #34d399 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', display: 'inline-block' }}>
-                                    Measurable Learning.
+                            {/* Heading */}
+
+                            <h1
+                                style={{
+                                    fontSize: "clamp(46px,6vw,72px)",
+                                    lineHeight: 1.05,
+                                    fontWeight: 800,
+                                    letterSpacing: "-.04em",
+                                    color: "#fff",
+                                    marginBottom: "28px",
+                                }}
+                            >
+                                E-Learning &
+                                <br />
+                                <span
+                                    style={{
+                                        background:
+                                            "rgb(34, 211, 238)",
+                                        WebkitBackgroundClip: "text",
+                                        WebkitTextFillColor: "transparent",
+                                    }}
+                                >
+                                    Digital Learning Solutions
                                 </span>
                             </h1>
 
-                            <p style={{ margin: '0 0 44px 0', fontSize: '16.5px', color: 'rgba(243, 244, 246, 0.75)', lineHeight: 1.8, maxWidth: '540px' }}>
-                                Transform corporate performance through tailored educational frameworks, data-driven micro-retention strategies, and cross-modality learning tracks optimized for global workforces.
-                            </p>
+                            {/* Description */}
 
-                            {/* Interactive Segment Switcher Grid */}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.05)', padding: '20px', borderRadius: '20px', backdropFilter: 'blur(10px)' }}>
-                                <span style={{ fontSize: '11px', fontWeight: '700', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '4px', display: 'block' }}>
-                                    Select Architectural Segment:
-                                </span>
-                                {elearningServices.map((srv, idx) => (
-                                    <div
-                                        key={srv.id}
-                                        onClick={() => setActiveService(idx)}
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'space-between',
-                                            padding: '14px 20px',
-                                            borderRadius: '12px',
-                                            background: activeService === idx ? 'rgba(151, 71, 255, 0.08)' : 'rgba(255,255,255,0.02)',
-                                            border: '1px solid',
-                                            borderColor: activeService === idx ? 'rgba(151, 71, 255, 0.3)' : 'rgba(255,255,255,0.06)',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
-                                        }}
-                                        onMouseEnter={e => {
-                                            if (activeService !== idx) {
-                                                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
-                                            }
-                                        }}
-                                        onMouseLeave={e => {
-                                            if (activeService !== idx) {
-                                                e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
-                                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-                                            }
-                                        }}
-                                    >
-                                        <span style={{ fontSize: '15px', fontWeight: '600', color: activeService === idx ? '#ffffff' : 'rgba(255,255,255,0.65)' }}>
-                                            {srv.title}
-                                        </span>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                            <span style={{ fontSize: '12px', fontWeight: '500', color: activeService === idx ? '#c4a0ff' : 'rgba(255,255,255,0.35)' }}>
-                                                {srv.id === 'instructor-led' ? 'ILT' : srv.id === 'virtual-instructor-led' ? 'VILT' : srv.id === 'microlearning' ? 'Micro' : srv.id === 'custom-elearning' ? 'Custom' : 'Consulting'}
-                                            </span>
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: activeService === idx ? '#9747FF' : 'rgba(255,255,255,0.2)', transform: activeService === idx ? 'translateX(2px)' : 'none', transition: 'transform 0.2s' }}>
-                                                <polyline points="9 18 15 12 9 6" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* RIGHT INTERACTIVE CONTENT BOX */}
-                        <div style={{
-                            background: 'rgba(10, 14, 23, 0.45)',
-                            border: '1px solid rgba(255, 255, 255, 0.08)',
-                            borderRadius: '24px',
-                            backdropFilter: 'blur(24px)',
-                            padding: '40px',
-                            boxShadow: '0 30px 70px rgba(0,0,0,0.6)',
-                            position: 'relative',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            minHeight: '520px'
-                        }}>
-                            {/* Decorative Neon Node */}
-                            <div style={{ position: 'absolute', top: '-1px', right: '40px', width: '80px', height: '2px', background: 'linear-gradient(90deg, transparent, #22d3ee, transparent)' }} />
-
-                            <div>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px' }}>
-                                    <span style={{ fontSize: '11px', fontWeight: '700', color: '#22d3ee', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
-                                        Active Modality Overview
-                                    </span>
-                                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22d3ee', boxShadow: '0 0 8px #22d3ee' }} />
-                                </div>
-
-                                <h2 style={{ fontSize: '28px', fontWeight: '800', color: '#ffffff', margin: '0 0 16px 0', letterSpacing: '-0.02em' }}>
-                                    {active.title}
-                                </h2>
-
-                                <p style={{ fontSize: '16px', fontWeight: '500', color: '#c4a0ff', lineHeight: '1.5', margin: '0 0 20px 0' }}>
-                                    {active.summary}
-                                </p>
-
-                                <div style={{ height: '1px', background: 'linear-gradient(90deg, rgba(255,255,255,0.08) 0%, transparent 100%)', marginBottom: '24px' }} />
-
-                                <p style={{ fontSize: '14.5px', color: 'rgba(255,255,255,0.52)', lineHeight: '1.7', margin: '0 0 32px 0' }}>
-                                    {active.description}
-                                </p>
-
-                                {/* Features List Block */}
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '40px' }}>
-                                    {active.features.map((feat, i) => (
-                                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px', borderRadius: '50%', background: 'rgba(52,211,153,0.1)', border: '1px solid rgba(52,211,153,0.2)' }}>
-                                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                                    <polyline points="20 6 9 17 4 12" />
-                                                </svg>
-                                            </div>
-                                            <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.75)', fontWeight: '500' }}>{feat}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Call to Action Navigation Link */}
-                            <button
-                                onClick={() => navigate(serviceLinks[activeService].href)}
+                            <p
                                 style={{
-                                    width: '100%',
-                                    background: 'linear-gradient(90deg, #9747FF, #7a22ff)',
-                                    border: 'none',
-                                    borderRadius: '14px',
-                                    padding: '16px 24px',
-                                    color: '#ffffff',
-                                    fontSize: '14px',
-                                    fontWeight: '700',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: '10px',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                                    boxShadow: '0 8px 24px rgba(151,71,255,0.25)'
-                                }}
-                                onMouseEnter={e => {
-                                    e.currentTarget.style.transform = 'translateY(-2px)';
-                                    e.currentTarget.style.boxShadow = '0 12px 30px rgba(151,71,255,0.4)';
-                                }}
-                                onMouseLeave={e => {
-                                    e.currentTarget.style.transform = 'translateY(0)';
-                                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(151,71,255,0.25)';
+                                    fontSize: "19px",
+                                    lineHeight: 1.8,
+                                    color: "slate",
+                                    maxWidth: "680px",
+                                    margin: "0 auto",
+                                    textAlign: "center",
                                 }}
                             >
-                                Explore Architectural Framework
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-                                </svg>
-                            </button>
+                                Modern e-learning solutions that transform knowledge into engaging, measurable learning experiences.
+                            </p>
                         </div>
-
                     </div>
                 </section>
 
-                {/* --- SECTORS SERVED STRIP --- */}
-                <section style={{ width: '100%', borderTop: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.01)', padding: '60px 40px', backdropFilter: 'blur(4px)' }}>
-                    <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '28px' }}>
-                        <div>
-                            <span style={{ fontSize: '11px', fontWeight: '800', color: '#9747FF', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '6px' }}>
-                                Sectors Served
+                <section
+                    style={{
+                        width: '100%',
+                        backgroundColor: '#ffffff',
+                        backgroundImage: 'linear-gradient(90deg, #FEDCB4 0%, #D3F0EC 50%, #E1F2C6 100%)',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        padding: '100px 0', /* Vertical padding handles spacing neatly */
+                        position: 'relative'
+                    }}
+                >
+                    {/* Clean subtle overlay mask layer to seamlessly blend text elements */}
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%)', zIndex: 1, pointerEvents: 'none' }} />
+
+                    <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 40px', position: 'relative', zIndex: 2 }}>
+                        <h2 style={{
+                            fontSize: '36px',
+                            fontWeight: '800',
+                            color: "var(--text-primary)", /* Optimized dark color for text readability against light background */
+                            marginBottom: '48px',
+                            textAlign: 'center',
+                            letterSpacing: '-0.02em'
+                        }}>
+                            Our E-Learning Services
+                        </h2>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
+                            {services.map((srv, idx) => (
+                                <div
+                                    key={idx}
+                                    style={{
+                                        background: "rgba(255, 255, 255, 0.65)", /* Clean light translucent card box background */
+                                        border: "1px solid rgba(13, 148, 136, 0.18)", /* Delicate brand teal outline border tint */
+                                        backdropFilter: 'blur(20px)',
+                                        WebkitBackdropFilter: 'blur(20px)',
+                                        borderRadius: '24px',
+                                        padding: '40px',
+                                        boxShadow: "0 20px 40px -15px rgba(15, 23, 42, 0.05)"
+                                    }}
+                                >
+                                    <h3 style={{ fontSize: '22px', fontWeight: '800', color: "#0D9488", marginBottom: '16px' }}>
+                                        {srv.title}
+                                    </h3>
+
+                                    {srv.desc && (
+                                        <p style={{ fontSize: '15px', color: "#334155", lineHeight: 1.7, marginBottom: '24px', fontWeight: '400' }}>
+                                            {srv.desc}
+                                        </p>
+                                    )}
+
+                                    <ul style={{
+                                        margin: 0,
+                                        paddingLeft: '20px',
+                                        color: "#475569",
+                                        fontSize: '14.5px',
+                                        lineHeight: 1.7,
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '10px'
+                                    }}>
+                                        {srv.points.map((pt, i) => (
+                                            <li key={i} style={{ color: '#475569' }}>{pt}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                <section
+                    style={{
+                        position: "relative",
+                        overflow: "hidden",
+                        padding: "120px 40px",
+                    }}
+                >
+                    {/* Background Video */}
+                    <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        style={{
+                            position: "absolute",
+                            inset: 0,
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            zIndex: 0,
+                        }}
+                    >
+                        <source
+                            src="/assets/images/about/industries.mp4"
+                            type="video/mp4"
+                        />
+                    </video>
+
+                    {/* Gradient Overlay */}
+                    <div
+                        style={{
+                            position: "absolute",
+                            inset: 0,
+                            background:
+                                "linear-gradient(135deg, rgba(10,15,25,.78), rgba(15,23,42,.70), rgba(10,15,25,.82))",
+                            zIndex: 1,
+                        }}
+                    />
+
+                    {/* Decorative Blur */}
+                    <div
+                        style={{
+                            position: "absolute",
+                            top: "-150px",
+                            left: "-120px",
+                            width: "340px",
+                            height: "340px",
+                            borderRadius: "50%",
+                            background: "rgba(34,211,238,.12)",
+                            filter: "blur(100px)",
+                            zIndex: 1,
+                        }}
+                    />
+
+                    <div
+                        style={{
+                            position: "relative",
+                            zIndex: 2,
+                            maxWidth: "1200px",
+                            margin: "0 auto",
+                            textAlign: "center",
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "10px",
+                                padding: "10px 18px",
+                                borderRadius: "999px",
+                                background: "rgba(255,255,255,.08)",
+                                border: "1px solid rgba(255,255,255,.15)",
+                                backdropFilter: "blur(18px)",
+                                marginBottom: "24px",
+                            }}
+                        >
+                            <span
+                                style={{
+                                    width: "8px",
+                                    height: "8px",
+                                    borderRadius: "50%",
+                                    background: "#22d3ee",
+                                }}
+                            />
+
+                            <span
+                                style={{
+                                    color: "#22d3ee",
+                                    fontSize: "12px",
+                                    fontWeight: "700",
+                                    letterSpacing: ".15em",
+                                    textTransform: "uppercase",
+                                }}
+                            >
+                                Global Expertise
                             </span>
-                            <h2 style={{ fontSize: '26px', fontWeight: '800', color: '#ffffff', margin: '0', letterSpacing: '-0.02em' }}>
-                                Industries We Serve
-                            </h2>
                         </div>
 
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                            {elearningIndustries.map((ind, i) => (
-                                <span
+                        <h2
+                            style={{
+                                fontSize: "clamp(40px,5vw,60px)",
+                                fontWeight: "800",
+                                color: "#fff",
+                                marginBottom: "20px",
+                                letterSpacing: "-.03em",
+                                lineHeight: 1.1,
+                            }}
+                        >
+                            Industries We Serve
+                        </h2>
+
+                        <p
+                            style={{
+                                maxWidth: "760px",
+                                margin: "0 auto 60px",
+                                fontSize: "18px",
+                                lineHeight: 1.8,
+                                color: "rgba(255,255,255,.78)",
+                            }}
+                        >
+                            Delivering specialized talent solutions across diverse industries,
+                            helping organizations build high-performing teams worldwide.
+                        </p>
+
+                        <div
+                            style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "center",
+                                gap: "18px",
+                            }}
+                        >
+                            {industries.map((ind, i) => (
+                                <div
                                     key={i}
                                     style={{
-                                        fontSize: '13.5px',
-                                        fontWeight: '600',
-                                        color: 'rgba(255,255,255,0.6)',
-                                        background: 'rgba(255,255,255,0.03)',
-                                        border: '1px solid rgba(255,255,255,0.06)',
-                                        borderRadius: '999px',
-                                        padding: '8px 20px',
-                                        transition: 'all 0.25s ease',
-                                        cursor: 'default'
-                                    }}
-                                    onMouseEnter={e => {
-                                        e.target.style.background = 'rgba(151,71,255,0.1)';
-                                        e.target.style.borderColor = 'rgba(151,71,255,0.35)';
-                                        e.target.style.color = '#ffffff';
-                                        e.target.style.boxShadow = '0 0 15px rgba(151,71,255,0.15)';
-                                    }}
-                                    onMouseLeave={e => {
-                                        e.target.style.background = 'rgba(255,255,255,0.03)';
-                                        e.target.style.borderColor = 'rgba(255,255,255,0.06)';
-                                        e.target.style.color = 'rgba(255,255,255,0.6)';
-                                        e.target.style.boxShadow = 'none';
+                                        padding: "16px 28px",
+                                        borderRadius: "999px",
+                                        background: "rgba(255,255,255,.10)",
+                                        border: "1px solid rgba(255,255,255,.16)",
+                                        backdropFilter: "blur(18px)",
+                                        WebkitBackdropFilter: "blur(18px)",
+                                        color: "#fff",
+                                        fontWeight: "600",
+                                        fontSize: "15px",
+                                        boxShadow:
+                                            "0 12px 30px rgba(0,0,0,.18)",
+                                        transition: "all .3s ease",
+                                        cursor: "pointer",
                                     }}
                                 >
                                     {ind}
-                                </span>
+                                </div>
                             ))}
                         </div>
                     </div>

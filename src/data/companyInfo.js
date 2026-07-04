@@ -3,7 +3,7 @@ export const companyInfo = {
     tagline: "Empowering Talent. Enabling Growth. Elevating Business.",
     mission: "To empower organisations and individuals with innovative learning experiences, world-class talent solutions, and strategic financial expertise — enabling them to thrive in a rapidly evolving global landscape.",
     vision: "To be the most trusted and transformative professional services partner across learning, talent, and finance — known for quality, innovation, and measurable outcomes.",
-    whyChooseUs: "We are not just a service provider — we are a strategic partner. Our cross-functional expertise allows us to offer integrated solutions that save time, reduce cost, and drive measurable business outcomes. Whether you need to upskill your workforce, build a high-performance team, or streamline your financial operations, JF Knowledge Centre is your single point of excellence.",
+    whyChooseUs: "Our functional expertise allows us to offer integrated solutions that save time, reduce cost, and drive measurable business outcomes.Upskill your workforce, build a high-performance team, or streamline your financial operations, JF Knowledge Centre is your single point of excellence.",
     values: [
         { title: "Excellence", desc: "We pursue the highest standards in everything we deliver." },
         { title: "Innovation", desc: "We continuously evolve our solutions to stay ahead of industry trends." },

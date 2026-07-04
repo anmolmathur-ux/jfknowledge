@@ -22,8 +22,8 @@ export default function ServiceGrid() {
             title: 'E-Learning & Digital Learning Solutions',
             tagline: 'Full-service digital learning powerhouse',
             desc: 'We design, develop, and deploy cutting-edge learning experiences tailored to your organisation\'s unique goals. From SCORM modules to LMS implementations.',
-            color: '#9747FF',
-            glow: 'rgba(151, 71, 255, 0.15)',
+            color: '#0D9488',
+            glow: 'rgba(7, 89, 82, 0.15)',
             href: '/e-learning',
             image: '/assets/images/about/1.png', // Maintained semantic reference paths
             bullets: [
@@ -109,183 +109,193 @@ export default function ServiceGrid() {
     return (
         <>
             <style>{`
-                .bento-flex-container {
-                    display: flex;
-                    gap: 24px;
-                    width: 100%;
-                    min-height: 640px;
-                    align-items: stretch;
-                }
-                @media (max-width: 991px) {
                     .bento-flex-container {
+                        display: flex;
+                        gap: 24px;
+                        width: 100%;
+                        min-height: 640px;
+                        align-items: stretch;
+                    }
+                    @media (max-width: 991px) {
+                        .bento-flex-container {
+                            flex-direction: column;
+                            min-height: auto;
+                        }
+                    }
+                    .bento-card {
+                        position: relative;
+                        background: rgba(153, 153, 210, 0.4);
+                        border: 1px solid rgba(255, 255, 255, 0.08);
+                        border-radius: 28px;
+                        padding: 40px 32px;
+                        cursor: pointer;
+                        display: flex;
                         flex-direction: column;
-                        min-height: auto;
+                        overflow: hidden;
+                        flex: 1;
+                        transition: flex 0.75s cubic-bezier(0.25, 1, 0.3, 1), 
+                                    background 0.4s ease, 
+                                    border-color 0.4s ease,
+                                    box-shadow 0.4s ease;
                     }
-                }
-                .bento-card {
-                    position: relative;
-                    background: rgba(255, 255, 255, 0.05);
-                    border: 1px solid rgba(255, 255, 255, 0.08);
-                    border-radius: 28px;
-                    padding: 40px 32px;
-                    cursor: pointer;
-                    display: flex;
-                    flex-direction: column;
-                    overflow: hidden;
-                    flex: 1;
-                    transition: flex 0.75s cubic-bezier(0.25, 1, 0.3, 1), 
-                                background 0.4s ease, 
-                                border-color 0.4s ease,
-                                box-shadow 0.4s ease;
-                }
-                .bento-card.focused {
-                    flex: 1.8;
-                    background: rgba(25, 25, 30, 0.4);
-                    border-color: var(--card-color);
-                    box-shadow: 0 20px 50px var(--card-glow);
-                    backdrop-filter: blur(8px);
-                }
-                @media (max-width: 991px) {
                     .bento-card.focused {
-                        flex: none;
+                        flex: 1.8;
+                        background: rgba(153, 153, 210, 0.4);
+                        border-color: var(--card-color);
+                        box-shadow: 0 20px 50px var(--card-glow);
+                        backdrop-filter: blur(8px);
                     }
-                }
-                .bento-bg-image {
-                    position: absolute;
-                    inset: 0;
-                    background-size: cover;
-                    background-position: center;
-                    opacity: 0;
-                    transition: opacity 0.6s ease;
-                    pointer-events: none;
-                    z-index: 0;
-                }
-                .bento-card.focused .bento-bg-image {
-                    opacity: 0.85;
-                }
-                .bento-content-wrap {
-                    position: relative;
-                    z-index: 1;
-                    display: flex;
-                    flex-direction: column;
-                    height: 100%;
-                    flex-grow: 1;
-                }
-                .icon-box {
-                    display: inline-flex;
-                    padding: 14px;
-                    border-radius: 18px;
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--card-color);
-                    margin-bottom: 32px;
-                    transition: all 0.4s ease;
-                    width: max-content;
-                }
-                .bento-card.focused .icon-box {
-                    background: var(--card-glow);
-                    transform: scale(1.05);
-                }
-                .bullet-list {
-                    max-height: 0;
-                    opacity: 0;
-                    overflow: hidden;
-                    transition: max-height 0.6s cubic-bezier(0.25, 1, 0.3, 1), opacity 0.4s ease;
-                }
-                .bento-card.focused .bullet-list {
-                    max-height: 600px;
-                    opacity: 1;
-                    margin-top: 28px;
-                    margin-bottom: 24px;
-                }
-                .bento-bullet {
-                    display: flex;
-                    align-items: flex-start;
-                    gap: 12px;
-                    font-size: 14px;
-                    color: rgba(255, 255, 255, 0.95);
-                    padding: 11px 0;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-                    transform: translateY(10px);
-                    opacity: 0;
-                    transition: all 0.4s ease;
-                }
-                .bento-card.focused .bento-bullet {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-                .bento-card.focused .bento-bullet:nth-child(1) { transition-delay: 0.1s; }
-                .bento-card.focused .bento-bullet:nth-child(2) { transition-delay: 0.15s; }
-                .bento-card.focused .bento-bullet:nth-child(3) { transition-delay: 0.2s; }
-                .bento-card.focused .bento-bullet:nth-child(4) { transition-delay: 0.25s; }
-                .bento-card.focused .bento-bullet:nth-child(5) { transition-delay: 0.3s; }
-                .bento-card.focused .bento-bullet:nth-child(6) { transition-delay: 0.35s; }
+                    @media (max-width: 991px) {
+                        .bento-card.focused {
+                            flex: none;
+                        }
+                    }
+                    .bento-bg-image {
+                        position: absolute;
+                        inset: 0;
+                        background-size: cover;
+                        background-position: center;
+                        opacity: 0;
+                        transition: opacity 0.6s ease;
+                        pointer-events: none;
+                        z-index: 0;
+                    }
+                    .bento-card.focused .bento-bg-image {
+                        opacity: 0.85;
+                    }
+                    .bento-content-wrap {
+                        position: relative;
+                        z-index: 1;
+                        display: flex;
+                        flex-direction: column;
+                        height: 100%;
+                        flex-grow: 1;
+                    }
+                    .icon-box {
+                        display: inline-flex;
+                        padding: 14px;
+                        border-radius: 18px;
+                        background: rgba(255, 255, 255, 0.05);
+                        color: var(--card-color);
+                        margin-bottom: 32px;
+                        transition: all 0.4s ease;
+                        width: max-content;
+                    }
+                    .bento-card.focused .icon-box {
+                        background: var(--card-glow);
+                        transform: scale(1.05);
+                    }
+                    .bullet-list {
+                        max-height: 0;
+                        opacity: 0;
+                        overflow: hidden;
+                        transition: max-height 0.6s cubic-bezier(0.25, 1, 0.3, 1), opacity 0.4s ease;
+                    }
+                    .bento-card.focused .bullet-list {
+                        max-height: 600px;
+                        opacity: 1;
+                        margin-top: 28px;
+                        margin-bottom: 24px;
+                    }
+                    .bento-bullet {
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 12px;
+                        font-size: 14px;
+                        color: rgba(255, 255, 255, 0.95);
+                        padding: 11px 0;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                        transform: translateY(10px);
+                        opacity: 0;
+                        transition: all 0.4s ease;
+                    }
+                    .bento-card.focused .bento-bullet {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                    .bento-card.focused .bento-bullet:nth-child(1) { transition-delay: 0.1s; }
+                    .bento-card.focused .bento-bullet:nth-child(2) { transition-delay: 0.15s; }
+                    .bento-card.focused .bento-bullet:nth-child(3) { transition-delay: 0.2s; }
+                    .bento-card.focused .bento-bullet:nth-child(4) { transition-delay: 0.25s; }
+                    .bento-card.focused .bento-bullet:nth-child(5) { transition-delay: 0.3s; }
+                    .bento-card.focused .bento-bullet:nth-child(6) { transition-delay: 0.35s; }
 
-                .action-btn {
-                    margin-top: auto;
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 10px;
-                    padding: 16px 28px;
-                    border-radius: 14px;
-                    font-size: 13px;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    letter-spacing: 0.08em;
-                    border: none;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    text-decoration: none;
-                    color: #fff;
-                    width: 100%;
-                    opacity: 0;
-                    visibility: hidden;
-                    transform: translateY(15px);
-                }
-                .bento-card.focused .action-btn {
-                    opacity: 1;
-                    visibility: visible;
-                    transform: translateY(0);
-                    transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s, background 0.3s ease, box-shadow 0.3s ease;
-                }
-                .action-btn:hover {
-                    box-shadow: 0 10px 25px var(--card-glow);
-                    transform: translateY(-2px) !important;
-                }
-                .ticker-track {
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 4px;
-                    background: rgba(255, 255, 255, 0.04);
-                }
-                .ticker-bar {
-                    height: 100%;
-                    background: var(--card-color);
-                    width: 0%;
-                    transition: width 0.1s linear;
-                }
-            `}</style>
+                    .action-btn {
+                        margin-top: auto;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+                        padding: 16px 28px;
+                        border-radius: 14px;
+                        font-size: 13px;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.08em;
+                        border: none;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        text-decoration: none;
+                        color: white;
+                        width: 100%;
+                        opacity: 0;
+                        visibility: hidden;
+                        transform: translateY(15px);
+                    }
+                    .bento-card.focused .action-btn {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: translateY(0);
+                        transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s, background 0.3s ease, box-shadow 0.3s ease;
+                    }
+                    .action-btn:hover {
+                        box-shadow: 0 10px 25px var(--card-glow);
+                        transform: translateY(-2px) !important;
+                    }
+                    .ticker-track {
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 4px;
+                        background: rgba(255, 255, 255, 0.04);
+                    }
+                    .ticker-bar {
+                        height: 100%;
+                        background: var(--card-color);
+                        width: 0%;
+                        transition: width 0.1s linear;
+                    }
+                `}</style>
 
             <section
-                style={{ padding: '140px 24px', backgroundColor: '#040406', fontFamily: "'Poppins', sans-serif", position: 'relative', overflow: 'hidden' }}
+                style={{
+                    background: 'linear-gradient(90deg, #FEDCB4 0%, #D3F0EC 50%, #E1F2C6 100%)',
+                    padding: '140px 24px',
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    animation: 'grid-pulse-glow 12s infinite ease-in-out'
+                }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
+
             >
-                <div style={{ position: 'absolute', top: '20%', left: '50%', transform: 'translate(-50%, -50%)', width: '900px', height: '900px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(151,71,255,0.03) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', top: '20%', left: '50%', transform: 'translate(-50%, -50%)', width: '900px', height: '900px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(13, 148, 136,0.03) 0%, transparent 65%)', pointerEvents: 'none' }} />
 
                 <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
                     {/* Header Space */}
                     <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-                        <span style={{ display: 'inline-block', fontSize: '11px', fontWeight: '700', color: '#9747FF', textTransform: 'uppercase', letterSpacing: '0.25em', marginBottom: '16px', background: 'rgba(151,71,255,0.08)', padding: '6px 18px', borderRadius: '100px', border: '1px solid rgba(151,71,255,0.15)' }}>
+                        <span style={{ display: 'inline-block', fontSize: '11px', fontWeight: '700', color: '#0D9488', textTransform: 'uppercase', letterSpacing: '0.25em', marginBottom: '16px', background: 'rgba(13, 148, 136,0.08)', padding: '6px 18px', borderRadius: '100px', border: '1px solid rgba(13, 148, 136,0.18)' }}>
                             Core Capabilities
                         </span>
-                        <h2 style={{ fontSize: 'clamp(34px, 5vw, 56px)', fontWeight: '800', color: '#ffffff', margin: '0 0 20px 0', letterSpacing: '-0.03em', lineHeight: 1.15, textAlign: 'center' }}>
-                            Three Divisions. <span style={{ background: 'linear-gradient(90deg, #9747FF 0%, #22d3ee 50%, #34d399 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Infinite Scalability.</span>
+                        <h2 style={{ fontSize: 'clamp(34px, 5vw, 56px)', fontWeight: '800', color: "var(--text-primary)", margin: '0 0 20px 0', letterSpacing: '-0.03em', lineHeight: 1.15, textAlign: 'center' }}>
+                            Three Divisions. <span style={{ background: 'linear-gradient(90deg, #0D9488 0%, #22d3ee 50%, #34d399 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Infinite Scalability.</span>
                         </h2>
-                        <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.6)', maxWidth: '640px', lineHeight: 1.6, margin: '0 auto' }}>
+                        <p style={{ fontSize: '16px', color: 'rgba(211, 103, 45, 0.55)', maxWidth: '640px', lineHeight: 1.6, margin: '0 auto' }}>
                             One unified partner engine accelerating your strategic hyper-growth objectives across learning assets, talent engineering, and institutional finances.
                         </p>
                     </div>
@@ -308,7 +318,16 @@ export default function ServiceGrid() {
                                     <div
                                         className="bento-bg-image"
                                         style={{
-                                            backgroundImage: `linear-gradient(to top, #040406 0%, rgba(4, 4, 6, 0.85) 45%, rgba(4, 4, 6, 0.15) 75%, transparent 100%), url(${s.image})`
+                                            backgroundImage:
+
+                                                `linear-gradient(
+                180deg,
+                rgba(13, 148, 136, 0.90) 0%,
+                rgba(13, 148, 136, 0.75) 15%,
+                rgba(24, 28, 32, 0.90) 35%,
+                rgba(15, 17, 19, 1.0) 100%
+            ),
+            url(${s.image})`
                                         }}
                                     />
 
@@ -321,7 +340,7 @@ export default function ServiceGrid() {
                                             <span style={{ fontSize: '11px', fontWeight: '700', color: s.color, textTransform: 'uppercase', letterSpacing: '0.15em', display: 'block', marginBottom: '8px' }}>
                                                 {s.label}
                                             </span>
-                                            <h3 style={{ fontSize: '24px', fontWeight: '700', color: '#ffffff', margin: '0 0 14px 0', lineHeight: 1.3 }}>
+                                            <h3 style={{ fontSize: '24px', fontWeight: '700', color: "#29c9c6ff", margin: '0 0 14px 0', lineHeight: 1.3 }}>
                                                 {s.title}
                                             </h3>
                                             <p style={{ fontSize: '14.5px', color: isFocused ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)', lineHeight: 1.65, margin: 0, transition: 'color 0.4s ease' }}>
