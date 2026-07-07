@@ -127,7 +127,7 @@ export default function ElearningIndex() {
     ];
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: "var(--bg-main)", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: "var(--bg-main)", fontFamily: 'var(--font-family)' }}>
             <Header />
 
             <main style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
@@ -248,13 +248,10 @@ export default function ElearningIndex() {
                 </section>
 
                 <section
+                    className="theme-section theme-section--light"
                     style={{
                         width: '100%',
-                        backgroundColor: '#ffffff',
-                        backgroundImage: 'linear-gradient(90deg, #FEDCB4 0%, #D3F0EC 50%, #E1F2C6 100%)',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        padding: '100px 0', /* Vertical padding handles spacing neatly */
+                        padding: '100px 0',
                         position: 'relative'
                     }}
                 >
@@ -265,7 +262,7 @@ export default function ElearningIndex() {
                         <h2 style={{
                             fontSize: '36px',
                             fontWeight: '800',
-                            color: "var(--text-primary)", /* Optimized dark color for text readability against light background */
+                            color: "#475569", /* Optimized dark color for text readability against light background */
                             marginBottom: '48px',
                             textAlign: 'center',
                             letterSpacing: '-0.02em'
@@ -287,7 +284,7 @@ export default function ElearningIndex() {
                                         boxShadow: "0 20px 40px -15px rgba(15, 23, 42, 0.05)"
                                     }}
                                 >
-                                    <h3 style={{ fontSize: '22px', fontWeight: '800', color: "#0D9488", marginBottom: '16px' }}>
+                                    <h3 style={{ fontSize: '22px', fontWeight: '800', color: "var(--primary-light)", marginBottom: '16px' }}>
                                         {srv.title}
                                     </h3>
 

@@ -25,24 +25,24 @@ export default function Button({ children, variant = 'primary', onClick, type = 
 
     const variants = {
         primary: {
-            backgroundColor: 'var(--brand-teal)',
-            color: '#ffffff',
-            boxShadow: isHovered ? '0 8px 20px var(--brand-teal-glow)' : 'var(--shadow-sm)',
+            background: 'var(--gold-gradient)',
+            color: 'rgb(0, 0, 0)',
+            boxShadow: isHovered ? 'var(--shadow-gold)' : 'var(--shadow-sm)',
             transform: isActive ? 'scale(0.97)' : isHovered ? 'translateY(-2px)' : 'none'
         },
         secondary: {
             backgroundColor: 'transparent',
-            color: 'var(--brand-teal)',
-            border: '1.5px solid var(--brand-teal)',
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border-visible)',
             backdropFilter: 'blur(8px)',
-            boxShadow: isHovered ? '0 8px 20px var(--brand-teal-glow)' : 'none',
+            boxShadow: isHovered ? 'var(--shadow-primary)' : 'none',
             transform: isActive ? 'scale(0.97)' : isHovered ? 'translateY(-2px)' : 'none'
         },
         cta: {
-            backgroundColor: 'var(--brand-teal)',
-            color: '#ffffff',
+            background: 'var(--gold-gradient)',
+            color: 'rgb(0, 0, 0)',
             fontWeight: '700',
-            boxShadow: isHovered ? '0 12px 24px var(--brand-teal-glow)' : 'var(--shadow-sm)',
+            boxShadow: isHovered ? 'var(--shadow-gold)' : 'var(--shadow-sm)',
             transform: isActive ? 'scale(0.97)' : isHovered ? 'translateY(-2px)' : 'none'
         }
     };

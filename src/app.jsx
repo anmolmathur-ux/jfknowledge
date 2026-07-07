@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 // Import root views
 import IndexPage from './pages/index';
 import AboutPage from './pages/about';
+import ServicesPage from './pages/services';
 import ContactPage from './pages/contact';
 import WhyJfPage from './pages/why-jf';
 import GlobalFootprintPage from './pages/global-footprint';
@@ -35,6 +36,8 @@ export default function App() {
             return <IndexPage />;
         case '/about':
             return <AboutPage />;
+        case '/services':
+            return <ServicesPage />;
         case '/contact':
             return <ContactPage />;
 

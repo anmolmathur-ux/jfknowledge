@@ -65,7 +65,7 @@ export default function GlobalFootprintPage() {
                             playsInline
                             style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.45 }}
                         >
-                            <source src="/assets/images/about/Global-Delivery-Network.mp4" type="video/mp4" />
+                            <source src="/assets/images/about/global-Delivery-Network.mp4" type="video/mp4" />
                         </video>
                     </div>
 

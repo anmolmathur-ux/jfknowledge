@@ -42,7 +42,7 @@ export default function Card({ title, subtitle, children, className = '', style 
 
             {subtitle && (
                 <span style={{
-                    color: 'var(--brand-teal)',
+                    color: 'var(--primary-light)',
                     fontSize: '11px',
                     fontWeight: '700',
                     letterSpacing: '1.5px',

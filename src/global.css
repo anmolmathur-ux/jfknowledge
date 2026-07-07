@@ -1,47 +1,114 @@
-/* ==========================================================================
-   GLOBAL DESIGN SYSTEM & VARIANT CONSTANTS (Pastel Accents + Slate Typography)
-   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 :root {
-    /* 1. Surfaces & Canvas Layers (Strictly White Backings) */
-    --bg-main: #FFFFFF;
-    /* Pure white background canvas */
-    --bg-surface: #FFFFFF;
-    /* White surface for cards, tables, inputs */
-    --bg-muted: #2c77c2;
-    /* Light slate-tinted background block layout dividers */
+    /* === CORE PALETTE === */
+    /* Deep dark canvas — replaces flat blacks with site's navy tones */
+    --black: rgb(1, 2, 10);
+    /* near-black (site's darkest bg stop) */
+    --off-black: rgb(8, 15, 38);
+    /* deep navy (site's lighter bg stop)  */
+    --deep-grey: rgb(15, 23, 55);
+    /* navy-tinted surface                 */
+    --mid-grey: rgb(22, 33, 72);
+    /* elevated navy surface               */
+    --divider: rgb(30, 44, 90);
+    /* subtle navy divider                 */
 
-    /* 2. Core Pastel Palette Roles */
-    --brand-peach: #FEDCB4;
-    /* Left Card Accent */
-    --brand-mint: #D3F0EC;
-    /* Middle Card Accent */
-    --brand-lime: #E1F2C6;
-    /* Right Card Accent */
+    --white: #FFFFFF;
+    --off-white: rgb(241, 245, 249);
+    /* site's primary text colour reused as lightest surface */
+    --warm-white: rgb(225, 236, 247);
+    /* site's light section bg             */
 
-    /* 3. Typography Variables (Swapped to High-Readability Slate/Grey System) */
-    --text-primary: rgba(216, 147, 110, 0.55);
-    /* Mid slate grey for clean, crisp body typography */
-    --text-heading: #1E293B;
-    /* Deep slate for clear, high-contrast structural headers */
-    --text-muted: rgba(211, 103, 45, 0.55);
-    /* Muted slate for descriptions, captions, and metadata */
-    --text-placeholder: #94A3B8;
-    /* Soft placeholder grey for form input fields */
+    /* === PRIMARY BRAND — Blue === */
+    --primary: #2563eb;
+    --primary-light: #3b82f6;
+    /* blue-500 — hover / lighter variant   */
+    --primary-dark: #1d4ed8;
+    /* blue-700 — pressed / deeper variant  */
+    --primary-muted: rgba(37, 99, 235, 0.15);
 
-    /* 4. Borders & Subtle Layout Strokes */
-    --border-light: #E2E8F0;
-    /* Light clean border separating cells and panels */
-    --border-visible: #CBD5E1;
-    /* High-visibility divider accents */
+    /* === SECONDARY — Purple === */
+    --secondary: rgb(168, 85, 247);
+    --secondary-light: rgb(196, 131, 255);
+    --secondary-dark: rgb(126, 34, 206);
+    --secondary-muted: rgba(168, 85, 247, 0.15);
 
-    /* 5. Utility Shadows (Using clean, subtle grey drops for soft elevation) */
-    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.03);
-    --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
-    --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.04);
+    /* === CTA ACCENT — Gold / Amber gradient (site's button accent) === */
+    /* Used for high-contrast calls to action only; not as a brand colour */
+    --gold: rgb(251, 191, 36);
+    --gold-light: rgb(255, 224, 130);
+    --gold-dark: rgb(245, 158, 11);
+    --gold-muted: rgba(251, 191, 36, 0.15);
+    --gold-gradient: linear-gradient(135deg, rgb(251, 191, 36) 0%, rgb(245, 158, 11) 100%);
+    --gold-gradient-hero: linear-gradient(135deg, rgb(255, 224, 130) 0%, rgb(255, 179, 0) 50%, rgb(255, 143, 0) 100%);
+
+    /* Legacy amber aliases — kept so existing components don't break.
+       Resolved to the new gold/blue values that match their intent. */
+    --amber: rgb(251, 191, 36);
+    /* was gold CTA, still gold             */
+    --amber-light: rgb(255, 224, 130);
+    --amber-dark: rgb(245, 158, 11);
+    --amber-muted: rgba(251, 191, 36, 0.15);
+
+    /* Orange — retained, mapped to purple secondary as closest intent match */
+    --orange: rgb(168, 85, 247);
+    /* remapped → secondary purple          */
+    --orange-light: rgb(196, 131, 255);
+
+    /* === SURFACES === */
+    /* Radial gradient applied on <body>; these vars power individual surfaces */
+    --bg-main: rgb(1, 2, 10);
+    /* deepest: near-black                  */
+    --bg-surface: rgb(8, 15, 38);
+    /* base surface: deep navy              */
+    --bg-elevated: rgb(15, 23, 55);
+    /* raised panel                         */
+    --bg-card: rgb(12, 20, 50);
+    /* card background                      */
+
+    /* === TYPOGRAPHY === */
+    --text-primary: rgb(241, 245, 249);
+    /* site's #f1f5f9 off-white slate  */
+    --text-secondary: rgba(241, 245, 249, 0.65);
+    --text-muted: rgba(241, 245, 249, 0.35);
+    --text-heading: rgb(241, 245, 249);
+    --text-placeholder: rgba(241, 245, 249, 0.25);
+
+    /* Light surface text */
+    --text-on-light: rgb(8, 15, 38);
+    /* navy on slate-light bg           */
+    --text-on-light-muted: #3b4a6b;
+    --text-on-light-faint: #6b7a99;
+
+    /* Framework variables (match site's :root exactly) */
+    --font-family: "Inter", system-ui, -apple-system, sans-serif;
+    --primary-contrast: #ffffff;
+
+    /* === BORDERS === */
+    --border-dark: rgba(241, 245, 249, 0.08);
+    --border-visible: rgba(241, 245, 249, 0.15);
+    --border-primary: rgba(37, 99, 235, 0.35);
+    /* blue-tinted border             */
+    --border-amber: rgba(251, 191, 36, 0.30);
+    /* gold border (CTA contexts)     */
+    --border-light: rgb(225, 236, 247);
+    /* light section rule             */
+
+    /* === SHADOWS === */
+    --shadow-sm: 0 2px 8px rgba(1, 2, 10, 0.6);
+    --shadow-md: 0 8px 32px rgba(1, 2, 10, 0.7);
+    --shadow-lg: 0 24px 64px rgba(1, 2, 10, 0.8);
+    --shadow-primary: 0 8px 32px rgba(37, 99, 235, 0.25);
+    /* blue glow         */
+    --shadow-gold: 0 4px 12px rgba(251, 191, 36, 0.30);
+    /* gold CTA glow     */
+    --shadow-amber: 0 8px 32px rgba(251, 191, 36, 0.20);
+    /* legacy alias      */
 }
 
 /* ==========================================================================
-   BASE CANVAS OVERRIDES
+   BASE RESET & CANVAS
    ========================================================================== */
 *,
 *::before,
@@ -51,13 +118,30 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background-color: var(--bg-main);
+    /* Site's signature radial gradient — deep navy core fading to near-black */
+    background: radial-gradient(ellipse at 50% 0%,
+            rgb(8, 15, 38) 0%,
+            rgb(1, 2, 10) 70%);
+    background-attachment: fixed;
     color: var(--text-primary);
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    line-height: 1.6;
+}
+
+#root {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: inherit !important;
 }
 
 h1,
@@ -67,86 +151,437 @@ h4,
 h5,
 h6 {
     color: var(--text-heading);
+    font-family: "Inter", sans-serif;
     font-weight: 700;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
 }
 
+/* Base link colour → blue primary (site uses blue, not amber, for inline links) */
 a {
-    color: #475569;
-    text-decoration: underline;
+    color: var(--primary);
+    text-decoration: none;
     transition: color 0.2s ease;
 }
 
 a:hover {
-    color: var(--text-heading);
+    color: var(--primary-light);
 }
 
 /* ==========================================================================
-   GLOBAL REUSABLE WEB INTERFACE ELEMENTS
+   GLOBAL UTILITY CLASSES
    ========================================================================== */
 
-/* 1. Buttons Integration */
-.jf-btn-primary {
-    background-color: var(--brand-mint);
-    color: var(--text-heading) !important;
-    /* Kept dark text over light pastel button for clarity */
-    border: none;
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-size: 13px;
+/* Section containers */
+.jf-section-dark {
+    background: radial-gradient(ellipse at 50% 0%,
+            rgb(8, 15, 38) 0%,
+            rgb(1, 2, 10) 70%);
+    color: var(--text-primary);
+}
+
+.jf-section-light {
+    background: rgb(225, 236, 247);
+    /* site's soft slate-blue light bg      */
+    color: var(--text-on-light);
+}
+
+.theme-section {
+    position: relative;
+    isolation: isolate;
+}
+
+.theme-section--dark {
+    background: radial-gradient(ellipse at top, rgba(22, 33, 72, 0.95) 0%, rgba(1, 2, 10, 1) 100%);
+    color: var(--text-primary);
+}
+
+.theme-section--light {
+    background: linear-gradient(135deg, #f7faff 0%, #eef4ff 45%, #f2f7fd 100%);
+    color: var(--text-on-light);
+}
+
+.page-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.page-hero-shell {
+    position: relative;
+    overflow: hidden;
+    padding: 140px max(24px, 4vw) 110px;
+}
+
+.page-hero-shell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(1, 2, 10, 0.95) 0%, rgba(8, 15, 38, 0.85) 42%, rgba(1, 2, 10, 0.4) 100%);
+    z-index: 0;
+}
+
+.page-hero-shell .page-hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+
+.page-hero-shell .page-hero-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.28;
+    filter: grayscale(0.2) contrast(1.05);
+}
+
+.page-hero-card {
+    position: relative;
+    z-index: 1;
+    max-width: 1080px;
+    margin: 0 auto;
+    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(8, 15, 38, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 24px 80px rgba(1, 2, 10, 0.35);
+    padding: clamp(32px, 4vw, 60px);
+}
+
+.page-hero-card--light {
+    background: rgba(255, 255, 255, 0.82);
+    color: var(--text-on-light);
+    border-color: rgba(37, 99, 235, 0.16);
+}
+
+.section-intro {
+    max-width: 760px;
+    margin: 0 auto 56px;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: rgba(37, 99, 235, 0.14);
+    border: 1px solid rgba(37, 99, 235, 0.18);
+    font-size: 11px;
     font-weight: 700;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    cursor: pointer;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: clamp(34px, 4vw, 56px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 18px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-copy {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    max-width: 720px;
+    margin: 0 auto;
+    opacity: 0.92;
+}
+
+.section-panel {
+    border-radius: 28px;
+    padding: clamp(28px, 3vw, 40px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 80px rgba(1, 2, 10, 0.12);
+}
+
+.section-panel--dark {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.section-panel--light {
+    color: var(--text-on-light);
+    background: rgba(255, 255, 255, 0.94);
+    border-color: rgba(37, 99, 235, 0.16);
+}
+
+.section-grid {
+    display: grid;
+    gap: 28px;
+}
+
+.section-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.section-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 960px) {
+    .section-grid--3,
+    .section-grid--2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Thin horizontal rule */
+.jf-rule {
+    border: none;
+    border-top: 1px solid var(--border-dark);
+    margin: 0;
+}
+
+.jf-rule-light {
+    border: none;
+    border-top: 1px solid rgba(37, 99, 235, 0.15);
+    /* faint blue rule on light */
+    margin: 0;
+}
+
+/* Typography utilities */
+/* Overline — uses primary blue to match site's section-label style */
+.jf-overline {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--primary-light);
+}
+
+.jf-overline-light {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-on-light-muted);
+}
+
+/* Lettermark display text */
+.jf-lettermark {
+    font-family: "Inter", sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    color: var(--text-heading);
+}
+
+/* Script/italic accent — retains Playfair but now renders in secondary purple */
+.jf-script {
+    font-family: "Playfair Display", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--secondary-light);
+}
+
+/* ==========================================================================
+   BUTTON SYSTEM
+   ========================================================================== */
+
+/* PRIMARY BUTTON
+   Gold-gradient pill — the site's signature CTA treatment.
+   Border-radius updated from sharp (2px) to 8px to match site's button style. */
+.jf-btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
+    padding: 14px 32px;
+    background: var(--gold-gradient);
+    color: rgb(0, 0, 0);
+    /* black text on gold, per site         */
+    border: none;
+    border-radius: 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-gold);
 }
 
 .jf-btn-primary:hover {
-    background-color: var(--brand-peach);
     transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+    box-shadow: rgba(251, 191, 36, 0.40) 0 6px 16px;
 }
 
 .jf-btn-primary:active {
-    transform: scale(0.97);
+    transform: scale(0.98);
 }
 
-.jf-btn-secondary {
-    background-color: transparent;
-    color: var(--text-muted);
-    border: 1.5px solid var(--border-visible);
-    padding: 11px 26px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    cursor: pointer;
+/* HERO CTA VARIANT — pill shape, bolder gradient, larger padding */
+.hero-cta .jf-btn-primary,
+.jf-btn-primary-hero {
+    padding: 14px 30px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: var(--gold-gradient-hero);
+    box-shadow: rgba(255, 179, 0, 0.35) 0 4px 20px;
+    transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-cta .jf-btn-primary:hover,
+.jf-btn-primary-hero:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, rgb(255, 243, 224) 0%, rgb(255, 224, 130) 50%, rgb(255, 179, 0) 100%);
+    box-shadow: rgba(255, 179, 0, 0.50) 0 8px 30px,
+        rgba(255, 224, 130, 0.20) 0 0 15px;
+}
+
+/* OUTLINE BUTTON — ghost on dark bg, glows blue on hover */
+.jf-btn-outline {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
+    padding: 13px 30px;
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid rgba(241, 245, 249, 0.25);
+    border-radius: 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
     transition: all 0.25s ease;
 }
 
-.jf-btn-secondary:hover {
-    background-color: var(--bg-muted);
-    color: var(--text-heading) !important;
-    border-color: var(--text-heading);
+.jf-btn-outline:hover {
+    border-color: var(--primary);
+    color: var(--primary-light);
+    box-shadow: var(--shadow-primary);
     transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
 }
 
-/* 2. Premium Grid Components & Elevation Cards */
+/* OUTLINE DARK — on light (slate) sections */
+.jf-btn-outline-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 30px;
+    background: transparent;
+    color: var(--text-on-light);
+    border: 1px solid rgba(8, 15, 38, 0.25);
+    border-radius: 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.jf-btn-outline-dark:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* ==========================================================================
+   CARD SYSTEM
+   ========================================================================== */
+
+.jf-card-dark {
+    background: var(--bg-card);
+    /* deep navy card bg                    */
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    /* site uses rounded cards, not sharp 0 */
+    padding: 40px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.jf-card-dark:hover {
+    border-color: var(--border-primary);
+    /* blue glow on hover                   */
+    box-shadow: var(--shadow-primary);
+}
+
+.jf-card-light {
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 40px;
+    transition: box-shadow 0.3s ease;
+}
+
+.jf-card-light:hover {
+    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.10);
+    /* soft blue lift           */
+}
+
+/* ==========================================================================
+   INPUT SYSTEM
+   ========================================================================== */
+
+.jf-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(8, 15, 38, 0.6);
+    /* translucent navy                     */
+    border: 1px solid var(--border-visible);
+    color: var(--text-primary);
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jf-input::placeholder {
+    color: var(--text-placeholder);
+}
+
+.jf-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-muted);
+}
+
+.jf-input-light {
+    width: 100%;
+    padding: 12px 16px;
+    background: transparent;
+    border: 1px solid rgba(8, 15, 38, 0.20);
+    color: var(--text-on-light);
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jf-input-light:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-muted);
+}
+
+/* ==========================================================================
+   GRID SYSTEM
+   ========================================================================== */
+
 .jf-grid-3x {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    width: 100%;
+    gap: 1px;
 }
 
 @media (max-width: 960px) {
@@ -155,60 +590,50 @@ a:hover {
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 600px) {
     .jf-grid-3x {
         grid-template-columns: 1fr;
     }
 }
 
-.jf-card {
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-light);
-    border-radius: 20px;
-    padding: 32px;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    overflow: hidden;
+/* ==========================================================================
+   SCROLL REVEAL ANIMATION SYSTEM
+   ========================================================================== */
+
+.motion-reveal-container {
+    opacity: 0;
+    will-change: transform, opacity;
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.jf-card:hover {
-    transform: translateY(-6px);
-    border-color: var(--border-visible);
-    box-shadow: var(--shadow-lg);
+.reveal-reveal-up {
+    transform: translateY(48px);
 }
 
-/* 3. Global Inputs, Text Areas and Newsletter Backings */
-.jf-input-text {
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--border-light);
-    background-color: var(--bg-surface);
-    color: var(--text-primary);
-    font-family: inherit;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+.reveal-reveal-left {
+    transform: translateX(-48px);
 }
 
-.jf-input-text::placeholder {
-    color: var(--text-placeholder);
+.reveal-reveal-right {
+    transform: translateX(48px);
 }
 
-.jf-input-text:focus {
-    border-color: var(--text-muted);
-    box-shadow: var(--shadow-sm);
+.motion-reveal-container.revealed {
+    opacity: 1;
+    transform: translate(0, 0);
 }
 
-/* 4. Structured Informational Tables Layout */
+/* ==========================================================================
+   DATA TABLE SYSTEM
+   ========================================================================== */
+
 .jf-table-wrapper {
     overflow-x: auto;
     width: 100%;
-    border-radius: 16px;
-    border: 1px solid var(--border-light);
-    box-shadow: var(--shadow-sm);
-    background-color: var(--bg-surface);
+    border: 1px solid var(--border-dark);
+    background: var(--bg-surface);
+    border-radius: 8px;
 }
 
 .jf-data-table {
@@ -216,26 +641,26 @@ a:hover {
     border-collapse: collapse;
     font-size: 14px;
     text-align: left;
+    font-family: "Inter", sans-serif;
 }
 
 .jf-data-table th {
-    background-color: var(--bg-muted);
-    color: var(--text-heading);
-    font-weight: 700;
-    padding: 16px 24px;
-    border-bottom: 2px solid var(--border-visible);
-    font-size: 13px;
+    background: var(--mid-grey);
+    color: var(--text-secondary);
+    font-weight: 600;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-dark);
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.12em;
 }
 
 .jf-data-table td {
-    padding: 16px 24px;
-    border-bottom: 1px solid var(--border-light);
-    color: var(--text-primary);
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-dark);
+    color: var(--text-secondary);
     vertical-align: middle;
     line-height: 1.5;
-    transition: background-color 0.15s ease;
 }
 
 .jf-data-table tr:last-child td {
@@ -243,6 +668,6 @@ a:hover {
 }
 
 .jf-data-table tr:hover td {
-    background-color: var(--bg-muted);
-    color: var(--text-heading);
+    background: var(--mid-grey);
+    color: var(--text-primary);
 }

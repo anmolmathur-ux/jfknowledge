@@ -80,14 +80,14 @@ export default function RecruitmentIndex() {
     ];
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: "var(--bg-main)", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: "var(--bg-main)", fontFamily: 'var(--font-family)' }}>
             <Header />
 
             <main style={{ flex: 1, paddingTop: '0px', overflow: 'hidden', position: 'relative' }}>
 
                 {/* Premium Dark Hero Section */}
                 <section style={{
-                    maxWidth: "920px",
+                    maxWidth: "full",
                     textAlign: "center",
                     background: "rgba(8,12,20,0.55)",
                     backdropFilter: "blur(16px)",
@@ -99,7 +99,7 @@ export default function RecruitmentIndex() {
 
                     {/* Video + Complex Dark Gradient Overlay */}
                     <div style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-                        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.85) 100%)', zIndex: 2 }} />
+                        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center,  rgba(85, 83, 83, 0.33) 100%)', zIndex: 2 }} />
                         <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35, filter: 'grayscale(40%)' }}>
                             <source src="/assets/images/about/global-Delivery-Network.mp4" type="video/mp4" />
                         </video>
@@ -180,7 +180,7 @@ export default function RecruitmentIndex() {
                                 style={{
                                     fontSize: "19px",
                                     lineHeight: 1.8,
-                                    color: "rgba(255,255,255,.78)",
+                                    color: "rgb(12,12,12)",
                                     maxWidth: "700px",
                                     margin: "0 auto",
                                     textAlign: "center",
@@ -194,25 +194,25 @@ export default function RecruitmentIndex() {
                     </div>
 
                     {/* Smooth Bottom Gradient Fade to Content Background */}
-                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "150px", background: "linear-gradient(to bottom, transparent, var(--bg-main))", zIndex: 4 }} />
+
                 </section>
 
                 {/* Services Section */}
-                <section id="services" style={{ padding: '80px 40px 100px', maxWidth: '1280px', margin: '0 auto' }}>
+                <section id="services" className="theme-section theme-section--light" style={{ padding: '80px 40px 100px', maxWidth: '1280px', margin: '0 auto' }}>
                     <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-                        <span style={{ color: "var(--brand-teal)", fontSize: "14px", fontWeight: "700", letterSpacing: "0.1em", textTransform: "uppercase" }}>Our Services</span>
-                        <h2 style={{ fontSize: 'clamp(28px, 4vw, 38px)', fontWeight: '800', color: "var(--text-primary)", marginTop: '8px', marginBottom: '16px' }}>
+                        <span style={{ color: "var(--orange)", fontSize: "14px", fontWeight: "700", letterSpacing: "0.1em", textTransform: "uppercase" }}>Our Services</span>
+                        <h2 style={{ fontSize: 'clamp(28px, 4vw, 38px)', fontWeight: '800', color: "var(--orange)", marginTop: '8px', marginBottom: '16px' }}>
                             Recruitment Solutions Designed for Modern Businesses
                         </h2>
-                        <p style={{ fontSize: '17px', color: "var(--text-muted)", maxWidth: '700px', margin: '0 auto', lineHeight: 1.6 }}>
+                        <p style={{ fontSize: '17px', color: "var(--grey)", maxWidth: '700px', margin: '0 auto', lineHeight: 1.6 }}>
                             A complete suite of recruitment and staffing services built to help organisations hire faster, smarter, and with complete compliance.
                         </p>
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
                         {services.map((srv, idx) => (
-                            <div key={idx} style={{ background: "var(--bg-surface)", border: "1px solid var(--border-light)", borderRadius: '24px', padding: '40px', boxShadow: "var(--shadow-sm)" }}>
-                                <h3 style={{ fontSize: '22px', fontWeight: '800', color: "var(--brand-teal)", marginBottom: '16px' }}>{srv.title}</h3>
+                            <div key={idx} className="section-panel section-panel--light" style={{ padding: '40px' }}>
+                                <h3 style={{ fontSize: '22px', fontWeight: '800', color: "var(--primary-light)", marginBottom: '16px' }}>{srv.title}</h3>
                                 <p style={{ fontSize: '15px', color: "var(--text-muted)", lineHeight: 1.7, marginBottom: '24px' }}>{srv.desc}</p>
                                 <ul style={{ margin: 0, paddingLeft: '20px', color: "var(--text-muted)", fontSize: '14.5px', lineHeight: 1.7, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                     {srv.points.map((pt, i) => (
@@ -225,19 +225,16 @@ export default function RecruitmentIndex() {
                 </section>
 
                 {/* Geographic Footprint Section */}
-                <section style={{ position: 'relative', background: "var(--bg-surface)", borderTop: "1px solid var(--border-light)", padding: '100px 40px', overflow: 'hidden' }}>
+                <section className="theme-section theme-section--dark" style={{ position: 'relative', padding: '100px 40px', overflow: 'hidden' }}>
 
                     {/* Background Soft Layer */}
-                    <div style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, var(--bg-surface) 0%, rgba(255,255,255,0.4) 50%, var(--bg-surface) 100%)', zIndex: 2 }} />
-                    </div>
 
                     <div style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 3 }}>
                         <h2 style={{ fontSize: '32px', fontWeight: '800', color: "var(--text-primary)", marginBottom: '48px', textAlign: 'center' }}>Our Geographic Footprint</h2>
 
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
                             {footprints.map((fp, i) => (
-                                <div key={i} style={{ background: "var(--bg-main)", padding: '32px', borderRadius: '16px', border: "1px solid var(--border-light)", borderTop: '4px solid var(--brand-teal)' }}>
+                                <div key={i} style={{ background: "var(--bg-main)", padding: '32px', borderRadius: '16px', border: "1px solid var(--border-light)", borderTop: '4px solid var(--primary)' }}>
                                     <h3 style={{ fontSize: '20px', fontWeight: '700', color: "var(--text-primary)", marginBottom: '12px' }}>{fp.region}</h3>
                                     <p style={{ fontSize: '14.5px', color: "var(--text-muted)", margin: 0, lineHeight: 1.7 }}>{fp.desc}</p>
                                 </div>

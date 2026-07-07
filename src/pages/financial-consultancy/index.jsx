@@ -134,7 +134,7 @@ export default function FinancialConsultancyIndex() {
     ];
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: "var(--bg-main)", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: "var(--bg-main)", fontFamily: 'var(--font-family)' }}>
             <Header />
 
             <main style={{ flex: 1, paddingTop: '120px', overflow: 'hidden', position: 'relative' }}>
@@ -152,13 +152,13 @@ export default function FinancialConsultancyIndex() {
                     </div>
                 </section>
 
-                <section style={{ padding: '40px 40px 100px', maxWidth: '1280px', margin: '0 auto' }}>
+                <section className="theme-section theme-section--light" style={{ padding: '40px 40px 100px', maxWidth: '1280px', margin: '0 auto' }}>
                     <h2 style={{ fontSize: '32px', fontWeight: '800', color: "var(--text-primary)", marginBottom: '48px', textAlign: 'center' }}>Our Financial Consultancy & Accounting Services</h2>
                     
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
                         {services.map((srv, idx) => (
-                            <div key={idx} style={{ background: "var(--bg-surface)", border: "1px solid var(--border-light)", borderRadius: '24px', padding: '40px', boxShadow: "var(--shadow-sm)" }}>
-                                <h3 style={{ fontSize: '22px', fontWeight: '800', color: "var(--brand-teal)", marginBottom: '16px' }}>{srv.title}</h3>
+                            <div key={idx} className="section-panel section-panel--light" style={{ padding: '40px' }}>
+                                <h3 style={{ fontSize: '22px', fontWeight: '800', color: "var(--primary-light)", marginBottom: '16px' }}>{srv.title}</h3>
                                 {srv.desc && (
                                     <p style={{ fontSize: '15px', color: "var(--text-muted)", lineHeight: 1.7, marginBottom: '24px' }}>{srv.desc}</p>
                                 )}

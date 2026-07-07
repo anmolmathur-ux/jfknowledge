@@ -68,7 +68,7 @@ export default function WhyJfPage() {
     const currentPillar = pillars[activePillar];
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: "var(--bg-main)", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: "var(--bg-main)", fontFamily: 'var(--font-family)' }}>
             <Header />
 
             <main style={{ flex: 1, paddingTop: '100px', overflow: 'hidden', position: 'relative' }}>
@@ -108,21 +108,12 @@ export default function WhyJfPage() {
                 <div style={{ position: 'absolute', bottom: '20%', right: '-5%', width: '45vw', height: '45vw', borderRadius: '50%', background: 'radial-gradient(circle, rgba(34,211,238,0.04) 0%, transparent 70%)', filter: 'blur(90px)', pointerEvents: 'none', zIndex: 1 }} />
 
                 {/* --- EMBEDDED CINEMATIC HERO FIELD WITH STREAMING BACKGROUND VIDEO --- */}
-                <section style={{ position: 'relative', width: '100%', padding: '120px 40px 100px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                <section className="theme-section theme-section--dark" style={{ position: 'relative', width: '100%', padding: '120px 40px 100px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
 
-                    {/* Background Immersive Motion Loop Container */}
-                    <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none' }}>
-                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, var(--bg-main) 0%, var(--bg-surface) 40%, var(--bg-surface) 70%, var(--bg-main) 100%)', zIndex: 2 }} />
-                        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 35%, var(--bg-main) 95%)', zIndex: 2 }} />
-                        <video
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.42 }}
-                        >
-                            <source src="/assets/images/about/whyus.mp4" type="video/mp4" />
-                        </video>
+                    {/* Background hero image container */}
+                    <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', backgroundImage: "url('/assets/images/about/whyus.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(8, 20, 46, 0.72) 0%, rgba(8, 20, 46, 0.42) 45%, rgba(8, 20, 46, 0.72) 100%)', zIndex: 1 }} />
+                        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 30%, rgba(15, 23, 55, 0.76) 90%)', zIndex: 2 }} />
                     </div>
 
                     {/* Centered Attentional Grab Headings Block */}
@@ -130,7 +121,7 @@ export default function WhyJfPage() {
 
                         {/* Glassmorphic Strategic Badge */}
                         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'rgba(255, 255, 255, 0.04)', border: "1px solid var(--border-light)", borderRadius: '999px', padding: '8px 20px', width: 'fit-content', marginBottom: '32px', backdropFilter: 'blur(16px)', boxShadow: '0 4px 24px rgba(13, 148, 136,0.4)' }}>
-                            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#0D9488', display: 'inline-block', boxShadow: '0 0 14px #0D9488' }} />
+                            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)', display: 'inline-block', boxShadow: '0 0 14px var(--primary)' }} />
                             <span style={{ fontSize: '11px', fontWeight: '800', letterSpacing: '0.22em', color: "var(--text-primary)", textTransform: 'uppercase' }}>
                                 Core Architectural Advantages
                             </span>
@@ -139,7 +130,7 @@ export default function WhyJfPage() {
                         {/* Trendy Premium Typography Title */}
                         <h1 style={{ margin: '0 0 24px 0', fontSize: 'clamp(46px, 6.2vw, 82px)', fontWeight: '800', lineHeight: 1.05, letterSpacing: '-0.04em', color: "var(--text-primary)", textShadow: '0 4px 30px rgba(13, 148, 136,0.8)' }}>
                             Why Partner With<br />
-                            <span style={{ background: 'linear-gradient(90deg, #0D9488 0%, #22d3ee 50%, #34d399 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', display: 'inline-block' }}>
+                            <span style={{ background: 'linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 50%, #34d399 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', display: 'inline-block' }}>
                                 JF Knowledge Centre
                             </span>
                         </h1>
@@ -151,7 +142,7 @@ export default function WhyJfPage() {
                 </section>
 
                 {/* --- TWO-COLUMN INTERACTIVE SWITCHER + 2X2 KNOWLEDGE MATRIX GRID --- */}
-                <section style={{ position: 'relative', zIndex: 4, padding: '0 40px 120px', maxWidth: '1440px', margin: '0 auto', width: '100%' }}>
+                <section className="theme-section theme-section--dark" style={{ position: 'relative', zIndex: 4, padding: '0 40px 120px', maxWidth: '1440px', margin: '0 auto', width: '100%' }}>
                     <div className="main-split-architecture" style={{ display: 'grid', gridTemplateColumns: '0.85fr 1.15fr', gap: '60px', alignItems: 'stretch' }}>
 
                         {/* LEFT ELEMENT: INTERACTIVE HUB SWITCHER CONTROLLER WITH LUCIDE ICONS */}
@@ -159,7 +150,7 @@ export default function WhyJfPage() {
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', background: 'rgba(13, 148, 136, 0.45)', border: '1px solid rgba(255,255,255,0.06)', padding: '32px', borderRadius: '28px', backdropFilter: 'blur(20px)', boxShadow: '0 30px 60px rgba(13, 148, 136,0.4)', position: 'sticky', top: '120px' }}>
 
                                 <div style={{ marginBottom: '12px' }}>
-                                    <span style={{ fontSize: '11px', fontWeight: '800', color: '#0D9488', textTransform: 'uppercase', letterSpacing: '0.15em', display: 'block', marginBottom: '6px' }}>
+                                    <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.15em', display: 'block', marginBottom: '6px' }}>
                                         Interactive Hub Switcher
                                     </span>
                                     <span style={{ fontSize: '14px', fontWeight: '600', color: 'rgba(255,255,255,0.45)' }}>
@@ -182,13 +173,13 @@ export default function WhyJfPage() {
                                                 borderRadius: '20px',
                                                 background: isSelected ? 'rgba(255, 255, 255, 0.03)' : 'rgba(255,255,255,0.01)',
                                                 border: '1px solid',
-                                                borderColor: isSelected ? '#0D9488' : 'rgba(255,255,255,0.05)',
+                                                borderColor: isSelected ? 'var(--primary)' : 'rgba(255,255,255,0.05)',
                                                 cursor: 'pointer',
                                                 boxShadow: isSelected ? 'inset 0 0 20px rgba(13, 148, 136, 0.15), 0 10px 30px rgba(13, 148, 136,0.3)' : 'none'
                                             }}
                                         >
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-                                                <span style={{ color: isSelected ? '#0D9488' : 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', transform: isSelected ? 'scale(1.1)' : 'none', transition: 'all 0.3s' }}>
+                                                <span style={{ color: isSelected ? 'var(--primary)' : 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', transform: isSelected ? 'scale(1.1)' : 'none', transition: 'all 0.3s' }}>
                                                     {pillar.icon}
                                                 </span>
                                                 <div>
@@ -201,7 +192,7 @@ export default function WhyJfPage() {
                                                 </div>
                                             </div>
 
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: isSelected ? '#22d3ee' : 'rgba(255,255,255,0.15)', transform: isSelected ? 'translateX(4px)' : 'none', transition: 'all 0.3s' }}>
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: isSelected ? 'var(--primary-light)' : 'rgba(255,255,255,0.15)', transform: isSelected ? 'translateX(4px)' : 'none', transition: 'all 0.3s' }}>
                                                 <polyline points="9 18 15 12 9 6" />
                                             </svg>
                                         </div>
@@ -210,7 +201,7 @@ export default function WhyJfPage() {
 
                                 {/* Dynamic Narrative Synopsis Sub-box */}
                                 <div style={{ marginTop: '16px', padding: '22px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: '18px' }}>
-                                    <div style={{ fontSize: '11px', fontWeight: '800', color: '#22d3ee', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Operational Intent Monograph</div>
+                                    <div style={{ fontSize: '11px', fontWeight: '800', color: 'var(--primary-light)', textTransform: 'uppercase', marginBottom: '8px', letterSpacing: '0.05em' }}>Operational Intent Monograph</div>
                                     <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', lineHeight: '1.65' }}>{currentPillar.desc}</div>
                                 </div>
                             </div>
@@ -222,10 +213,10 @@ export default function WhyJfPage() {
                             {/* Matrix Controller Realtime Status Bar */}
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(13, 148, 136,0.3)', padding: '22px 32px', borderRadius: '22px', border: '1px solid rgba(255,255,255,0.04)', backdropFilter: 'blur(10px)' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                                    <span style={{ color: '#0D9488', display: 'flex', alignItems: 'center' }}>{currentPillar.icon}</span>
+                                    <span style={{ color: 'var(--primary)', display: 'flex', alignItems: 'center' }}>{currentPillar.icon}</span>
                                     <div>
                                         <h2 style={{ fontSize: '20px', fontWeight: '800', color: "var(--text-primary)", margin: '0' }}>{currentPillar.title}</h2>
-                                        <span style={{ fontSize: '12px', color: '#0D9488', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Vector Matrix Node Active</span>
+                                        <span style={{ fontSize: '12px', color: 'var(--primary)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Vector Matrix Node Active</span>
                                     </div>
                                 </div>
                                 <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399', boxShadow: '0 0 12px #34d399' }} />
@@ -252,7 +243,7 @@ export default function WhyJfPage() {
                                         }}
                                     >
                                         {/* Neon Tracker Line Pin */}
-                                        <div style={{ position: 'absolute', top: '-1px', left: '36px', width: '36px', height: '2px', background: 'linear-gradient(90deg, #0D9488, #22d3ee)' }} />
+                                        <div style={{ position: 'absolute', top: '-1px', left: '36px', width: '36px', height: '2px', background: 'linear-gradient(90deg, var(--primary), var(--primary-light))' }} />
 
                                         <div>
                                             {/* Top Indexing Counter Elements */}
@@ -273,7 +264,7 @@ export default function WhyJfPage() {
 
                                         {/* Dynamic Lower Action Tagline */}
                                         <div style={{ fontSize: '13px', color: "var(--text-muted)", fontWeight: '600', display: 'flex', alignItems: 'center', gap: '6px', borderTop: '1px solid rgba(255,255,255,0.03)', paddingTop: '16px', marginTop: '16px' }}>
-                                            <span style={{ color: '#22d3ee', display: 'flex', alignItems: 'center' }}>✦</span> Continuous Architecture Optimization
+                                            <span style={{ color: 'var(--primary-light)', display: 'flex', alignItems: 'center' }}>✦</span> Continuous Architecture Optimization
                                         </div>
                                     </div>
                                 ))}
@@ -284,7 +275,7 @@ export default function WhyJfPage() {
                                 onClick={() => navigate('/contact')}
                                 style={{
                                     width: '100%',
-                                    background: 'linear-gradient(90deg, #0D9488, #111424)',
+                                    background: 'linear-gradient(90deg, var(--primary), #111424)',
                                     border: '1px solid rgba(255,255,255,0.05)',
                                     borderRadius: '20px',
                                     padding: '22px 28px',
@@ -326,12 +317,12 @@ export default function WhyJfPage() {
                         </div>
                         <button onClick={() => navigate('/contact')} style={{
                             padding: '16px 36px', borderRadius: '12px', background: 'transparent',
-                            border: '1.5px solid #0D9488',
+                            border: '1.5px solid var(--primary)',
                             color: "var(--text-primary)", fontSize: '12px', fontWeight: '800', cursor: 'pointer',
                             transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)', letterSpacing: '0.15em', textTransform: 'uppercase',
-                            fontFamily: "'Plus Jakarta Sans', sans-serif"
+                            fontFamily: 'var(--font-family)'
                         }}
-                            onMouseEnter={e => { e.target.style.background = '#0D9488'; e.target.style.boxShadow = '0 8px 24px rgba(13, 148, 136,0.4)'; }}
+                            onMouseEnter={e => { e.target.style.background = 'var(--primary)'; e.target.style.boxShadow = '0 8px 24px rgba(13, 148, 136,0.4)'; }}
                             onMouseLeave={e => { e.target.style.background = 'transparent'; e.target.style.boxShadow = 'none'; }}>
                             Book A Free Strategy Block
                         </button>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
+import { Laptop, Users, BarChart3, ArrowRight, Check } from 'lucide-react';
 
 const navigate = (href) => {
     window.history.pushState({}, '', href);
@@ -6,387 +7,381 @@ const navigate = (href) => {
 };
 
 export default function ServiceGrid() {
-    const [focusedCard, setFocusedCard] = useState(2); // Default to Finance initially
-    const [progress, setProgress] = useState(0);
-    const [isHovered, setIsHovered] = useState(false);
-    const progressIntervalRef = useRef(null);
-
     const services = [
         {
-            icon: (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="3" width="20" height="14" rx="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" />
-                </svg>
-            ),
+            icon: <Laptop size={28} strokeWidth={1.5} />,
             label: 'E-Learning',
             title: 'E-Learning & Digital Learning Solutions',
-            tagline: 'Full-service digital learning powerhouse',
-            desc: 'We design, develop, and deploy cutting-edge learning experiences tailored to your organisation\'s unique goals. From SCORM modules to LMS implementations.',
-            color: '#0D9488',
-            glow: 'rgba(7, 89, 82, 0.15)',
+            desc: 'We design, develop, and deploy cutting-edge learning experiences tailored to your organisation\'s unique goals.',
             href: '/e-learning',
-            image: '/assets/images/about/1.png', // Maintained semantic reference paths
+            bgImage: '/assets/images/about/elearning.png',
             bullets: [
-                'Instructor-Led & Virtual ILT Training (VILT)',
-                'Microlearning & Mobile-First Content',
-                'Custom SCORM / xAPI eLearning Modules',
-                'LMS Implementation & Configuration',
-                'Gamification & Learning Experience Platforms',
-                'Content Strategy & Instructional Design',
+                'Instructor-led & VILT programmes',
+                'Microlearning & mobile-first modules',
+                'LMS implementation & integrations',
             ]
         },
         {
-            icon: (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-            ),
+            icon: <Users size={28} strokeWidth={1.5} />,
             label: 'Recruitment',
             title: 'Recruitment, Staffing & Talent Solutions',
-            tagline: 'End-to-end global talent partner',
-            desc: 'We deliver permanent placement, contract staffing, staff augmentation, and executive search services across the US, UK, Europe, and GCC with a 48-hour shortlist promise.',
-            color: '#22d3ee',
-            glow: 'rgba(34, 211, 238, 0.15)',
+            desc: 'We deliver permanent placement, contract staffing, staff augmentation, and executive search with rapid shortlists.',
             href: '/recruitment-staffing',
-            image: '/assets/images/about/2.png',
+            bgImage: '/assets/images/about/recruitment.png',
             bullets: [
-                'Permanent Placement & Direct Hire (90-day guarantee)',
-                'Contract & Temporary Staffing (24–72hr deployment)',
-                'IT & Non-IT Staff augmentation',
-                'Executive Search & C-Suite Leadership Hiring',
-                'Managed Staffing / RPO Solutions',
-                'GCC, US, UK & European Market Specialists',
+                'Permanent & contract hiring',
+                'Fast shortlists (48h)',
+                'Executive search & leadership hires',
             ]
         },
         {
-            icon: (
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-            ),
-            label: 'Finance',
+            icon: <BarChart3 size={28} strokeWidth={1.5} />,
+            label: 'Financial Consultancy',
             title: 'Financial Consultancy & Accounting Services',
-            tagline: 'Big Four-grade expertise, startup agility',
-            desc: 'Our qualified Chartered Accountants and CPAs deliver end-to-end financial services — from cloud bookkeeping to fractional CFO leadership — ensuring clarity and compliance.',
-            color: '#34d399',
-            glow: 'rgba(52, 211, 153, 0.15)',
+            desc: 'Qualified accountants delivering bookkeeping, reporting and fractional CFO services.',
             href: '/financial-consultancy',
-            image: '/assets/images/about/3.png',
+            bgImage: '/assets/images/about/financial.png',
             bullets: [
-                'Accounting, Bookkeeping & Cloud Financials',
-                'Financial Reporting & Management Accounts',
-                'Tax Planning, VAT/GST & Corporate Tax Compliance',
-                'Payroll Management & HR Compliance',
-                'Budgeting, Forecasting & Financial Modelling',
-                'Fractional CFO & Finance Function Outsourcing',
+                'Cloud bookkeeping & reporting',
+                'Tax & compliance advisory',
+                'Fractional CFO services',
             ]
         }
     ];
 
-    useEffect(() => {
-        if (isHovered) {
-            clearInterval(progressIntervalRef.current);
-            return;
-        }
-
-        setProgress(0);
-        const duration = 15000; // 15 seconds
-        const intervalStep = 100;
-        let elapsed = 0;
-
-        progressIntervalRef.current = setInterval(() => {
-            elapsed += intervalStep;
-            setProgress(Math.min((elapsed / duration) * 100, 100));
-
-            if (elapsed >= duration) {
-                setFocusedCard((prev) => (prev + 1) % services.length);
-            }
-        }, intervalStep);
-
-        return () => clearInterval(progressIntervalRef.current);
-    }, [focusedCard, isHovered]);
-
     return (
         <>
             <style>{`
-                    .bento-flex-container {
-                        display: flex;
-                        gap: 24px;
-                        width: 100%;
-                        min-height: 640px;
-                        align-items: stretch;
-                    }
-                    @media (max-width: 991px) {
-                        .bento-flex-container {
-                            flex-direction: column;
-                            min-height: auto;
-                        }
-                    }
-                    .bento-card {
-                        position: relative;
-                        background: rgba(153, 153, 210, 0.4);
-                        border: 1px solid rgba(255, 255, 255, 0.08);
-                        border-radius: 28px;
-                        padding: 40px 32px;
-                        cursor: pointer;
-                        display: flex;
-                        flex-direction: column;
-                        overflow: hidden;
-                        flex: 1;
-                        transition: flex 0.75s cubic-bezier(0.25, 1, 0.3, 1), 
-                                    background 0.4s ease, 
-                                    border-color 0.4s ease,
-                                    box-shadow 0.4s ease;
-                    }
-                    .bento-card.focused {
-                        flex: 1.8;
-                        background: rgba(153, 153, 210, 0.4);
-                        border-color: var(--card-color);
-                        box-shadow: 0 20px 50px var(--card-glow);
-                        backdrop-filter: blur(8px);
-                    }
-                    @media (max-width: 991px) {
-                        .bento-card.focused {
-                            flex: none;
-                        }
-                    }
-                    .bento-bg-image {
-                        position: absolute;
-                        inset: 0;
-                        background-size: cover;
-                        background-position: center;
-                        opacity: 0;
-                        transition: opacity 0.6s ease;
-                        pointer-events: none;
-                        z-index: 0;
-                    }
-                    .bento-card.focused .bento-bg-image {
-                        opacity: 0.85;
-                    }
-                    .bento-content-wrap {
-                        position: relative;
-                        z-index: 1;
-                        display: flex;
-                        flex-direction: column;
-                        height: 100%;
-                        flex-grow: 1;
-                    }
-                    .icon-box {
-                        display: inline-flex;
-                        padding: 14px;
-                        border-radius: 18px;
-                        background: rgba(255, 255, 255, 0.05);
-                        color: var(--card-color);
-                        margin-bottom: 32px;
-                        transition: all 0.4s ease;
-                        width: max-content;
-                    }
-                    .bento-card.focused .icon-box {
-                        background: var(--card-glow);
-                        transform: scale(1.05);
-                    }
-                    .bullet-list {
-                        max-height: 0;
-                        opacity: 0;
-                        overflow: hidden;
-                        transition: max-height 0.6s cubic-bezier(0.25, 1, 0.3, 1), opacity 0.4s ease;
-                    }
-                    .bento-card.focused .bullet-list {
-                        max-height: 600px;
-                        opacity: 1;
-                        margin-top: 28px;
-                        margin-bottom: 24px;
-                    }
-                    .bento-bullet {
-                        display: flex;
-                        align-items: flex-start;
-                        gap: 12px;
-                        font-size: 14px;
-                        color: rgba(255, 255, 255, 0.95);
-                        padding: 11px 0;
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-                        transform: translateY(10px);
-                        opacity: 0;
-                        transition: all 0.4s ease;
-                    }
-                    .bento-card.focused .bento-bullet {
-                        transform: translateY(0);
-                        opacity: 1;
-                    }
-                    .bento-card.focused .bento-bullet:nth-child(1) { transition-delay: 0.1s; }
-                    .bento-card.focused .bento-bullet:nth-child(2) { transition-delay: 0.15s; }
-                    .bento-card.focused .bento-bullet:nth-child(3) { transition-delay: 0.2s; }
-                    .bento-card.focused .bento-bullet:nth-child(4) { transition-delay: 0.25s; }
-                    .bento-card.focused .bento-bullet:nth-child(5) { transition-delay: 0.3s; }
-                    .bento-card.focused .bento-bullet:nth-child(6) { transition-delay: 0.35s; }
+                .sg-section {
+                    padding: 96px 0;
+                    font-family: var(--font-family);
+                    position: relative;
+                    isolation: isolate;
+                    background:
+                        linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.82) 100%),
+                        url('/assets/images/about/servicebg.png') center / cover no-repeat;
+                }
 
-                    .action-btn {
-                        margin-top: auto;
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 10px;
-                        padding: 16px 28px;
-                        border-radius: 14px;
-                        font-size: 13px;
-                        font-weight: 700;
-                        text-transform: uppercase;
-                        letter-spacing: 0.08em;
-                        border: none;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                        text-decoration: none;
-                        color: white;
-                        width: 100%;
-                        opacity: 0;
-                        visibility: hidden;
-                        transform: translateY(15px);
-                    }
-                    .bento-card.focused .action-btn {
-                        opacity: 1;
-                        visibility: visible;
-                        transform: translateY(0);
-                        transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s, background 0.3s ease, box-shadow 0.3s ease;
-                    }
-                    .action-btn:hover {
-                        box-shadow: 0 10px 25px var(--card-glow);
-                        transform: translateY(-2px) !important;
-                    }
-                    .ticker-track {
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 4px;
-                        background: rgba(255, 255, 255, 0.04);
-                    }
-                    .ticker-bar {
-                        height: 100%;
-                        background: var(--card-color);
-                        width: 0%;
-                        transition: width 0.1s linear;
-                    }
-                `}</style>
+                .sg-container {
+                    max-width: 1280px;
+                    margin: 0 auto;
+                    padding: 0 max(24px, 4vw);
+                }
 
-            <section
-                style={{
-                    background: 'linear-gradient(90deg, #FEDCB4 0%, #D3F0EC 50%, #E1F2C6 100%)',
-                    padding: '140px 24px',
-                    width: '100%',
-                    boxSizing: 'border-box',
-                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    animation: 'grid-pulse-glow 12s infinite ease-in-out'
-                }}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+                .sg-header {
+                    text-align: center;
+                    max-width: 720px;
+                    margin: 0 auto 56px;
+                }
 
-            >
-                <div style={{ position: 'absolute', top: '20%', left: '50%', transform: 'translate(-50%, -50%)', width: '900px', height: '900px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(13, 148, 136,0.03) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                .sg-headline {
+                    font-size: clamp(34px, 4vw, 52px);
+                    font-weight: 800;
+                    letter-spacing: -0.03em;
+                    color: var(--text-on-light);
+                    margin: 12px 0 16px;
+                    line-height: 1.08;
+                }
 
-                <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+                .sg-desc {
+                    font-size: 16px;
+                    color: var(--text-on-light-muted);
+                    line-height: 1.8;
+                    margin: 0 auto;
+                    max-width: 680px;
+                }
 
-                    {/* Header Space */}
-                    <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-                        <span style={{ display: 'inline-block', fontSize: '11px', fontWeight: '700', color: '#0D9488', textTransform: 'uppercase', letterSpacing: '0.25em', marginBottom: '16px', background: 'rgba(13, 148, 136,0.08)', padding: '6px 18px', borderRadius: '100px', border: '1px solid rgba(13, 148, 136,0.18)' }}>
-                            Core Capabilities
-                        </span>
-                        <h2 style={{ fontSize: 'clamp(34px, 5vw, 56px)', fontWeight: '800', color: "var(--text-primary)", margin: '0 0 20px 0', letterSpacing: '-0.03em', lineHeight: 1.15, textAlign: 'center' }}>
-                            Three Divisions. <span style={{ background: 'linear-gradient(90deg, #0D9488 0%, #22d3ee 50%, #34d399 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Infinite Scalability.</span>
-                        </h2>
-                        <p style={{ fontSize: '16px', color: 'rgba(211, 103, 45, 0.55)', maxWidth: '640px', lineHeight: 1.6, margin: '0 auto' }}>
-                            One unified partner engine accelerating your strategic hyper-growth objectives across learning assets, talent engineering, and institutional finances.
-                        </p>
+                .sg-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                    gap: 28px;
+                }
+
+                .sg-card {
+                    background: linear-gradient(145deg, rgba(8, 15, 34, 0.96) 0%, rgba(15, 23, 55, 0.9) 100%),
+                        url('/assets/images/about/card bg.png') center / cover no-repeat;
+                    border: 1px solid rgba(15, 23, 55, 0.12);
+                    border-radius: 32px;
+                    padding: 28px;
+                    display: grid;
+                    grid-template-rows: auto 1fr auto;
+                    cursor: pointer;
+                    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+                    min-height: 620px;
+                    box-shadow: 0 24px 60px rgba(15, 23, 55, 0.12);
+                    overflow: hidden;
+                }
+
+                .sg-card:hover {
+                    border-color: rgba(37, 99, 235, 0.35);
+                    box-shadow: 0 28px 80px rgba(37, 99, 235, 0.12);
+                    transform: translateY(-4px);
+                }
+
+                .sg-card-content {
+                    display: grid;
+                    gap: 20px;
+                }
+
+                .sg-card-image {
+                    height: 360px;
+                    border-radius: 24px;
+                    background-size: cover;
+                    background-position: center;
+                    overflow: hidden;
+                    position: relative;
+                    margin-top: 0;
+                    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+                }
+
+                .sg-card-image::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.22) 100%);
+                }
+
+                /* icon overlay removed per design — previously top-right */
+
+                .sg-label-capsule {
+                    position: absolute;
+                    top: 16px;
+                    right: 16px;
+                    padding: 8px 12px;
+                    border-radius: 999px;
+                    background: rgba(255,255,255,0.95);
+                    backdrop-filter: blur(6px);
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: #1e3a8a;
+                    z-index: 3;
+                    box-shadow: 0 8px 20px rgba(15,23,55,0.12);
+                }
+
+                .sg-card-top { display: none; }
+
+                .sg-card {
+                    min-height: 620px;
+                    display: grid;
+                    grid-template-rows: auto 1fr auto;
+                }
+
+                .sg-card-content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 18px;
+                    padding-top: 20px;
+                }
+
+                .sg-bullet-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .sg-bullet-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-size: 14px;
+                    color: rgba(255, 255, 255, 0.9);
+                }
+
+                .sg-bullet-check {
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 4px;
+                    background: rgba(34,197,94,0.12);
+                    color: #16a34a;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                }
+
+                .sg-icon-wrap {
+                    width: 52px;
+                    height: 52px;
+                    border-radius: 12px;
+                    background: var(--primary-muted);
+                    color: var(--primary-light);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .sg-card-num {
+                    font-size: 12px;
+                    font-weight: 700;
+                    letter-spacing: 0.14em;
+                    color: var(--text-on-light-faint);
+                }
+
+                .sg-card-label {
+                    font-size: 11px;
+                    font-weight: 700;
+                    letter-spacing: 0.16em;
+                    text-transform: uppercase;
+                    color: var(--primary-light);
+                    margin-bottom: 8px;
+                }
+
+                .sg-card-title {
+                    font-size: 20px;
+                    font-weight: 700;
+                    color: #ffffff;
+                    margin-bottom: 12px;
+                    line-height: 1.25;
+                    letter-spacing: -0.02em;
+                }
+
+                .sg-card-desc {
+                    font-size: 14px;
+                    color: rgba(255, 255, 255, 0.85);
+                    line-height: 1.7;
+                    margin-bottom: 20px;
+                    flex: 1;
+                }
+
+                .sg-bullet-dot {
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 50%;
+                    background: var(--gold);
+                    flex-shrink: 0;
+                    margin-top: 6px;
+                }
+
+                .sg-card-link {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    font-size: 13px;
+                    font-weight: 600;
+                    color: #60a5fa;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0;
+                    font-family: var(--font-family);
+                    transition: gap 0.2s ease;
+                    margin-top: auto;
+                }
+
+                .sg-card-link:hover { gap: 12px; }
+
+                .sg-bottom-bar {
+                    margin-top: 56px;
+                    padding-top: 40px;
+                    border-top: 1px solid var(--border-light);
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 32px;
+                    flex-wrap: wrap;
+                }
+
+                .sg-bottom-stats {
+                    display: flex;
+                    gap: 48px;
+                    flex-wrap: wrap;
+                }
+
+                .sg-stat-val {
+                    font-size: 28px;
+                    font-weight: 800;
+                    color: var(--text-on-light);
+                    letter-spacing: -0.03em;
+                    line-height: 1;
+                }
+
+                .sg-stat-lbl {
+                    font-size: 11px;
+                    font-weight: 600;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    color: var(--text-on-light-faint);
+                    margin-top: 4px;
+                }
+
+                @media (max-width: 960px) {
+                    .sg-grid { grid-template-columns: 1fr; }
+                    .sg-bottom-stats { gap: 28px; }
+                }
+            `}</style>
+
+           <section className="sg-section theme-section theme-section--light">
+    <div className="sg-container">
+        <div className="sg-header section-intro">
+            <span className="jf-overline">Core Capabilities</span>
+            <h2 className="sg-headline section-title" style={{ fontWeight: 700, color: 'var(--primary)' }}>
+                Three Divisions.
+                 Infinite Scalability.
+            </h2>
+            <p className="sg-desc section-copy">
+                One unified partner engine accelerating your strategic hyper-growth
+                objectives across learning assets, talent engineering, and
+                institutional finances — globally.
+            </p>
+        </div>
+
+        <div className="sg-grid">
+            {services.map((s, i) => (
+                <div
+                    key={i}
+                    className="sg-card"
+                    onClick={() => navigate(s.href)}
+                >
+                    <div className="sg-card-image" style={{ backgroundImage: `url('${s.bgImage}')` }}>
+                        <div className="sg-label-capsule">{s.label}</div>
                     </div>
-
-                    {/* Interactive Fluid Component Space */}
-                    <div className="bento-flex-container">
-                        {services.map((s, i) => {
-                            const isFocused = focusedCard === i;
-                            return (
-                                <div
-                                    key={i}
-                                    className={`bento-card ${isFocused ? 'focused' : ''}`}
-                                    style={{ '--card-color': s.color, '--card-glow': s.glow }}
-                                    onClick={() => setFocusedCard(i)}
-                                >
-                                    {/* Top ambient glow ray */}
-                                    <div style={{ position: 'absolute', top: 0, left: '10%', right: '10%', height: '1px', background: isFocused ? `linear-gradient(90deg, transparent, ${s.color}, transparent)` : 'transparent', filter: 'blur(1px)' }} />
-
-                                    {/* Compounded Layer: Black-10 protecting gradient explicitly layered cleanly over the top of the image source */}
-                                    <div
-                                        className="bento-bg-image"
-                                        style={{
-                                            backgroundImage:
-
-                                                `linear-gradient(
-                180deg,
-                rgba(13, 148, 136, 0.90) 0%,
-                rgba(13, 148, 136, 0.75) 15%,
-                rgba(24, 28, 32, 0.90) 35%,
-                rgba(15, 17, 19, 1.0) 100%
-            ),
-            url(${s.image})`
-                                        }}
-                                    />
-
-                                    {/* Component Content Container */}
-                                    <div className="bento-content-wrap">
-                                        <div>
-                                            <div className="icon-box">
-                                                {s.icon}
-                                            </div>
-                                            <span style={{ fontSize: '11px', fontWeight: '700', color: s.color, textTransform: 'uppercase', letterSpacing: '0.15em', display: 'block', marginBottom: '8px' }}>
-                                                {s.label}
-                                            </span>
-                                            <h3 style={{ fontSize: '24px', fontWeight: '700', color: "#29c9c6ff", margin: '0 0 14px 0', lineHeight: 1.3 }}>
-                                                {s.title}
-                                            </h3>
-                                            <p style={{ fontSize: '14.5px', color: isFocused ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)', lineHeight: 1.65, margin: 0, transition: 'color 0.4s ease' }}>
-                                                {s.desc}
-                                            </p>
-                                        </div>
-
-                                        {/* Expandable Core Features list */}
-                                        <div className="bullet-list">
-                                            <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)', marginBottom: '12px' }} />
-                                            {s.bullets.map((bullet, idx) => (
-                                                <div key={idx} className="bento-bullet">
-                                                    <span style={{ color: s.color, fontWeight: '900', fontSize: '15px', lineHeight: 1 }}>✓</span>
-                                                    {bullet}
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                        {/* Route Action Anchor */}
-                                        <button
-                                            className="action-btn"
-                                            style={{ background: s.color }}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                navigate(s.href);
-                                            }}
-                                        >
-                                            Explore {s.label}
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-                                            </svg>
-                                        </button>
-                                    </div>
-
-                                    {/* Tech Loader Track Timeline */}
-                                    {isFocused && (
-                                        <div className="ticker-track">
-                                            <div className="ticker-bar" style={{ width: `${progress}%` }} />
-                                        </div>
-                                    )}
+                    <div className="sg-card-content">
+                        <h3 className="sg-card-title">{s.title}</h3>
+                        <div className="sg-bullet-list">
+                            {s.bullets?.map((b, bi) => (
+                                <div key={bi} className="sg-bullet-item">
+                                    <span className="sg-bullet-check">
+                                        <Check size={12} strokeWidth={2} />
+                                    </span>
+                                    <span>{b}</span>
                                 </div>
-                            );
-                        })}
+                            ))}
+                        </div>
+                        <p className="sg-card-desc" style={{ marginTop: 8 }}>{s.desc}</p>
                     </div>
+                    <button className="sg-card-link" onClick={(e) => { e.stopPropagation(); navigate(s.href); }}>
+                        Explore Division <ArrowRight size={14} />
+                    </button>
                 </div>
-            </section>
+            ))}
+        </div>
+
+        <div className="sg-bottom-bar">
+            <div className="sg-bottom-stats">
+                {[
+                    { val: '92%+', lbl: 'Talent Retention' },
+                    { val: '48h', lbl: 'Time-to-Shortlist' },
+                    { val: '30+', lbl: 'Languages Delivered' },
+                    { val: 'Big 4', lbl: 'Grade Financial Expertise' },
+                ].map((s, i) => (
+                    <div key={i}>
+                        <div className="sg-stat-val">{s.val}</div>
+                        <div className="sg-stat-lbl">{s.lbl}</div>
+                    </div>
+                ))}
+            </div>
+            <button className="jf-btn-outline" onClick={() => navigate('/contact')}>
+                Start a Conversation
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>
         </>
     );
 }
