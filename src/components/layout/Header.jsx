@@ -143,7 +143,7 @@ export default function Header() {
 
                 .jf-nav-link:hover,
                 .nav-item-container.active .jf-nav-link {
-                    color: var(--text-primary);
+                    color: var(--text-placeholder);
                 }
 
                 .jf-dropdown-menu {

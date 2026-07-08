@@ -58,7 +58,11 @@ export default function ServiceGrid() {
                     position: relative;
                     isolation: isolate;
                     background:
-                        linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.82) 100%),
+                       linear-gradient(
+135deg,
+rgba(222, 232, 248, 0.82) 0%,
+rgba(195, 210, 232, 0.68) 100%
+),
                         url('/assets/images/about/servicebg.png') center / cover no-repeat;
                 }
 
