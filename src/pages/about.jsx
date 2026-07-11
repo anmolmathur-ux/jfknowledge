@@ -11,32 +11,32 @@ export default function AboutPage() {
     const [activeIndex, setActiveIndex] = useState(0);
 
     // Wheel Layout Configurations
-    const wheelSize = 650; 
+    const wheelSize = 650;
     const items = [
-        { 
-            title: 'Excellence', 
+        {
+            title: 'Excellence',
             text: 'We pursue the highest standards in everything we deliver.',
-            img: '/assets/images/about/1.webp' 
+            img: '/assets/images/about/1.webp'
         },
-        { 
-            title: 'Innovation', 
+        {
+            title: 'Innovation',
             text: 'We continuously evolve our solutions to stay ahead of industry trends.',
-            img: '/assets/images/about/2.jpg' 
+            img: '/assets/images/about/2.jpg'
         },
-        { 
-            title: 'Integrity', 
+        {
+            title: 'Integrity',
             text: 'We operate with transparency, honesty, and accountability.',
-            img: '/assets/images/about/3.jpg' 
+            img: '/assets/images/about/3.jpg'
         },
-        { 
-            title: 'Partnership', 
+        {
+            title: 'Partnership',
             text: 'We build long-term relationships grounded in mutual trust.',
-            img: '/assets/images/about/4.jpg' 
+            img: '/assets/images/about/4.jpg'
         },
-        { 
-            title: 'Impact', 
+        {
+            title: 'Impact',
             text: 'We measure our success by the tangible outcomes we create for our clients.',
-            img: '/assets/images/about/5.jpg' 
+            img: '/assets/images/about/5.jpg'
         }
     ];
 
@@ -64,14 +64,14 @@ export default function AboutPage() {
         <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--bg-main)', fontFamily: 'var(--font-family)' }}>
             <Header />
             <main style={{ flex: 1, overflow: 'hidden', position: 'relative', paddingTop: '80px' }}>
-                
+
                 {/* ENHANCED HERO SECTION */}
                 <section className="page-hero-shell theme-section theme-section--light" style={{ position: 'relative', overflow: 'hidden', padding: 0 }}>
                     <div className="page-hero-media" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, overflow: 'hidden' }}>
-                        <video 
-                            autoPlay 
-                            loop 
-                            muted 
+                        <video
+                            autoPlay
+                            loop
+                            muted
                             playsInline
                             style={{
                                 position: "absolute",
@@ -84,17 +84,17 @@ export default function AboutPage() {
                                 transform: 'none'
                             }}
                         >
-                            <source src="/assets/images/about/about.mp4" type="video/mp4" />
+                            <source src="/assets/images/about/about2.mp4" type="video/mp4" />
                         </video>
-                        <div 
-                          className="hero-video-gradient"
-                          style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            background: `
+                        <div
+                            className="hero-video-gradient"
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                background: `
                             linear-gradient(
                             180deg,
                             rgba(0,0,0,.08) 0%,
@@ -103,8 +103,8 @@ export default function AboutPage() {
                             rgba(0,0,0,.28) 100%
                             )
                             `,
-                            pointerEvents: 'none'
-                          }}
+                                pointerEvents: 'none'
+                            }}
                         />
                         <div style={{
                             position: "absolute",
@@ -113,7 +113,7 @@ export default function AboutPage() {
                             width: "100%",
                             height: 100,
                             background: "linear-gradient(180deg, transparent, #060B17)"
-                        }}/>
+                        }} />
                     </div>
 
                     {/* Exact One Screen Fit Layout Container - Realigned Left */}
@@ -141,7 +141,7 @@ export default function AboutPage() {
                             left: "0px",
                             top: "20%",
                             zIndex: -1
-                        }}/>
+                        }} />
 
                         {/* Tagline Above - Left Aligned */}
                         <div style={{
@@ -164,7 +164,7 @@ export default function AboutPage() {
                                 height: 8,
                                 borderRadius: "50%",
                                 background: "#FDB515"
-                            }}/>
+                            }} />
                             <span>Corporate Learning • Leadership • Business Growth</span>
                         </div>
 
@@ -180,7 +180,7 @@ export default function AboutPage() {
                             margin: 0
                         }}>
                             Empowering Talent. <span style={{ color: '#fff' }}>Enabling Growth.</span>
-                            <span className="gold" style={{ display: 'block', color: "#FDB515" }}>Elevating Business.</span>
+                            <span className="gold" style={{ display: 'block', color: "#3B82F6" }}>Elevating Business.</span>
                         </h1>
 
                         {/* Description - Left Aligned */}
@@ -202,8 +202,8 @@ export default function AboutPage() {
                             marginTop: 40
                         }}>
                             <button style={{
-                                background: "#FDB515",
-                                color: "#111",
+                                background: "#3B82F6",
+                                color: "#ffffff",
                                 height: 54,
                                 padding: "0 30px",
                                 borderRadius: "999px",
@@ -235,44 +235,44 @@ export default function AboutPage() {
                 </section>
 
                 {/* MIDDLE CONTENT SECTION - FIXED ACCORDING TO REFERENCE IMAGE */}
-                <section 
-                    className="theme-section theme-section--light" 
-                    style={{ 
+                <section
+                    className="theme-section theme-section--light"
+                    style={{
                         padding: '120px 24px',
                         /* Abstract matrix/line decoration applied here to wrap behind elements flawlessly */
-                        backgroundImage: 'url("/assets/images/about/servicebg.png")', 
-                        backgroundSize: 'cover', 
+                        backgroundImage: 'url("/assets/images/about/servicebg.png")',
+                        backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat'
                     }}
                 >
-                    <div style={{ 
-                        maxWidth: '1280px', 
-                        margin: '0 auto', 
-                        display: 'flex', 
-                        flexDirection: 'row', 
+                    <div style={{
+                        maxWidth: '1280px',
+                        margin: '0 auto',
+                        display: 'flex',
+                        flexDirection: 'row',
                         flexWrap: 'wrap-reverse',
-                        gap: '64px', 
-                        alignItems: 'center' 
+                        gap: '64px',
+                        alignItems: 'center'
                     }}>
-                        
+
                         {/* Left Side: Dark Blue Base Panel containing the Cards */}
-                        <div style={{ 
-                            flex: '1.4 1 500px', 
-                            display: 'grid', 
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
+                        <div style={{
+                            flex: '1.4 1 500px',
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
                             gap: '24px',
                             /* Dark blue housing panel container from image reference */
-                            background: 'linear-gradient(180deg, #051334 0%, #020b24 100%)', 
-                            padding: '40px', 
+                            background: 'linear-gradient(180deg, #051334 0%, #020b24 100%)',
+                            padding: '40px',
                             borderRadius: '24px',
                             boxShadow: '0 25px 60px rgba(2, 11, 36, 0.16)'
                         }}>
-                            
+
                             {/* Mission Card */}
-                            <div 
-                                style={{ 
-                                    padding: '44px 32px', 
+                            <div
+                                style={{
+                                    padding: '44px 32px',
                                     borderRadius: '20px',
                                     background: 'rgba(255, 255, 255, 0.93)',
                                     backdropFilter: 'blur(10px)',
@@ -284,11 +284,11 @@ export default function AboutPage() {
                                     To empower organisations and individuals with innovative learning experiences, world-class talent solutions, and strategic financial expertise — enabling them to thrive in a rapidly evolving global landscape.
                                 </p>
                             </div>
-                            
+
                             {/* Vision Card */}
-                            <div 
-                                style={{ 
-                                    padding: '44px 32px', 
+                            <div
+                                style={{
+                                    padding: '44px 32px',
                                     borderRadius: '20px',
                                     background: 'rgba(255, 255, 255, 0.93)',
                                     backdropFilter: 'blur(10px)',
@@ -303,15 +303,15 @@ export default function AboutPage() {
                         </div>
 
                         {/* Right Side: Bold Structural Typography Title */}
-                        <div style={{ 
-                            flex: '1 1 400px', 
+                        <div style={{
+                            flex: '1 1 400px',
                             textAlign: 'left'
                         }}>
-                            <h2 style={{ 
-                                color: '#0f172a', 
-                                fontSize: 'clamp(32px, 3.8vw, 46px)', 
-                                fontWeight: '850', 
-                                lineHeight: 1.2, 
+                            <h2 style={{
+                                color: '#20459cff',
+                                fontSize: 'clamp(32px, 3.8vw, 46px)',
+                                fontWeight: '850',
+                                lineHeight: 1.2,
                                 margin: 0,
                                 letterSpacing: '-0.02em'
                             }}>
@@ -323,20 +323,20 @@ export default function AboutPage() {
                 </section>
 
                 {/* HOLLOW WHEEL SECTION */}
-                <section 
-                    className="theme-section theme-section--dark" 
-                    style={{ 
-                        padding: '100px 24px', 
-                        display: 'flex', 
-                        flexDirection: 'column', 
+                <section
+                    className="theme-section theme-section--dark"
+                    style={{
+                        padding: '100px 24px',
+                        display: 'flex',
+                        flexDirection: 'column',
                         alignItems: 'center',
-                        backgroundImage: ' url("/assets/images/about/principlebg.jpg")',
+                        backgroundImage: ' url("/assets/images/about/cta.png")',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center'
                     }}
                 >
                     <div style={{ maxWidth: '1080px', margin: '0 auto', textAlign: 'center' }}>
-                        <h2 className="section-title" style={{ color: 'var(--text-primary)', marginTop: '16px', fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: '800' }}>
+                        <h2 className="section-title" style={{ color: 'white', textShadow: '', marginTop: '16px', fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: '800' }}>
                             The principles that guide every engagement.
                         </h2>
                     </div>
@@ -363,7 +363,7 @@ export default function AboutPage() {
                                 {items.map((item, index) => {
                                     const slicesCount = items.length;
                                     const angleStep = 360 / slicesCount;
-                                    const gapSpacing = 4; 
+                                    const gapSpacing = 4;
                                     const startAngle = (index * angleStep) - 90 + (gapSpacing / 2);
                                     const endAngle = ((index + 1) * angleStep) - 90 - (gapSpacing / 2);
                                     const isSelected = activeIndex === index;
@@ -373,12 +373,12 @@ export default function AboutPage() {
                                     const pathData = getAnnularSectorPath(325, 325, INNER_RADIUS, OUTER_RADIUS, startAngle, endAngle);
 
                                     return (
-                                        <g 
-                                            key={index} 
+                                        <g
+                                            key={index}
                                             onMouseEnter={() => setActiveIndex(index)}
                                             onClick={() => setActiveIndex(index)}
                                             filter="drop-shadow(0 0 8px rgba(0,0,0,.35))"
-                                            style={{ 
+                                            style={{
                                                 cursor: 'pointer',
                                                 transformOrigin: "325px 325px",
                                                 transform: isSelected ? "scale(1.03)" : "scale(1)",
@@ -399,7 +399,7 @@ export default function AboutPage() {
                             </g>
                         </svg>
 
-                        <div style={{ position: "absolute", width: 230, height: 230, borderRadius: "50%", background: "radial-gradient(circle, rgba(168,85,247,.25), transparent 70%)", filter: "blur(18px)", zIndex: 2 }}/>
+                        <div style={{ position: "absolute", width: 230, height: 230, borderRadius: "50%", background: "radial-gradient(circle, rgba(168,85,247,.25), transparent 70%)", filter: "blur(18px)", zIndex: 2 }} />
 
                         <div style={{
                             position: 'absolute', zIndex: 10, width: 190, height: 190, borderRadius: '50%',
@@ -421,11 +421,11 @@ export default function AboutPage() {
                             const isSelected = activeIndex === index;
 
                             return (
-                                <div 
-                                    key={index} 
+                                <div
+                                    key={index}
                                     onMouseEnter={() => setActiveIndex(index)}
                                     onClick={() => setActiveIndex(index)}
-                                    style={{ 
+                                    style={{
                                         position: 'absolute', left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)`, zIndex: 5, width: '180px', textAlign: 'center',
                                         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', userSelect: 'none', pointerEvents: 'auto',
                                         transform: isSelected ? "translate(-50%,-50%) scale(1.08)" : "translate(-50%,-50%) scale(1)", transition: "all .35s ease"
@@ -441,7 +441,7 @@ export default function AboutPage() {
                 </section>
 
                 {/* BOTTOM CALL TO ACTION */}
-                <section className="theme-section" style={{ padding: '80px 24px 140px', background: 'url("/assets/images/about/about.webp") center/cover no-repeat' }}>
+                <section className="theme-section" style={{ padding: '80px 24px 140px', background: 'url("/assets/images/about/aboutcta.jpg") center/cover no-repeat' }}>
                     <div style={{ maxWidth: '1080px', margin: '0 auto', textAlign: 'center' }}>
                         <div className="section-panel" style={{ padding: '64px 40px', background: 'rgba(9, 13, 22, 0.75)', backdropFilter: 'blur(12px)', borderRadius: '24px', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
                             <h2 className="section-title" style={{ color: 'var(--text-primary, #ffffff)', fontWeight: '800' }}>Book an Appointment</h2>

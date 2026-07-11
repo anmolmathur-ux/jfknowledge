@@ -1,4 +1,14 @@
 import React, { useState } from 'react';
+import {
+    GraduationCap,
+    Users,
+    TrendingUp,
+    User,
+    Mail,
+    Building,
+    ShieldCheck,
+    ArrowRight
+} from 'lucide-react';
 
 // Minimal setup navigation hook as provided in the core project configuration
 const navigate = (href) => {
@@ -10,9 +20,9 @@ export default function CTASectionVibrant() {
     const [selectedFocus, setSelectedFocus] = useState('learning');
 
     const options = [
-        { key: 'learning', label: 'Corporate E-Learning Development', icon: '🎓' },
-        { key: 'staffing', label: 'Talent Sourcing', icon: '👥' },
-        { key: 'finance', label: 'Financial Strategy', icon: '📊' },
+        { key: 'learning', label: 'Corporate Learning', icon: GraduationCap, color: '#3B82F6', glow: 'rgba(59,130,246,0.35)' },
+        { key: 'talent', label: 'Talent', icon: Users, color: '#A855F7', glow: 'rgba(168,85,247,0.35)' },
+        { key: 'finance', label: 'Finance', icon: TrendingUp, color: '#10B981', glow: 'rgba(16,185,129,0.35)' },
     ];
 
     return (
@@ -20,75 +30,95 @@ export default function CTASectionVibrant() {
             <style>{`
                 :root {
                     --vibrant-font: 'Inter', system-ui, -apple-system, sans-serif;
-                    --vibrant-bg: #07101f;
-                    --vibrant-card-bg: rgba(14, 22, 40, 0.78);
+                    --vibrant-bg: #050c1c;
                     --vibrant-text: #ffffff;
-                    --vibrant-text-muted: rgba(255, 255, 255, 0.72);
-                    
-                    /* Dynamic Color Triggers */
-                    --color-blue: #3b82f6;
-                    --color-purple: #a855f7;
-                    --color-gold: #eab308;
                 }
 
                 .vibrant-section {
-                    padding: 120px 0;
+                    padding: 100px 0;
                     font-family: var(--vibrant-font);
                     position: relative;
                     overflow: hidden;
                     color: var(--vibrant-text);
+                    background-color: var(--vibrant-bg);
                 }
 
-                /* 1. Premium Overlays and 9. Floating Decorative Elements */
+                /* Improved Background Overlay */
                 .vibrant-section::before {
                     content: "";
                     position: absolute;
                     inset: 0;
                     background: linear-gradient(
                         90deg,
-                        rgba(6, 12, 24, 0.72) 0%,
-                        rgba(6, 12, 24, 0.58) 35%,
-                        rgba(6, 12, 24, 0.42) 70%,
-                        rgba(6, 12, 24, 0.55) 100
+                        rgba(5, 12, 28, 0.82) 0%,
+                        rgba(8, 20, 45, 0.62) 45%,
+                        rgba(18, 40, 80, 0.35) 100%
                     );
                     z-index: 1;
                 }
 
-                /* Top Right Floating Glow */
-                .vibrant-section-glow-tr {
+                /* Floating Ambient Elements */
+                .vibrant-floating-decorations {
                     position: absolute;
-                    top: 0;
-                    right: 0;
-                    width: 600px;
-                    height: 600px;
-                    background: radial-gradient(circle, rgba(37, 99, 235, 0.14), transparent 70%);
+                    inset: 0;
                     pointer-events: none;
+                    opacity: 0.15;
                     z-index: 2;
                 }
-
-                /* Bottom Left Floating Glow */
-                .vibrant-section-glow-bl {
+                .vibrant-blob-1 {
                     position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 500px;
-                    height: 500px;
-                    background: radial-gradient(circle, rgba(96, 165, 250, 0.08), transparent 70%);
-                    pointer-events: none;
-                    z-index: 2;
+                    top: 10%;
+                    left: 5%;
+                    width: 300px;
+                    height: 300px;
+                    background: radial-gradient(circle, #3b82f6, transparent 70%);
+                    animation: floatSlow 12s infinite alternate ease-in-out;
+                }
+                .vibrant-blob-2 {
+                    position: absolute;
+                    bottom: 15%;
+                    right: 45%;
+                    width: 400px;
+                    height: 400px;
+                    background: radial-gradient(circle, #00e0ff, transparent 70%);
+                    animation: floatSlow 18s infinite alternate-reverse ease-in-out;
+                }
+                .vibrant-grid-dots {
+                    position: absolute;
+                    inset: 0;
+                    background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+                    background-size: 24px 24px;
                 }
 
-                /* 12. Increased Space Between Columns to 110px */
+                @keyframes floatSlow {
+                    0% { transform: translate(0, 0) scale(1); }
+                    100% { transform: translate(30px, -40px) scale(1.1); }
+                }
+
+                /* Container Layout Setup */
                 .vibrant-container {
-                    max-width: 1280px;
+                    max-width: 1200px;
                     margin: 0 auto;
                     padding: 0 32px;
                     display: grid;
-                    grid-template-columns: 1.15fr 0.85fr;
-                    gap: 110px;
+                    grid-template-columns: 1.2fr 0.8fr; /* Shifted balance slightly to allow smaller right column */
+                    gap: 60px;
                     align-items: center;
                     position: relative;
                     z-index: 3;
+                }
+
+                /* Glass Divider (Visible on Desktops Only) */
+                @media (min-width: 961px) {
+                    .vibrant-container::after {
+                        content: "";
+                        position: absolute;
+                        top: 20%;
+                        left: 56%;
+                        width: 1px;
+                        height: 60%;
+                        background: rgba(255, 255, 255, 0.08);
+                    }
                 }
 
                 /* Left Content Styles */
@@ -98,344 +128,400 @@ export default function CTASectionVibrant() {
                     align-items: flex-start;
                 }
 
-                .vibrant-overline {
+                /* Trust Badge Setup */
+                .vibrant-trust-badge {
+                    background: rgba(255, 255, 255, 0.08);
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                    backdrop-filter: blur(20px);
+                    -webkit-backdrop-filter: blur(20px);
+                    padding: 6px 14px;
+                    border-radius: 50px;
                     font-size: 13px;
-                    text-transform: uppercase;
-                    letter-spacing: 0.18em;
-                    font-weight: 700;
-                    color: #60A5FA;
+                    font-weight: 600;
+                    color: #FFFFFF;
                     margin-bottom: 20px;
+                    letter-spacing: 0.02em;
                 }
 
-                /* 2. Headline Ambient Glow & 10. Styled Headings with Height adjustments */
+                /* Heading setup with distinct line modifications */
                 .vibrant-headline {
-                    position: relative;
                     font-size: clamp(34px, 4.2vw, 48px);
-                    font-weight: 850;
-                    letter-spacing: -0.03em;
-                    line-height: 1.25;
-                    color: var(--vibrant-text);
+                    font-weight: 800;
+                    letter-spacing: -0.02em;
+                    line-height: 1.2;
                     margin: 0 0 24px;
                 }
-
-                .vibrant-headline::before {
-                    content: "";
-                    position: absolute;
-                    width: 420px;
-                    height: 220px;
-                    background: radial-gradient(circle, rgba(37, 99, 235, 0.18), transparent 70%);
-                    left: -80px;
-                    top: -60px;
-                    filter: blur(40px);
-                    z-index: -1;
-                    pointer-events: none;
+                .vh-white-1 { color: #FFFFFF; }
+                .vh-blue-sub { color: #C7D2FE; font-size: 0.85em; display: block; margin: 2px 0; }
+                .vh-white-2 { color: #FFFFFF; display: block; margin-top: 2px; }
+                
+                /* Gradient logic for the primary highlighted word */
+                .blue-txt {
+                    background: linear-gradient(90deg, #4F8CFF, #00E0FF);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    display: inline-block;
                 }
 
-                .vibrant-headline span.blue-txt { 
-                    color: var(--color-blue); 
-                }
-
-                /* 10. Reduced Paragraph Width to 520px */
+                /* Upgraded readable text paragraph */
                 .vibrant-copy {
-                    font-size: 16px;
-                    color: var(--vibrant-text-muted);
+                    font-size: 18px;
                     line-height: 1.8;
-                    margin: 0 0 40px;
+                    font-weight: 500;
+                    color: rgba(255, 255, 255, 0.85);
+                    margin: 0 0 28px;
                     max-width: 520px;
                 }
 
-                /* 3. Premium Glass Phone Button */
+                /* Premium Main Call to Action Button */
+                .vibrant-phone-btn-wrap {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    margin-bottom: 44px;
+                    gap: 8px;
+                }
+
                 .vibrant-phone-btn {
                     display: inline-flex;
                     align-items: center;
-                    gap: 12px;
                     font-size: 15px;
                     font-weight: 700;
                     color: white;
-                    background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.08));
-                    border: 1px solid rgba(255, 255, 255, 0.15);
-                    padding: 14px 28px;
+                    background: linear-gradient(180deg, #3B82F6, #2563EB);
+                    border: none;
+                    padding: 14px 32px;
                     border-radius: 50px;
                     cursor: pointer;
-                    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
-                    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
-                    margin-bottom: 56px;
+                    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.35);
+                    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
                 }
 
                 .vibrant-phone-btn:hover {
-                    transform: translateY(-4px);
-                    box-shadow: 0 25px 60px rgba(37, 99, 235, 0.30);
+                    transform: translateY(-5px) scale(1.02);
+                    box-shadow: 0 20px 50px rgba(59, 130, 246, 0.5);
                 }
 
-                /* 11. Integrated Apple/Vercel-Style Glass Metric Strip */
+                .vibrant-phone-subtext {
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.6);
+                    padding-left: 14px;
+                    font-weight: 500;
+                }
+
+                /* Floating Glass Metrics Component Configuration */
                 .vibrant-stats-strip {
                     display: grid;
                     grid-template-columns: repeat(3, 1fr);
+                    gap: 12px;
                     width: 100%;
-                    background: rgba(255, 255, 255, 0.05);
-                    backdrop-filter: blur(18px);
-                    -webkit-backdrop-filter: blur(18px);
-                    border: 1px solid rgba(255, 255, 255, 0.08);
-                    border-radius: 16px;
-                    padding: 24px 16px;
-                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
                 }
 
-                /* 8. Modern Metrics Box styling instead of equal rectangles */
-                .vibrant-stat-box {
-                    display: flex;
-                    flex-direction: column;
-                    padding: 4px 20px;
-                    background: rgba(255, 255, 255, 0.04);
-                    border-left: 3px solid #2563EB;
+                .vibrant-stat-card {
+                    background: rgba(255, 255, 255, 0.08);
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    backdrop-filter: blur(16px);
+                    -webkit-backdrop-filter: blur(16px);
+                    border-radius: 12px;
+                    padding: 16px 12px;
+                    text-align: center;
+                    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background-color 0.3s ease;
                 }
 
-                .vibrant-stat-box:not(:first-child) {
-                    margin-left: -1px;
+                .vibrant-stat-card:hover {
+                    transform: translateY(-6px) scale(1.03);
+                    background: rgba(255, 255, 255, 0.12);
+                    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
                 }
 
                 .vibrant-stat-val {
-                    font-size: 28px;
-                    font-weight: 900;
-                    line-height: 1.1;
-                    color: white;
+                    font-size: 26px;
+                    font-weight: 800;
+                    color: #fff;
                     margin-bottom: 4px;
+                    background: linear-gradient(180deg, #fff, rgba(255,255,255,0.7));
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
                 }
 
                 .vibrant-stat-lbl {
-                    font-size: 13px;
-                    color: rgba(255, 255, 255, 0.55);
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.65);
                     font-weight: 500;
                     line-height: 1.3;
                 }
 
-                /* 4. Premium Form Card with Blue Top Accent Bar */
+                /* --- COMPACT RIGHT COLUMN FORM CARD CHANGES --- */
                 .vibrant-form-card {
-                    background: linear-gradient(180deg, rgba(18, 28, 48, 0.82), rgba(8, 15, 28, 0.94));
-                    border: 1px solid rgba(255, 255, 255, 0.10);
-                    border-radius: 24px;
-                    padding: 44px;
-                    box-shadow: 0 35px 90px rgba(0, 0, 0, 0.45);
-                    backdrop-filter: blur(18px);
-                    -webkit-backdrop-filter: blur(18px);
+                    background: linear-gradient(180deg, rgba(28, 40, 66, 0.94), rgba(9, 16, 28, 0.96));
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 20px;
+                    padding: 32px 28px; /* Compacted from 56px layout footprint */
+                    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+                    backdrop-filter: blur(20px);
+                    -webkit-backdrop-filter: blur(20px);
                     position: relative;
-                    overflow: hidden;
+                    max-width: 400px; /* Limits excessive horizontal expansion */
+                    justify-self: end;
+                    width: 100%;
                 }
 
-                .vibrant-form-card::before {
+                /* Radial Blue Glow Effect for Card Background */
+                .vibrant-form-card::after {
                     content: "";
                     position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 4px;
-                    background: linear-gradient(90deg, #2563EB, #60A5FA, #2563EB);
+                    inset: 0;
+                    border-radius: 20px;
+                    background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.22), transparent 70%);
+                    pointer-events: none;
+                    z-index: -1;
                 }
 
                 .vibrant-form-title-group {
-                    margin-bottom: 28px;
+                    margin-bottom: 16px;
                 }
 
                 .vibrant-form-title {
-                    font-size: 26px;
+                    font-size: 22px; /* Slightly downscaled for scale-compactness */
                     font-weight: 800;
                     color: #fff;
-                    letter-spacing: -0.01em;
+                    letter-spacing: -0.02em;
+                    line-height: 1.2;
                     margin-bottom: 6px;
                 }
 
                 .vibrant-form-subtitle {
-                    font-size: 14px;
+                    font-size: 13px;
                     color: rgba(255, 255, 255, 0.55);
+                    line-height: 1.4;
+                }
+
+                .vibrant-form-divider {
+                    height: 1px;
+                    background: rgba(255, 255, 255, 0.08);
+                    margin: 16px 0;
+                    border: none;
                 }
 
                 .vibrant-focus-list {
                     display: flex;
                     flex-direction: column;
-                    gap: 12px;
-                    margin-bottom: 32px;
+                    gap: 8px;
                 }
 
-                /* 5. Focus Button Configurations (Active & Inactive) */
                 .vibrant-focus-btn {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding: 16px 20px;
-                    border-radius: 12px;
+                    padding: 10px 16px; /* Reduced button padding padding */
+                    border-radius: 10px;
                     background: rgba(255, 255, 255, 0.03);
                     border: 1px solid rgba(255, 255, 255, 0.06);
                     cursor: pointer;
-                    text-align: left;
                     font-family: var(--vibrant-font);
-                    font-size: 14px;
+                    font-size: 13px;
                     font-weight: 600;
-                    color: rgba(255, 255, 255, 0.75);
+                    color: rgba(255, 255, 255, 0.8);
                     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
                     width: 100%;
-                }
-
-                .vibrant-focus-btn:hover {
-                    background: rgba(255, 255, 255, 0.07);
-                    color: #fff;
-                }
-
-                /* Interactive Active State Overrides */
-                .vibrant-focus-btn.active {
-                    background: linear-gradient(90deg, rgba(37, 99, 235, 0.28), rgba(37, 99, 235, 0.10));
-                    border-color: #60A5FA;
-                    color: #fff;
-                    transform: translateX(8px);
-                    box-shadow: 0 0 25px rgba(37, 99, 235, 0.20);
                 }
 
                 .vibrant-btn-content {
                     display: flex;
                     align-items: center;
-                    gap: 12px;
+                    gap: 10px;
                 }
 
-                .vibrant-indicator-dot {
-                    width: 8px;
-                    height: 8px;
+                .vibrant-focus-btn:hover {
+                    background: rgba(255, 255, 255, 0.06);
+                    box-shadow: 0 4px 15px var(--hover-glow);
+                    color: #fff;
+                }
+
+                .vibrant-focus-btn.active {
+                    background: rgba(255, 255, 255, 0.05);
+                    border-color: #3B82F6;
+                    color: #fff;
+                    box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+                    border-left: 4px solid #3B82F6;
+                    padding-left: 13px;
+                }
+
+                .vibrant-indicator-circle {
+                    width: 6px;
+                    height: 6px;
                     border-radius: 50%;
                     background: transparent;
-                    border: 2px solid rgba(255, 255, 255, 0.25);
+                    border: 2px solid rgba(255, 255, 255, 0.3);
                     transition: all 0.2s ease;
                 }
 
-                .vibrant-focus-btn.active .vibrant-indicator-dot {
-                    background: #60A5FA;
-                    border-color: #60A5FA;
-                    box-shadow: 0 0 8px #60A5FA;
+                .vibrant-focus-btn.active .vibrant-indicator-circle {
+                    background: #3B82F6;
+                    border-color: #3B82F6;
+                    box-shadow: 0 0 6px #3B82F6;
                 }
 
-                /* 7. Input Fields Depth Enhancement */
                 .vibrant-input-group {
                     display: flex;
                     flex-direction: column;
-                    gap: 16px;
+                    gap: 12px; /* Denser element stacks */
+                }
+
+                .vibrant-input-wrapper {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .vibrant-input-icon {
+                    position: absolute;
+                    left: 14px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
 
                 .vibrant-input {
                     width: 100%;
-                    padding: 14px 18px;
+                    padding: 11px 14px 11px 38px; /* Tighter input text elements */
                     background: rgba(255, 255, 255, 0.04);
                     border: 1px solid rgba(255, 255, 255, 0.10);
                     backdrop-filter: blur(8px);
                     -webkit-backdrop-filter: blur(8px);
-                    border-radius: 10px;
+                    border-radius: 8px;
                     font-family: var(--vibrant-font);
-                    font-size: 14px;
+                    font-size: 13px;
                     color: #fff;
-                    transition: all 0.2s ease;
+                    transition: all 0.25s ease;
                     box-sizing: border-box;
-                }
-                
-                .vibrant-input::placeholder {
-                    color: rgba(255, 255, 255, 0.45);
                 }
 
                 .vibrant-input:focus {
                     outline: none;
-                    border-color: #60A5FA;
+                    border-color: #3B82F6;
                     background: rgba(255, 255, 255, 0.07);
-                    box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.12);
+                    box-shadow: 0 0 12px rgba(59, 130, 246, 0.25);
                 }
 
-                /* Solid High-Contrast Bottom CTA Button */
                 .vibrant-submit-btn {
                     width: 100%;
-                    padding: 16px;
+                    padding: 13px;
                     border: none;
-                    border-radius: 10px;
-                    background: linear-gradient(135deg, #2563EB, #1D4ED8);
+                    border-radius: 8px;
+                    background: linear-gradient(135deg, #2563EB, #60A5FA);
                     color: white;
                     font-weight: 700;
-                    font-size: 15px;
+                    font-size: 14px;
                     cursor: pointer;
-                    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.35);
-                    transition: filter 0.2s ease, transform 0.2s ease;
+                    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
                 }
 
                 .vibrant-submit-btn:hover {
-                    transform: translateY(-3px);
-                    filter: brightness(1.08);
+                    transform: translateY(-2px);
+                    box-shadow: 0 15px 40px rgba(37, 99, 235, 0.5);
+                }
+
+                .vibrant-submit-btn:hover span.arrow {
+                    transform: translateX(4px);
+                    display: inline-block;
+                    transition: transform 0.2s ease;
                 }
 
                 .vibrant-form-note {
                     font-size: 12px;
-                    color: var(--vibrant-text-muted);
+                    color: rgba(255, 255, 255, 0.5);
                     text-align: center;
-                    margin-top: 24px;
+                    margin-top: 14px;
                     font-weight: 500;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
                 }
 
                 @media (max-width: 960px) {
                     .vibrant-container {
                         grid-template-columns: 1fr;
-                        gap: 56px;
-                        text-align: center;
+                        gap: 44px;
                     }
                     .vibrant-intro {
                         align-items: center;
+                        text-align: center;
+                    }
+                    .vibrant-copy {
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                    .vibrant-phone-btn-wrap {
+                        align-items: center;
+                        width: 100%;
+                    }
+                    .vibrant-phone-subtext {
+                        padding-left: 0;
                     }
                     .vibrant-stats-strip {
                         grid-template-columns: 1fr;
-                        gap: 16px;
+                        gap: 12px;
                     }
-                    .vibrant-stat-box {
-                        border-left: 3px solid #2563EB;
-                        padding: 4px 16px;
-                    }
-                    .vibrant-focus-btn.active {
-                        transform: none;
+                    .vibrant-form-card {
+                        max-width: 100%;
+                        justify-self: center;
+                        padding: 28px 20px;
                     }
                 }
             `}</style>
 
-            <section 
+            <section
                 className="vibrant-section"
                 style={{
-                    backgroundImage: "url('/assets/images/about/contactbg.jpg')",
+                    backgroundImage: "url('/assets/images/about/about.webp')",
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat'
                 }}
             >
-                {/* Decorative depth blobs */}
-                <div className="vibrant-section-glow-tr" />
-                <div className="vibrant-section-glow-bl" />
+                <div className="vibrant-floating-decorations">
+                    <div className="vibrant-grid-dots" />
+                    <div className="vibrant-blob-1" />
+                    <div className="vibrant-blob-2" />
+                </div>
 
                 <div className="vibrant-container">
-                    
+
                     {/* Left Column Area */}
                     <div className="vibrant-intro">
-                        <span className="vibrant-overline">Start a Conversation</span>
                         <h2 className="vibrant-headline">
-                            Connecting You<br />to <span className="blue-txt">Solutions</span> That Drive Results.
+                            <span className="vh-white-1">Connecting You to</span>
+                            <span className="blue-txt">Solutions That</span>
+                            <span className="vh-white-2">Drive Results.</span>
                         </h2>
+
                         <p className="vibrant-copy">
                             Whether you need custom e-learning platforms, enterprise executive recruitment
-                            pipelines, or deep corporate financial audits — our integrated divisions deliver 
+                            pipelines, or deep corporate financial audits — our integrated divisions deliver
                             seamless cross-border execution.
                         </p>
-                        
-                        <button className="vibrant-phone-btn" onClick={() => navigate('/contact')}>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                            </svg>
-                            Talk to an Expert
-                        </button>
-                        
-                        {/* 11. Glass Ribbon Metrics Block Container */}
+
+                        <div className="vibrant-phone-btn-wrap">
+                            <button className="vibrant-phone-btn" onClick={() => navigate('/contact')}>
+                                Talk to an Expert
+                            </button>
+                            <span className="vibrant-phone-subtext">Call us in 2 minutes →</span>
+                        </div>
+
                         <div className="vibrant-stats-strip">
                             {[
-                                { val: '24h', lbl: 'Initial Response Assessment' },
-                                { val: 'Global', lbl: 'Active Delivery Network' },
-                                { val: '100%', lbl: 'Confidential Consultation' }
+                                { val: '24h', lbl: 'Response Time' },
+                                { val: '40+', lbl: 'Countries' },
+                                { val: '99%', lbl: 'Client Satisfaction' }
                             ].map((s, i) => (
-                                <div key={i} className="vibrant-stat-box">
+                                <div key={i} className="vibrant-stat-card">
                                     <div className="vibrant-stat-val">{s.val}</div>
                                     <div className="vibrant-stat-lbl">{s.lbl}</div>
                                 </div>
@@ -443,40 +529,75 @@ export default function CTASectionVibrant() {
                         </div>
                     </div>
 
-                    {/* Right Column Area Form Card */}
+                    {/* Compacted Right Column Area Form Card */}
                     <div className="vibrant-form-card">
                         <div className="vibrant-form-title-group">
-                            <div className="vibrant-form-title">Book a Strategy Session</div>
-                            <div className="vibrant-form-subtitle">Select a focus area below to begin</div>
+                            <div className="vibrant-form-title">Let's Build<br />Your Next Solution</div>
+                            <div className="vibrant-form-subtitle">Tell us about your project and we'll connect you with the right specialist.</div>
                         </div>
 
-                        {/* 6. List with Unicode Scan Icons & State triggers */}
+                        <hr className="vibrant-form-divider" />
+
                         <div className="vibrant-focus-list">
-                            {options.map(opt => (
-                                <button
-                                    key={opt.key}
-                                    type="button"
-                                    className={`vibrant-focus-btn ${selectedFocus === opt.key ? 'active' : ''}`}
-                                    onClick={() => setSelectedFocus(opt.key)}
-                                >
-                                    <div className="vibrant-btn-content">
-                                        <span style={{ fontSize: '16px' }}>{opt.icon}</span>
-                                        <span>{opt.label}</span>
-                                    </div>
-                                    <div className="vibrant-indicator-dot" />
-                                </button>
-                            ))}
+                            {options.map(opt => {
+                                const IconComponent = opt.icon;
+                                return (
+                                    <button
+                                        key={opt.key}
+                                        type="button"
+                                        style={{ '--hover-glow': opt.glow }}
+                                        className={`vibrant-focus-btn ${selectedFocus === opt.key ? 'active' : ''}`}
+                                        onClick={() => setSelectedFocus(opt.key)}
+                                    >
+                                        <div className="vibrant-btn-content">
+                                            <IconComponent className="w-4 h-4 text-slate-400 group-hover:text-white" style={{ color: selectedFocus === opt.key ? '#3B82F6' : undefined }} />
+                                            <span>{opt.label}</span>
+                                        </div>
+                                        {selectedFocus === opt.key ? (
+                                            <span style={{ color: '#3B82F6', fontWeight: 'bold' }}>→</span>
+                                        ) : (
+                                            <div className="vibrant-indicator-circle" />
+                                        )}
+                                    </button>
+                                );
+                            })}
                         </div>
+
+                        <hr className="vibrant-form-divider" />
 
                         <div className="vibrant-input-group">
-                            <input className="vibrant-input" type="text" placeholder="Your Name" />
-                            <input className="vibrant-input" type="email" placeholder="Work Email" />
-                            <input className="vibrant-input" type="text" placeholder="Company / Organization" />
+                            <div className="vibrant-input-wrapper">
+                                <span className="vibrant-input-icon">
+                                    <User className="w-3.5 h-3.5 text-slate-500" />
+                                </span>
+                                <input className="vibrant-input" type="text" placeholder="Name" />
+                            </div>
+
+                            <div className="vibrant-input-wrapper">
+                                <span className="vibrant-input-icon">
+                                    <Mail className="w-3.5 h-3.5 text-slate-500" />
+                                </span>
+                                <input className="vibrant-input" type="email" placeholder="Email" />
+                            </div>
+
+                            <div className="vibrant-input-wrapper">
+                                <span className="vibrant-input-icon">
+                                    <Building className="w-3.5 h-3.5 text-slate-500" />
+                                </span>
+                                <input className="vibrant-input" type="text" placeholder="Company" />
+                            </div>
+
+                            <hr className="vibrant-form-divider" />
+
                             <button className="vibrant-submit-btn" onClick={() => navigate('/contact')}>
-                                Submit Request
+                                Schedule Free Consultation <ArrowRight className="w-4 h-4 arrow" />
                             </button>
                         </div>
-                        <p className="vibrant-form-note">Complete confidentiality guaranteed.</p>
+
+                        <div className="vibrant-form-note">
+                            <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
+                            <span>Your information is completely confidential</span>
+                        </div>
                     </div>
 
                 </div>

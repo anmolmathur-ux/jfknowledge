@@ -29,6 +29,10 @@ export default function App() {
         return () => window.removeEventListener('popstate', handleLocationChange);
     }, []);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [currentPath]);
+
     // Simple clean router switcher matching your script file architecture
     switch (currentPath) {
         case '/':

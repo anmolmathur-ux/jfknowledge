@@ -313,7 +313,7 @@ export default function Hero() {
                         playsInline 
                         preload="auto"
                     >
-                        <source src="/assets/images/about/why-jf.mp4" type="video/mp4" />
+                        <source src="/assets/images/about/hero.mp4" type="video/mp4" />
                     </video>
                 </div>
 

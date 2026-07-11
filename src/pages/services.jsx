@@ -1,28 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import CTA from '../components/sections/CTAsection';
+import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
-const navigate = (href) => {
-    if (href.startsWith('#')) {
-        const element = document.getElementById(href.substring(1));
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-            return;
-        }
-    }
-    window.history.pushState({}, '', href);
-    window.dispatchEvent(new PopStateEvent('popstate'));
-};
-
-// Simple animated counter utility component to meet the requested feature cleanly
 const AnimatedCounter = ({ target, duration = 2000 }) => {
     const [count, setCount] = useState(0);
-
     useEffect(() => {
         let startTimestamp = null;
         const numericTarget = parseInt(target.replace(/\D/g, ''), 10);
-        const suffix = target.replace(/[0-9]/g, '');
-
+        if (isNaN(numericTarget)) {
+            setCount(target);
+            return;
+        }
         const step = (timestamp) => {
             if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
@@ -31,683 +21,420 @@ const AnimatedCounter = ({ target, duration = 2000 }) => {
                 window.requestAnimationFrame(step);
             }
         };
-
         window.requestAnimationFrame(step);
     }, [target, duration]);
 
-    return <span>{count}{target.replace(/[0-9]/g, '')}</span>;
+    const suffix = target.replace(/[0-9]/g, '');
+    return <span>{count}{suffix}</span>;
 };
 
 export default function ServicesPage() {
-    const [activeSection, setActiveSection] = useState('hero');
-    // Track content variation dynamically from floating glass pill interaction
-    const [heroVariant, setHeroVariant] = useState('learning'); 
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const sections = ['learning', 'recruitment', 'finance'];
-            const scrollPosition = window.scrollY + 300;
-
-            for (const section of sections) {
-                const el = document.getElementById(section);
-                if (el) {
-                    const top = el.offsetTop;
-                    const height = el.offsetHeight;
-                    if (scrollPosition >= top && scrollPosition < top + height) {
-                        setActiveSection(section);
-                        break;
-                    }
-                }
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    // Global glass styling configuration
-    const glassCardStyle = {
-        background: 'rgba(255, 255, 255, 0.04)',
-        backdropFilter: 'blur(30px)',
-        WebkitBackdropFilter: 'blur(30px)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        borderRadius: '28px',
-        padding: '40px',
-        transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease',
-        position: 'relative',
-        overflow: 'hidden'
+    const CARD_META = {
+        learning: [
+            { accent: '#3b82f6', badge: 'INSTRUCTOR-LED TRAINING (ILT)', img: '/assets/images/services/1-1.jpg', stat: 'Custom', statLabel: 'Curriculum Design' },
+            { accent: '#60a5fa', badge: 'VIRTUAL ILT (VILT)', img: '/assets/images/services/1-2.jpg', stat: 'Live', statLabel: 'Synchronous Sessions' },
+            { accent: '#a855f7', badge: 'MICROLEARNING', img: '/assets/images/services/1-3.jpg', stat: '3-7 Min', statLabel: 'Bite-Sized Modules' },
+            { accent: '#10b981', badge: 'GAMIFICATION', img: '/assets/images/services/1-4.jpg', stat: 'Engagement', statLabel: 'Game Mechanics' },
+        ],
+        recruitment: [
+            { accent: '#3b82f6', badge: 'PERMANENT PLACEMENT', img: '/assets/images/services/3-1.jpg', stat: '90 Day', statLabel: 'Replacement Guarantee' },
+            { accent: '#60a5fa', badge: 'CONTRACT & TEMPORARY STAFFING', img: '/assets/images/services/3-2.jpg', stat: '24-72h', statLabel: 'Rapid Deployment' },
+            { accent: '#a855f7', badge: 'STAFF AUGMENTATION', img: '/assets/images/services/3-3.jpg', stat: 'IT & Non-IT', statLabel: 'Team Extensions' },
+            { accent: '#10b981', badge: 'MANAGED STAFFING SOLUTIONS', img: '/assets/images/services/3-4.jpg', stat: 'RPO / MSP', statLabel: 'Outsourced Models' },
+        ],
+        finance: [
+            { accent: '#3b82f6', badge: 'ACCOUNTING & BOOKKEEPING', img: '/assets/images/services/2-1.jpg', stat: 'Cloud', statLabel: 'Xero, QuickBooks, Sage' },
+            { accent: '#60a5fa', badge: 'TAX & COMPLIANCE', img: '/assets/images/services/2-2.jpg', stat: 'Advisory', statLabel: 'Planning & Filing' },
+            { accent: '#10b981', badge: 'CFO ADVISORY', img: '/assets/images/services/2-3.jpg', stat: 'Fractional', statLabel: 'Strategic Leadership' },
+        ],
     };
 
-    // Hero content maps based on the Active Floating Selector Selection
-    const heroContentMap = {
-        learning: {
-            desc: "Supporting organisations through integrated digital knowledge frameworks, modern LMS enterprise architectures, and agile live framework training tracks.",
-            targetId: "#learning"
-        },
-        recruitment: {
-            desc: "Supporting organisations through permanent enterprise staffing solutions, contract staff augmentation, and elite global executive headhunting pipelines.",
-            targetId: "#recruitment"
-        },
-        finance: {
-            desc: "Supporting organisations through structured corporate asset auditing, global sovereign tax advisory, and strategic fractional CFO consultancy.",
-            targetId: "#finance"
-        }
-    };
+    const PremiumCard = ({ title, desc, f1, f2, f3, meta }) => {
+        return (
+            <div className="wcu-premium-card-wrapper">
+                <div className="wcu-premium-glow-border" />
+                <div className="wcu-premium-card-inner">
+                    <div className="wcu-card-dots">{'● ● ● ●\n● ● ● ●'}</div>
 
-    return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: '#060B17', color: '#ffffff', fontFamily: 'var(--font-family)', overflowX: 'hidden' }}>
-            <Header />
-            
-            {/* 12. Sticky Navigation Bar */}
-            <div style={{
-                position: 'sticky',
-                top: '80px',
-                zIndex: 100,
-                background: 'rgba(6, 11, 23, 0.8)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-                display: 'block'
-            }}>
-                <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '13px', fontWeight: '800', letterSpacing: '0.15em', color: '#FDB515' }}>SERVICES NAV</span>
-                    <div style={{ display: 'flex', gap: '32px' }}>
-                        {[
-                            { id: 'learning', label: 'Learning' },
-                            { id: 'recruitment', label: 'Recruitment' },
-                            { id: 'finance', label: 'Finance' }
-                        ].map((navItem) => (
-                            <button
-                                key={navItem.id}
-                                onClick={() => navigate(`#${navItem.id}`)}
-                                style={{
-                                    background: 'transparent',
-                                    border: 'none',
-                                    color: activeSection === navItem.id ? '#FDB515' : 'rgba(255,255,255,0.6)',
-                                    fontWeight: '700',
-                                    fontSize: '14px',
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '8px',
-                                    transition: 'color 0.3s ease'
-                                }}
-                            >
-                                <span style={{
-                                    width: '6px',
-                                    height: '6px',
-                                    borderRadius: '50%',
-                                    background: activeSection === navItem.id ? '#FDB515' : 'transparent',
-                                    border: activeSection === navItem.id ? 'none' : '1px solid rgba(255,255,255,0.4)',
-                                    transition: 'all 0.3s ease'
-                                }} />
-                                {navItem.label}
-                            </button>
-                        ))}
+                    <div style={{ height: 210, position: 'relative', overflow: 'hidden' }}>
+                        <img src={meta.img} alt={title} className="wcu-card-img-mask" />
+                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0b1220 5%, transparent 70%)' }} />
+                    </div>
+
+                    <div style={{ padding: '28px' }}>
+                        <div style={{
+                            display: 'inline-flex', alignItems: 'center', gap: 6,
+                            fontSize: 10, fontWeight: 800, letterSpacing: '0.15em',
+                            color: meta.accent, background: `${meta.accent}12`,
+                            border: `1px solid ${meta.accent}33`, borderRadius: 99, padding: '4px 12px', marginBottom: 16
+                        }}>{meta.badge}</div>
+
+                        <h3 style={{ fontSize: 22, fontWeight: 800, color: '#ffffff', lineHeight: 1.3, marginBottom: 12 }}>{title}</h3>
+                        <p style={{ fontSize: 14.5, lineHeight: 1.65, color: '#94a3b8', marginBottom: 20 }}>{desc}</p>
+
+                        <div className="wcu-card-kpi-row" style={{ borderLeft: `3px solid ${meta.accent}` }}>
+                            <span style={{ fontSize: 24, fontWeight: 900, color: '#ffffff', lineHeight: 1 }}>{meta.stat}</span>
+                            <span style={{ fontSize: 11, fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{meta.statLabel}</span>
+                        </div>
+
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                            {[f1, f2, f3].filter(Boolean).map((chip, i) => (
+                                <span key={i} className="wcu-card-mini-chip">{chip}</span>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
+        );
+    };
 
-            <main style={{ flex: 1 }}>
-                {/* 1. Cinematic Premium Hero Section */}
-                <section style={{ position: 'relative', minHeight: '120vh', width: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '120px 0 80px 0' }}>
-                    
-                    {/* Video and Overlay Gradients Container */}
-                    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
-                        <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(.75) contrast(1.08) saturate(1.15)', transform: 'scale(1.05)' }}>
-                            <source src="/assets/images/about/about.mp4" type="video/mp4" />
-                        </video>
-                        {/* Cinematic Linear Shadow Matrix Layer */}
-                        <div style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            background: 'linear-gradient(180deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.12) 30%, rgba(0,0,0,0.28) 70%, rgba(0,0,0,0.55) 100%)',
-                            zIndex: 2
-                        }} />
-                        {/* Enterprise Blueprint Grid Overlay */}
-                        <div style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            backgroundImage: 'linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px)',
-                            backgroundSize: '80px 80px',
-                            opacity: 0.18,
-                            zIndex: 3
-                        }} />
-                        {/* Immersive Blue Glow Backdrop */}
-                        <div style={{
-                            position: 'absolute',
-                            top: '45%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: '900px',
-                            height: '600px',
-                            background: 'radial-gradient(circle, rgba(37,99,235,.18), transparent 70%)',
-                            filter: 'blur(80px)',
-                            zIndex: 4,
-                            pointerEvents: 'none'
-                        }} />
-                    </div>
+    return (
+        <div style={{ background: '#060B17', color: '#ffffff', fontFamily: 'var(--font-family, "Inter", sans-serif)', overflowX: 'hidden' }}>
+            <Header />
 
-                    {/* Content Layer */}
-                    <div style={{ position: 'relative', zIndex: 5, maxWidth: '1280px', width: '100%', margin: '0 auto', padding: '0 50px', textAlign: 'center' }}>
-                        
-                        {/* Huge Abstract Background Content Text */}
-                        <div style={{ position: 'absolute', top: '-60px', left: '50%', transform: 'translateX(-50%)', fontSize: '220px', fontWeight: '900', color: 'rgba(255,255,255,0.05)', userSelect: 'none', pointerEvents: 'none', zIndex: 1, letterSpacing: '0.05em' }}>
-                            SERVICES
-                        </div>
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                @keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.5); opacity: 1; } }
+                
+                .wcu-premium-bg {
+                    position: relative;
+                    background: radial-gradient(circle at top, #14284f 0%, #060B17 60%);
+                }
+                .wcu-noise-layer {
+                    position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0.02; mix-blend-mode: overlay;
+                    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+                }
+                .wcu-animated-divider {
+                    display: flex; align-items: center; justify-content: center; margin: 40px 0; width: 100%; opacity: 0.4;
+                }
+                .wcu-divider-line { height: 1px; flex: 1; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); }
+                .wcu-divider-dot { width: 6px; height: 6px; background: #3b82f6; border-radius: 50%; margin: 0 20px; box-shadow: 0 0 10px #3b82f6; animation: pulseDot 2s infinite ease-in-out; }
+                
+                /* PREMIUM FROSTED APPLE/OPENAI STYLE SPOTLIGHT CARD */
+                .wcu-spotlight-card {
+                    position: relative; 
+                    overflow: hidden; 
+                    z-index: 5;
+                    padding: 64px; 
+                    border-radius: 32px;
+                    background: linear-gradient(180deg, rgba(17, 24, 39, 0.35), rgba(17, 24, 39, 0.22));
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    backdrop-filter: blur(14px); 
+                    -webkit-backdrop-filter: blur(14px);
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+                    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+                
+                /* Radial Blue Edge Glow Inside Card */
+                .wcu-spotlight-card::before {
+                    content: "";
+                    position: absolute; 
+                    inset: 0;
+                    background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.14), transparent 45%);
+                    pointer-events: none;
+                    z-index: -1;
+                }
+                
+                /* Expensive Light Inner Border Highlight */
+                .wcu-spotlight-card::after {
+                    content: "";
+                    position: absolute; 
+                    inset: 1px; 
+                    border-radius: 30px;
+                    border: 1px solid rgba(255, 255, 255, 0.04);
+                    pointer-events: none;
+                    z-index: -1;
+                }
+                
+                .wcu-spotlight-card:hover {
+                    transform: translateY(-4px);
+                    border-color: rgba(59, 130, 246, 0.28);
+                    box-shadow: 0 35px 90px rgba(37, 99, 235, 0.18);
+                }
+                
+                /* ACCENTUATED ACCESSIBLE VIDEO STYLING */
+                .wcu-spotlight-video-bg {
+                    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -3; 
+                    opacity: 0.45; filter: brightness(0.95) contrast(1.1) saturate(1.15);
+                }
+                
+                /* Translucent Text Overlay Mask */
+                .wcu-spotlight-video-overlay {
+                    position: absolute; inset: 0; 
+                    background: linear-gradient(90deg, rgba(4, 12, 28, 0.50) 40%, rgba(4, 12, 28, 0.35) 100%); 
+                    z-index: -2; pointer-events: none;
+                }
+                
+                .wcu-spotlight-label { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: #60a5fa; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+                
+                /* Readability Text Shadows */
+                .wcu-spotlight-title { 
+                    font-size: clamp(36px, 4.5vw, 58px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; color: #ffffff; margin: 0 0 20px 0;
+                    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+                }
+                
+                .wcu-spotlight-desc {
+                    font-size: '16.5px'; line-height: 1.7; color: rgba(255, 255, 255, 0.78); margin: 0 0 28px 0;
+                    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+                }
+                
+                .wcu-bullet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 32px 0; }
+                .wcu-bullet-item { padding: 16px 20px; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 12px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+                .wcu-bullet-item:hover { transform: translateY(-4px); background: rgba(37,99,235,0.08); border-color: rgba(59,130,246,0.4); }
+                
+                .wcu-pill-cta { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(90deg, #2563eb, #3b82f6); color: #ffffff; padding: 14px 28px; border-radius: 999px; font-weight: 700; font-size: 15px; border: none; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(37,99,235,0.3); text-decoration: none; }
+                .wcu-pill-cta:hover { transform: translateX(3px); filter: brightness(1.1); box-shadow: 0 12px 30px rgba(37,99,235,0.45); }
+                
+                .wcu-premium-card-wrapper { position: relative; border-radius: 24px; padding: 1px; background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+                .wcu-premium-card-inner { background: #0b1220; border-radius: 23px; overflow: hidden; height: 100%; position: relative; }
+                .wcu-card-dots { position: absolute; top: 20px; right: 20px; opacity: 0.05; font-size: 10px; line-height: 1.4; letter-spacing: 3px; color: #fff; }
+                .wcu-card-img-mask { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.05) brightness(0.9); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+                .wcu-premium-card-wrapper:hover { transform: translateY(-8px) rotateX(1.5deg); background: linear-gradient(135deg, rgba(59,130,246,0.4), transparent 60%); }
+                .wcu-premium-card-wrapper:hover .wcu-card-img-mask { transform: scale(1.04); }
+                .wcu-card-kpi-row { display: flex; flex-direction: column; gap: 2px; padding-left: 14px; margin-bottom: 22px; }
+                .wcu-card-mini-chip { padding: 5px 12px; border-radius: 99px; font-size: 12.5px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); color: #94a3b8; }
+            ` }} />
 
-                        <div style={{ position: 'relative', zIndex: 2 }}>
-                            {/* Small Eyebrow Text */}
-                            <span style={{ fontSize: '14px', fontWeight: '800', letterSpacing: '.35em', textTransform: 'uppercase', color: '#3B82F6', display: 'block', marginBottom: '28px' }}>
-                                GLOBAL PROFESSIONAL SERVICES
-                            </span>
+            <main style={{ flex: 1 }} className="wcu-premium-bg">
+                <div className="wcu-noise-layer" />
 
-                            {/* Clean Multi-Tone Headline */}
-                            <h1 style={{ fontSize: 'clamp(60px, 7vw, 88px)', fontWeight: 900, lineHeight: 0.98, letterSpacing: '-0.05em', color: '#ffffff', margin: '0 auto 32px', maxWidth: '1100px' }}>
-                                Empowering Talent.<br />
-                                <span style={{ color: '#FDB515', display: 'block', margin: '12px 0' }}>Elevating Business.</span>
-                                Accelerating Success.
-                            </h1>
+                {/* ── 1. ULTRA-PREMIUM SPOTLIGHT HERO SECTION ── */}
+                <section style={{ padding: '140px 24px 100px 24px', position: 'relative', zIndex: 3 }}>
+                    <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+                        <div className="wcu-spotlight-card">
+                            {/* high visibility video elements */}
+                            <video autoPlay loop muted playsInline className="wcu-spotlight-video-bg">
+                                <source src="/assets/images/about/e-learning.mp4" type="video/mp4" />
+                            </video>
+                            <div className="wcu-spotlight-video-overlay" />
 
-                            {/* Context-Narrowed Dynamic Description */}
-                            <p style={{ maxWidth: '760px', fontSize: '22px', lineHeight: '1.75', color: 'rgba(255,255,255,0.82)', margin: '0 auto 48px', fontWeight: '400', minHeight: '76px', transition: 'all 0.3s' }}>
-                                {heroContentMap[heroVariant].desc}
-                            </p>
+                            <div style={{ maxWidth: '680px' }}>
+                                <div className="wcu-spotlight-label">JF KNOWLEDGE CENTRE</div>
+                                <h1 className="wcu-spotlight-title">INTEGRATED<br /><span style={{ color: '#3b82f6' }}>SOLUTIONS</span></h1>
+                                <p className="wcu-spotlight-desc">
+                                    A globally oriented, multi-disciplinary professional services organisation committed to transforming the way businesses learn, hire, and grow across our powerful operational verticals.
+                                </p>
 
-                            {/* Two Actions Button Section */}
-                            <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', alignItems: 'center', marginBottom: '56px', flexWrap: 'wrap' }}>
-                                <button 
-                                    onClick={() => navigate(heroContentMap[heroVariant].targetId)}
-                                    style={{ background: '#FDB515', color: '#060B17', height: '62px', padding: '0 42px', borderRadius: '999px', fontWeight: '700', fontSize: '18px', border: 'none', cursor: 'pointer', transition: 'all 0.3s ease', boxShadow: '0 12px 35px rgba(253,181,21,.35)' }}
-                                    className="primary-button-accent"
-                                >
-                                    Explore Services
-                                </button>
-                                <button 
-                                    onClick={() => navigate('/contact')}
-                                    style={{ color: '#ffffff', height: '62px', padding: '0 42px', borderRadius: '999px', fontWeight: '700', fontSize: '18px', cursor: 'pointer', transition: 'all 0.3s ease', background: 'rgba(255,255,255,.05)', backdropFilter: 'blur(18px)', WebkitBackdropFilter: 'blur(18px)', border: '1px solid rgba(255,255,255,.15)' }}
-                                    className="secondary-glass-button"
-                                >
-                                    Book Consultation
-                                </button>
-                            </div>
-
-                            {/* Floating Service Selector (Interactive Navigation Pills) */}
-                            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', alignItems: 'center', marginBottom: '64px' }}>
-                                {[
-                                    { key: 'learning', label: 'Learning' },
-                                    { key: 'recruitment', label: 'Recruitment' },
-                                    { key: 'finance', label: 'Finance' }
-                                ].map((pill) => (
-                                    <button
-                                        key={pill.key}
-                                        onClick={() => setHeroVariant(pill.key)}
-                                        style={{
-                                            padding: '10px 20px',
-                                            borderRadius: '999px',
-                                            background: heroVariant === pill.key ? '#FDB515' : 'rgba(255,255,255,.08)',
-                                            backdropFilter: 'blur(15px)',
-                                            WebkitBackdropFilter: 'blur(15px)',
-                                            color: heroVariant === pill.key ? '#060B17' : '#ffffff',
-                                            border: '1px solid rgba(255,255,255,0.12)',
-                                            fontWeight: '700',
-                                            fontSize: '15px',
-                                            cursor: 'pointer',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '8px',
-                                            transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
-                                        }}
-                                    >
-                                        <span style={{ fontSize: '11px' }}>{heroVariant === pill.key ? '◉' : '○'}</span>
-                                        {pill.label}
-                                    </button>
-                                ))}
-                            </div>
-
-                            {/* In-Line High-Impact Animated Stats Metric Row */}
-                            <div style={{ maxWidth: '900px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', alignItems: 'center', position: 'relative', padding: '24px 0', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-                                {[
-                                    { target: '20+', title: 'Years' },
-                                    { target: '500+', title: 'Clients' },
-                                    { target: '50K+', title: 'Learners' },
-                                    { target: '5', title: 'Countries' }
-                                ].map((stat, i) => (
-                                    <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', borderRight: i < 3 ? '1px solid rgba(255,255,255,0.15)' : 'none' }}>
-                                        <div style={{ fontSize: '36px', fontWeight: '900', color: '#ffffff', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
-                                            <AnimatedCounter target={stat.target} />
-                                        </div>
-                                        <div style={{ fontSize: '13px', fontWeight: '600', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', marginTop: '2px', letterSpacing: '0.05em' }}>
-                                            {stat.title}
-                                        </div>
+                                <div className="wcu-bullet-grid">
+                                    <div className="wcu-bullet-item">
+                                        <CheckCircle2 size={16} color="#3b82f6" />
+                                        <span style={{ fontSize: '14.5px', fontWeight: 600 }}>E-Learning Solutions</span>
                                     </div>
-                                ))}
-                            </div>
+                                    <div className="wcu-bullet-item">
+                                        <CheckCircle2 size={16} color="#3b82f6" />
+                                        <span style={{ fontSize: '14.5px', fontWeight: 600 }}>Recruitment &amp; Staffing</span>
+                                    </div>
+                                    <div className="wcu-bullet-item">
+                                        <CheckCircle2 size={16} color="#3b82f6" />
+                                        <span style={{ fontSize: '14.5px', fontWeight: 600 }}>Financial Consultancy</span>
+                                    </div>
+                                    <div className="wcu-bullet-item">
+                                        <CheckCircle2 size={16} color="#3b82f6" />
+                                        <span style={{ fontSize: '14.5px', fontWeight: 600 }}>Accounting Services</span>
+                                    </div>
+                                </div>
 
-                        </div>
-                    </div>
-
-                    {/* Integrated Scroll Indicator */}
-                    <div 
-                        onClick={() => navigate('#learning')}
-                        style={{ position: 'absolute', bottom: '30px', left: '50%', transform: 'translateX(-50%)', zIndex: 5, cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,0.6)', transition: 'color 0.3s' }}
-                        className="hero-scroll-indicator"
-                    >
-                        <span style={{ fontSize: '13px', fontWeight: '700', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Explore Services</span>
-                        <span style={{ fontSize: '20px', animation: 'bounce 2s infinite', display: 'inline-block' }}>↓</span>
-                    </div>
-                </section>
-
-                {/* 2. Three Premium Highlight Cards */}
-                <section style={{ padding: '120px 24px', position: 'relative', background: '#060B17', zIndex: 5 }}>
-                    <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '32px' }}>
-                        
-                        {/* Card 1: Learning */}
-                        <div 
-                            style={glassCardStyle}
-                            className="premium-hover-card"
-                            onClick={() => navigate('#learning')}
-                        >
-                            <div style={{ display: 'flex', justifyContent: 'between', alignItems: 'start', width: '100%', marginBottom: '24px' }}>
-                                <span style={{ fontSize: '14px', fontWeight: '800', color: '#FDB515', letterSpacing: '0.1em' }}>01 / ARCHITECTURE</span>
-                                <span style={{ fontSize: '32px' }}>🎓</span>
-                            </div>
-                            <h3 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '20px', letterSpacing: '-0.02em' }}>Learning</h3>
-                            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 40px 0', display: 'grid', gap: '12px', color: 'rgba(255,255,255,0.7)', fontSize: '18px' }}>
-                                <li>• Digital Learning Systems</li>
-                                <li>• Corporate Framework Training</li>
-                                <li>• LMS Architecture Solutions</li>
-                            </ul>
-                            <div style={{ fontWeight: '700', color: '#FDB515', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '16px', cursor: 'pointer' }}>
-                                Explore Architecture <span style={{ transition: 'transform 0.3s ease' }} className="arrow-icon">→</span>
+                                <div style={{ marginTop: '36px' }}>
+                                    <a href="#recruitment" className="wcu-pill-cta">
+                                        Explore Talent Solutions <ArrowRight size={15} />
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Card 2: Recruitment */}
-                        <div 
-                            style={glassCardStyle}
-                            className="premium-hover-card"
-                            onClick={() => navigate('#recruitment')}
-                        >
-                            <div style={{ display: 'flex', justifyContent: 'between', alignItems: 'start', width: '100%', marginBottom: '24px' }}>
-                                <span style={{ fontSize: '14px', fontWeight: '800', color: '#FDB515', letterSpacing: '0.1em' }}>02 / PLACEMENT</span>
-                                <span style={{ fontSize: '32px' }}>👥</span>
-                            </div>
-                            <h3 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '20px', letterSpacing: '-0.02em' }}>Recruitment</h3>
-                            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 40px 0', display: 'grid', gap: '12px', color: 'rgba(255,255,255,0.7)', fontSize: '18px' }}>
-                                <li>• Permanent Enterprise Hiring</li>
-                                <li>• Tactical Staff Augmentation</li>
-                                <li>• Executive Retained Search</li>
-                            </ul>
-                            <div style={{ fontWeight: '700', color: '#FDB515', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '16px', cursor: 'pointer' }}>
-                                Explore Talent Solutions <span style={{ transition: 'transform 0.3s ease' }} className="arrow-icon">→</span>
-                            </div>
+                        <div className="wcu-animated-divider">
+                            <div className="wcu-divider-line" />
+                            <div className="wcu-divider-dot" />
+                            <div className="wcu-divider-line" />
                         </div>
 
-                        {/* Card 3: Financial */}
-                        <div 
-                            style={glassCardStyle}
-                            className="premium-hover-card"
-                            onClick={() => navigate('#finance')}
-                        >
-                            <div style={{ display: 'flex', justifyContent: 'between', alignItems: 'start', width: '100%', marginBottom: '24px' }}>
-                                <span style={{ fontSize: '14px', fontWeight: '800', color: '#FDB515', letterSpacing: '0.1em' }}>03 / INTELLIGENCE</span>
-                                <span style={{ fontSize: '32px' }}>📈</span>
-                            </div>
-                            <h3 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '20px', letterSpacing: '-0.02em' }}>Financial</h3>
-                            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 40px 0', display: 'grid', gap: '12px', color: 'rgba(255,255,255,0.7)', fontSize: '18px' }}>
-                                <li>• Corporate Asset Accounting</li>
-                                <li>• Sovereign Tax Advisory</li>
-                                <li>• Business Growth Consulting</li>
-                            </ul>
-                            <div style={{ fontWeight: '700', color: '#FDB515', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '16px', cursor: 'pointer' }}>
-                                Explore Consultancy <span style={{ transition: 'transform 0.3s ease' }} className="arrow-icon">→</span>
-                            </div>
+                        {/* Document-Backed Geographic Footprint Grid */}
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '16px', background: 'rgba(15,23,42,0.3)', padding: '24px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.04)' }}>
+                            {[
+                                { region: 'United States', sub: 'EEO & ITAR Compliant' },
+                                { region: 'United Kingdom', sub: 'IR35 & GDPR Compliant' },
+                                { region: 'Europe', sub: 'Pan-European Sourcing' },
+                                { region: 'GCC', sub: 'Visa & Relocation Support' },
+                                { region: 'India', sub: 'Global Delivery Hub' }
+                            ].map((footprint, i) => (
+                                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                                    <div style={{ fontSize: '18px', fontWeight: '900', color: '#ffffff' }}>
+                                        {footprint.region}
+                                    </div>
+                                    <div style={{ fontSize: '11px', fontWeight: 500, color: '#64748b', marginTop: '4px' }}>
+                                        {footprint.sub}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
 
                     </div>
                 </section>
 
-                {/* 3. Individual Story Sections — Division 01: Learning */}
-                <section id="learning" style={{ padding: '120px 24px', background: '#0B1224', position: 'relative' }}>
-                    <div style={{ position: 'absolute', top: '40px', right: '10%', fontSize: '220px', fontWeight: '900', color: 'rgba(255,255,255,0.03)', userSelect: 'none', lineHeight: 1 }}>01</div>
-                    <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-                        
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))', gap: '64px', alignItems: 'center', marginBottom: '80px' }}>
+                {/* ── 2. DIVISION 1: E-LEARNING & DIGITAL LEARNING SOLUTIONS ── */}
+                <section id="learning" style={{ padding: '100px 24px', background: '#0b1220', position: 'relative' }}>
+                    <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center', marginBottom: '64px' }}>
                             <div>
-                                <span style={{ fontSize: '13px', fontWeight: '800', color: '#FDB515', letterSpacing: '0.2em', display: 'block', marginBottom: '16px' }}>DIVISION ONE</span>
-                                <h2 style={{ fontSize: '44px', fontWeight: '900', lineHeight: '1.2', marginBottom: '24px', letterSpacing: '-0.03em' }}>E-Learning & Digital Learning Solutions</h2>
-                                <p style={{ fontSize: '18px', lineHeight: '1.8', color: 'rgba(255,255,255,0.75)', marginBottom: '32px' }}>
-                                    Transforming complex corporate assets, regulatory frameworks, and enterprise skills into agile, highly engaging digital knowledge architectures accessible globally.
+                                <span style={{ fontSize: '11px', fontWeight: '800', color: '#60a5fa', letterSpacing: '0.2em', display: 'block', marginBottom: '12px' }}>DIVISION 1</span>
+                                <h2 style={{ fontSize: '38px', fontWeight: '900', lineHeight: '1.2', marginBottom: '20px', letterSpacing: '-0.02em' }}>E-Learning &amp; Digital Learning Solutions</h2>
+                                <p style={{ fontSize: '16.5px', lineHeight: '1.7', color: '#94a3b8', marginBottom: '28px' }}>
+                                    Transforming complex knowledge, skills, and compliance requirements into engaging, impactful, and measurable learning journeys accessible anytime, anywhere, on any device.
                                 </p>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '40px' }}>
-                                    {['SCORM', 'xAPI', 'AI Architecture', 'Mobile Ecosystems', 'Predictive Analytics', 'Microlearning'].map((chip) => (
-                                        <span key={chip} style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.06)', borderRadius: '50px', fontSize: '13px', fontWeight: '600', border: '1px solid rgba(255,255,255,0.1)' }}>{chip}</span>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                    {['SCORM 1.2 / 2004', 'xAPI (Tin Can)', 'AICC Compliant', 'LMS Services', 'Instructional Design'].map((chip) => (
+                                        <span key={chip} style={{ padding: '6px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '50px', fontSize: '13px', color: '#64748b' }}>{chip}</span>
                                     ))}
                                 </div>
                             </div>
-                            <div style={{ borderRadius: '24px', overflow: 'hidden', height: '440px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 30px 60px rgba(0,0,0,0.4)' }}>
-                                <img src="/assets/images/about/1.webp" alt="Digital Learning" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <div style={{ borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 30px 60px rgba(0,0,0,0.4)' }}>
+                                <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
+                                    <source src="/assets/images/about/e-learning.mp4" type="video/mp4" />
+                                </video>
                             </div>
                         </div>
 
-                        {/* 4. Service Grid Layout */}
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(45%, 1fr))', gap: '32px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(48%, 1fr))', gap: '32px' }}>
                             {[
-                                { title: 'Instructor Led Training (ILT)', desc: 'Immersive deep-dive learning environments mapped out by elite subject experts.', f1: 'Custom Syllabus Layout', f2: 'Certified Live Experts', f3: 'Pre/Post Gap Assessment' },
-                                { title: 'Virtual Classrooms (VILT)', desc: 'Synchronous high-engagement platforms bringing classroom proximity anywhere globally.', f1: 'Live Interactive Cohorts', f2: 'Cross-Border Access', f3: 'Dynamic Breakout Workshops' },
-                                { title: 'Microlearning Snippets', desc: 'Focused behavioral skill chunks deployed to match diminishing modern cognitive bandwidth.', f1: 'Mobile-Optimized Assets', f2: '3-7 Minute Slices', f3: 'Spaced Memory Retention' },
-                                { title: 'Enterprise Gamification', desc: 'Applying rigorous psychological drive mechanics directly onto mission-critical benchmarks.', f1: 'Real-Time Achievement Leaderboards', f2: 'Interactive Context Quests', f3: 'Infrastructure Integrations' }
+                                { title: 'Instructor-Led Training (ILT)', desc: 'Expertly designed and facilitated by seasoned subject matter experts bringing real-world experience into the classroom.', f1: 'Custom Curriculum', f2: 'Pre/Post Assessments', f3: 'Training Needs Analysis' },
+                                { title: 'Virtual Instructor-Led Training (VILT)', desc: 'Bringing the richness of classroom learning to digital environments via industry-leading collaboration platforms.', f1: 'Multi-Timezone Delivery', f2: 'Cohort-Based Learning', f3: 'Hybrid VILT Models' },
+                                { title: 'Microlearning Solutions', desc: 'Focused, bite-sized learning content designed to be consumed in 3–7 minutes, perfectly suited for modern learners.', f1: 'Mobile-First Content', f2: 'Spaced Repetition', f3: 'Rapid Development' },
+                                { title: 'Gamification Frameworks', desc: 'Applying behavioural psychology, motivational design, and game mechanics to dramatically improve completion rates.', f1: 'Points & Badges', f2: 'Leaderboards & Rewards', f3: 'Learning Quests' },
                             ].map((srv, idx) => (
-                                <div key={idx} style={glassCardStyle} className="premium-hover-card">
-                                    <h3 style={{ fontSize: '26px', fontWeight: '800', marginBottom: '16px', color: '#ffffff' }}>{srv.title}</h3>
-                                    <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'rgba(255,255,255,0.7)', marginBottom: '24px' }}>{srv.desc}</p>
-                                    <div style={{ display: 'grid', gap: '12px', marginBottom: '32px' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', color: 'rgba(255,255,255,0.85)' }}>
-                                            <span style={{ color: '#FDB515' }}>✔</span> {srv.f1}
-                                        </div>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', color: 'rgba(255,255,255,0.85)' }}>
-                                            <span style={{ color: '#FDB515' }}>✔</span> {srv.f2}
-                                        </div>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', color: 'rgba(255,255,255,0.85)' }}>
-                                            <span style={{ color: '#FDB515' }}>✔</span> {srv.f3}
-                                        </div>
-                                    </div>
-                                    <div style={{ color: '#FDB515', fontWeight: '700', fontSize: '15px', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }} onClick={() => navigate('/contact')}>
-                                        Learn More <span className="arrow-icon">→</span>
-                                    </div>
-                                </div>
+                                <PremiumCard key={idx} {...srv} meta={CARD_META.learning[idx]} />
                             ))}
                         </div>
 
-                        {/* 13. Contextual Division Call To Action */}
-                        <div style={{ marginTop: '64px', textAlign: 'center', padding: '40px', background: 'rgba(253,181,21,0.04)', borderRadius: '24px', border: '1px solid rgba(253,181,21,0.15)' }}>
-                            <h4 style={{ fontSize: '22px', fontWeight: '700', marginBottom: '16px' }}>Ready to transform your technical enterprise learning track?</h4>
-                            <button onClick={() => navigate('/contact')} style={{ background: 'transparent', border: '1px solid #FDB515', color: '#FDB515', padding: '12px 28px', borderRadius: '50px', fontWeight: '700', cursor: 'pointer', transition: 'all 0.3s' }}>Consult Learning Architects</button>
-                        </div>
-
                     </div>
                 </section>
 
-                {/* 6. Dynamic High-Impact Statistics Intermission */}
-                <section style={{ padding: '80px 24px', background: '#060B17', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                    <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '40px', textAlign: 'center' }}>
-                        {[
-                            { metric: '20+', description: 'Years Global Experience' },
-                            { metric: '500+', description: 'Corporate Enterprises Served' },
-                            { metric: '50K+', description: 'Professionals Track Certified' },
-                            { metric: '12', description: 'Sovereign Markets Engaged' }
-                        ].map((stat, i) => (
-                            <div key={i}>
-                                <div style={{ fontSize: '64px', fontWeight: '900', color: '#FDB515', marginBottom: '8px', letterSpacing: '-0.02em' }}>{stat.metric}</div>
-                                <div style={{ fontSize: '15px', fontWeight: '600', color: 'rgba(255,255,255,0.6)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>{stat.description}</div>
-                            </div>
-                        ))}
-                    </div>
-                </section>
+                {/* ── 3. DIVISION 2: RECRUITMENT, STAFFING & TALENT SOLUTIONS ── */}
+                <section id="recruitment" style={{ padding: '100px 24px', position: 'relative' }}>
+                    <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
 
-                {/* 3. Individual Story Sections — Division 02: Recruitment */}
-                <section id="recruitment" style={{ padding: '120px 24px', background: '#060B17', position: 'relative' }}>
-                    <div style={{ position: 'absolute', top: '40px', left: '10%', fontSize: '220px', fontWeight: '900', color: 'rgba(255,255,255,0.03)', userSelect: 'none', lineHeight: 1 }}>02</div>
-                    <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-                        
-                        {/* Alternating Layout: Image Left, Content Right */}
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))', gap: '64px', alignItems: 'center', marginBottom: '80px' }}>
-                            <div style={{ borderRadius: '24px', overflow: 'hidden', height: '440px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 30px 60px rgba(0,0,0,0.4)', order: typeof window !== 'undefined' && window.innerWidth > 768 ? 1 : 2 }}>
-                                <img src="/assets/images/about/2.jpg" alt="Recruitment Ecosystem" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                            </div>
-                            <div style={{ order: typeof window !== 'undefined' && window.innerWidth > 768 ? 2 : 1 }}>
-                                <span style={{ fontSize: '13px', fontWeight: '800', color: '#FDB515', letterSpacing: '0.2em', display: 'block', marginBottom: '16px' }}>DIVISION TWO</span>
-                                <h2 style={{ fontSize: '44px', fontWeight: '900', lineHeight: '1.2', marginBottom: '24px', letterSpacing: '-0.03em' }}>Recruitment, Staffing & Talent Solutions</h2>
-                                <p style={{ fontSize: '18px', lineHeight: '1.8', color: 'rgba(255,255,255,0.75)', marginBottom: '32px' }}>
-                                    Securing mission-critical Human Capital assets globally across the US, UK, EMEA, and GCC regions utilizing precision target mapping and AI matchmaking architecture.
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center', marginBottom: '64px' }}>
+                            <div style={{ order: 2 }}>
+                                <span style={{ fontSize: '11px', fontWeight: '800', color: '#60a5fa', letterSpacing: '0.2em', display: 'block', marginBottom: '12px' }}>DIVISION 2</span>
+                                <h2 style={{ fontSize: '38px', fontWeight: '900', lineHeight: '1.2', marginBottom: '20px', letterSpacing: '-0.02em' }}>Recruitment, Staffing &amp; Talent Solutions</h2>
+                                <p style={{ fontSize: '16.5px', lineHeight: '1.7', color: '#94a3b8', marginBottom: '28px' }}>
+                                    End-to-end recruitment and staffing solutions across permanent placement, contract staffing, staff augmentation, and executive search serving global markets.
                                 </p>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '40px' }}>
-                                    {['Executive Headhunting', 'Contract Staffing', 'Sovereign Compliance', 'Global Payroll Integrations', 'Vetted Pipelines'].map((chip) => (
-                                        <span key={chip} style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.06)', borderRadius: '50px', fontSize: '13px', fontWeight: '600', border: '1px solid rgba(255,255,255,0.1)' }}>{chip}</span>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                    {['Permanent Placement', 'Contract Staffing', 'IT Staff Augmentation', 'Non-IT Staff Augmentation', 'Executive Search'].map((chip) => (
+                                        <span key={chip} style={{ padding: '6px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '50px', fontSize: '13px', color: '#64748b' }}>{chip}</span>
                                     ))}
                                 </div>
                             </div>
+                            <div style={{ borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 30px 60px rgba(0,0,0,0.4)', order: 1 }}>
+                                <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
+                                    <source src="/assets/images/about/industries.mp4" type="video/mp4" />
+                                </video>
+                            </div>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(45%, 1fr))', gap: '32px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(48%, 1fr))', gap: '32px' }}>
                             {[
-                                { title: 'Permanent Direct Placement', desc: 'Deploying strategic psychological profile matrices to match long-term cultural alignment perfectly.', f1: 'Deep Market Talent Intelligence', f2: 'Rigorous Background Checks', f3: '90-Day Placement Guarantee' },
-                                { title: 'Agile Staff Augmentation', desc: 'On-demand scaling protocols delivering vetted project contractors directly to integrated environments.', f1: 'Rapid Deployment (24-72h)', f2: 'Full Compliance Shielding', f3: 'Flexible Scale Structures' },
-                                { title: 'Retained Executive Search', desc: 'Discreet, high-level structural headhunting targeting industry-defining transformational leadership vectors.', f1: 'Global Board Mapping', f2: 'Strict Anonymity Protocols', f3: 'Competency Psychometrics' },
-                                { title: 'Managed Staffing (RPO/MSP)', desc: 'Consolidating cross-vendor overhead architectures under unified service agreements.', f1: 'Embedded Talent Squads', f2: 'Centralized Performance SLAs', f3: 'Advanced Funnel Analytics' }
+                                { title: 'Permanent Placement & Direct Hire', desc: 'Sourcing, screening, and presenting exceptional candidates across all seniority levels with multi-stage evaluation processes.', f1: 'AI Candidate Matching', f2: 'Competency Interviewing', f3: '90-Day Guarantee' },
+                                { title: 'Contract & Temporary Staffing', desc: 'Flexible, quality talent deployed at speed to manage peak seasons or specific project cycles throughout the employee lifecycle.', f1: '24–72h Deployment', f2: 'Payroll Management', f3: 'Tax Compliance Support' },
+                                { title: 'Staff Augmentation Model', desc: 'Seamlessly extending internal software engineering, data, cloud architectures, finance, HR, or operations teams without traditional overheads.', f1: 'IT Specialized Roles', f2: 'Non-IT Domain Experts', f3: 'Seamless Integration' },
+                                { title: 'Executive Search & Leadership', desc: 'Applying a discreet, research-led methodology to identify and attract transformational leaders across C-suite and board levels.', f1: 'Market Mapping', f2: 'Leadership Assessment', f3: 'Confidential Mandates' },
                             ].map((srv, idx) => (
-                                <div key={idx} style={glassCardStyle} className="premium-hover-card">
-                                    <h3 style={{ fontSize: '26px', fontWeight: '800', marginBottom: '16px', color: '#ffffff' }}>{srv.title}</h3>
-                                    <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'rgba(255,255,255,0.7)', marginBottom: '24px' }}>{srv.desc}</p>
-                                    <div style={{ display: 'grid', gap: '12px', marginBottom: '32px' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', color: 'rgba(255,255,255,0.85)' }}>
-                                            <span style={{ color: '#FDB515' }}>✔</span> {srv.f1}
-                                        </div>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', color: 'rgba(255,255,255,0.85)' }}>
-                                            <span style={{ color: '#FDB515' }}>✔</span> {srv.f2}
-                                        </div>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', color: 'rgba(255,255,255,0.85)' }}>
-                                            <span style={{ color: '#FDB515' }}>✔</span> {srv.f3}
-                                        </div>
-                                    </div>
-                                    <div style={{ color: '#FDB515', fontWeight: '700', fontSize: '15px', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }} onClick={() => navigate('/contact')}>
-                                        Secure Talent Pipeline <span className="arrow-icon">→</span>
-                                    </div>
-                                </div>
+                                <PremiumCard key={idx} {...srv} meta={CARD_META.recruitment[idx]} />
                             ))}
-                        </div>
-
-                        {/* 13. Contextual Division Call To Action */}
-                        <div style={{ marginTop: '64px', textAlign: 'center', padding: '40px', background: 'rgba(253,181,21,0.04)', borderRadius: '24px', border: '1px solid rgba(253,181,21,0.15)' }}>
-                            <h4 style={{ fontSize: '22px', fontWeight: '700', marginBottom: '16px' }}>Need custom executive parameters targeted immediately?</h4>
-                            <button onClick={() => navigate('/contact')} style={{ background: '#FDB515', border: 'none', color: '#060B17', padding: '14px 32px', borderRadius: '50px', fontWeight: '700', cursor: 'pointer', transition: 'all 0.3s' }}>Deploy Talent Acquisition Request</button>
                         </div>
 
                     </div>
                 </section>
 
-                {/* 7. Animated Functional Process Timeline */}
-                <section style={{ padding: '120px 24px', background: '#0B1224', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                    <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
-                        <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-                            <span style={{ fontSize: '13px', fontWeight: '800', color: '#FDB515', letterSpacing: '0.2em' }}>OPERATIONAL ARCHITECTURE</span>
-                            <h2 style={{ fontSize: '44px', fontWeight: '900', marginTop: '12px' }}>The Blueprint of Engagement</h2>
-                        </div>
+                {/* ── 4. DIVISION 3: FINANCIAL CONSULTANCY & ACCOUNTING SERVICES ── */}
+                <section id="finance" style={{ padding: '100px 24px', background: '#0b1220', position: 'relative' }}>
+                    <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
 
-                        <div style={{ position: 'relative', paddingLeft: '40px', borderLeft: '2px solid rgba(253,181,21,0.2)' }} className="timeline-container">
-                            {[
-                                { step: 'Consult & Diagnose', text: 'Conducting technical diagnostics, resource gap analyses, and regulatory tracking metrics.' },
-                                { step: 'Architectural Blueprint Strategy', text: 'Mapping out precise delivery timelines, instructional frameworks, and fiscal compliance targets.' },
-                                { step: 'Ecosystem Engineering', text: 'Developing custom SCORM suites, sourcing niche professional profiles, or structuring balance engines.' },
-                                { step: 'Deployment Activation', text: 'Launching global LMS access nodes, integrating staff, and stabilizing regulatory accounting paths.' },
-                                { step: 'Optimization Measurement', text: 'Evaluating ROI data arrays, corporate churn profiles, and organizational efficiency parameters.' }
-                            ].map((phase, index) => (
-                                <div key={index} style={{ position: 'relative', marginBottom: '50px' }} className="timeline-node">
-                                    <div style={{
-                                        position: 'absolute',
-                                        left: '-51px',
-                                        top: '4px',
-                                        width: '20px',
-                                        height: '20px',
-                                        borderRadius: '50%',
-                                        background: '#060B17',
-                                        border: '3px solid #FDB515',
-                                        boxShadow: '0 0 15px #FDB515',
-                                        zIndex: 10
-                                    }} />
-                                    <h4 style={{ fontSize: '22px', fontWeight: '800', color: '#ffffff', marginBottom: '8px' }}>
-                                        <span style={{ color: '#FDB515', marginRight: '12px', fontSize: '16px' }}>PHASE 0{index + 1}</span>
-                                        {phase.step}
-                                    </h4>
-                                    <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'rgba(255,255,255,0.7)', maxWidth: '780px' }}>{phase.text}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* 3. Individual Story Sections — Division 03: Finance */}
-                <section id="finance" style={{ padding: '120px 24px', background: '#060B17', position: 'relative' }}>
-                    <div style={{ position: 'absolute', top: '40px', right: '10%', fontSize: '220px', fontWeight: '900', color: 'rgba(255,255,255,0.03)', userSelect: 'none', lineHeight: 1 }}>03</div>
-                    <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-                        
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))', gap: '64px', alignItems: 'center', marginBottom: '80px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'center', marginBottom: '64px' }}>
                             <div>
-                                <span style={{ fontSize: '13px', fontWeight: '800', color: '#FDB515', letterSpacing: '0.2em', display: 'block', marginBottom: '16px' }}>DIVISION THREE</span>
-                                <h2 style={{ fontSize: '44px', fontWeight: '900', lineHeight: '1.2', marginBottom: '24px', letterSpacing: '-0.03em' }}>Financial Consultancy & Accounting Services</h2>
-                                <p style={{ fontSize: '18px', lineHeight: '1.8', color: 'rgba(255,255,255,0.75)', marginBottom: '32px' }}>
-                                    Maximizing bottom-line stability, operational clarity, and international cross-border tax compliance through elite Chartered Accountancy and corporate advisory structures.
+                                <span style={{ fontSize: '11px', fontWeight: '800', color: '#60a5fa', letterSpacing: '0.2em', display: 'block', marginBottom: '12px' }}>DIVISION 3</span>
+                                <h2 style={{ fontSize: '38px', fontWeight: '900', lineHeight: '1.2', marginBottom: '20px', letterSpacing: '-0.02em' }}>Financial Consultancy &amp; Accounting Services</h2>
+                                <p style={{ fontSize: '16.5px', lineHeight: '1.7', color: '#94a3b8', marginBottom: '28px' }}>
+                                    Comprehensive end-to-end financial services designed to provide clarity, compliance, and strategic direction for businesses of all sizes.
                                 </p>
-                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '40px' }}>
-                                    {['IFRS Reporting', 'Corporate Tax Optimization', 'Risk Control Frameworks', 'Fractional CFO Support', 'M&A Due Diligence'].map((chip) => (
-                                        <span key={chip} style={{ padding: '8px 16px', background: 'rgba(255,255,255,0.06)', borderRadius: '50px', fontSize: '13px', fontWeight: '600', border: '1px solid rgba(255,255,255,0.1)' }}>{chip}</span>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                    {['Accounting & Bookkeeping', 'Tax Planning', 'Financial Reporting', 'Budgeting & Forecasting', 'Audit Support'].map((chip) => (
+                                        <span key={chip} style={{ padding: '6px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '50px', fontSize: '13px', color: '#64748b' }}>{chip}</span>
                                     ))}
                                 </div>
                             </div>
-                            <div style={{ borderRadius: '24px', overflow: 'hidden', height: '440px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 30px 60px rgba(0,0,0,0.4)' }}>
-                                <img src="/assets/images/about/3.jpg" alt="Corporate Finance Advisory" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <div style={{ borderRadius: '24px', overflow: 'hidden', height: '380px', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 30px 60px rgba(0,0,0,0.4)' }}>
+                                <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
+                                    <source src="/assets/images/about/global-Delivery-Network.mp4" type="video/mp4" />
+                                </video>
                             </div>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(45%, 1fr))', gap: '32px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '32px' }}>
                             {[
-                                { title: 'Enterprise Asset Accounting', desc: 'Daily general ledger management, accounts profiling, and multi-currency structural data streaming.', f1: 'AP/AR Automated Mapping', f2: 'Fixed Asset Registers', f3: 'Daily Flow Reconciliation' },
-                                { title: 'Strategic Financial Architecture', desc: 'Board-ready packs and quarterly reporting matrices fully tracking IFRS and local sovereign statutory configurations.', f1: 'P&L Variance Audits', f2: 'Integrated Flow Projections', f3: 'Consolidated Group Maps' },
-                                { title: 'Sovereign Tax Planning & Risk', desc: 'Navigating domestic and international cross-border tax shields completely aligned with regulatory code.', f1: 'Corporate Tax Returns', f2: 'Cross-Border Planning Protection', f3: 'Audit Interface Alignment' },
-                                { title: 'Fractional CFO Advisory', desc: 'High-tier strategic financial intelligence tailored directly for mid-market scale-ups and operations.', f1: 'M&A Structural Optimization', f2: 'Risk Control Audits', f3: 'Working Capital Maximization' }
+                                { title: 'Accounting, Bookkeeping & Reporting Services', desc: 'Accurate, timely, and fully compliant transaction logging and management information generation across cloud accounting ecosystems.', f1: 'Xero & QuickBooks', f2: 'IFRS & GAAP Compliance', f3: 'AP/AR Management' },
+                                { title: 'Tax Planning, Compliance & Advisory', desc: 'Navigating domestic and international tax obligations with precision, ensuring corporate and personal compliance across jurisdictions.', f1: 'VAT / GST Filings', f2: 'Transfer Pricing Docs', f3: 'Cross-Border Planning' },
+                                { title: 'Budgeting, Forecasting & CFO Advisory', desc: 'Access to strategic board-level financial management, Three-Way financial modeling, and scenario planning tools for scalable growth.', f1: 'Scenario Modeling', f2: 'Fractional CFO Support', f3: 'Cash Flow Forecasting' },
                             ].map((srv, idx) => (
-                                <div key={idx} style={glassCardStyle} className="premium-hover-card">
-                                    <h3 style={{ fontSize: '26px', fontWeight: '800', marginBottom: '16px', color: '#ffffff' }}>{srv.title}</h3>
-                                    <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'rgba(255,255,255,0.7)', marginBottom: '24px' }}>{srv.desc}</p>
-                                    <div style={{ display: 'grid', gap: '12px', marginBottom: '32px' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', color: 'rgba(255,255,255,0.85)' }}>
-                                            <span style={{ color: '#FDB515' }}>✔</span> {srv.f1}
-                                        </div>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', color: 'rgba(255,255,255,0.85)' }}>
-                                            <span style={{ color: '#FDB515' }}>✔</span> {srv.f2}
-                                        </div>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', color: 'rgba(255,255,255,0.85)' }}>
-                                            <span style={{ color: '#FDB515' }}>✔</span> {srv.f3}
-                                        </div>
-                                    </div>
-                                    <div style={{ color: '#FDB515', fontWeight: '700', fontSize: '15px', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }} onClick={() => navigate('/contact')}>
-                                        Consult Financial Advisory <span className="arrow-icon">→</span>
-                                    </div>
-                                </div>
+                                <PremiumCard key={idx} {...srv} meta={CARD_META.finance[idx]} />
                             ))}
-                        </div>
-
-                        {/* 13. Contextual Division Call To Action */}
-                        <div style={{ marginTop: '64px', textAlign: 'center', padding: '40px', background: 'rgba(253,181,21,0.04)', borderRadius: '24px', border: '1px solid rgba(253,181,21,0.15)' }}>
-                            <h4 style={{ fontSize: '22px', fontWeight: '700', marginBottom: '16px' }}>Seeking an enterprise-grade financial optimization diagnostic?</h4>
-                            <button onClick={() => navigate('/contact')} style={{ background: 'transparent', border: '1px solid #FDB515', color: '#FDB515', padding: '12px 28px', borderRadius: '50px', fontWeight: '700', cursor: 'pointer', transition: 'all 0.3s' }}>Initiate Fiscal Diagnostic Review</button>
                         </div>
 
                     </div>
                 </section>
 
-                {/* FAQ Section */}
-                <section style={{ padding: '100px 24px', background: '#0B1224', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                {/* ── 5. INTEGRATED EXPERTISE PROMISE ── */}
+                <section style={{ padding: '100px 24px', position: 'relative' }}>
                     <div style={{ maxWidth: '960px', margin: '0 auto' }}>
-                        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-                            <span style={{ fontSize: '13px', fontWeight: '800', color: '#FDB515', letterSpacing: '0.2em' }}>FAQ</span>
-                            <h2 style={{ fontSize: '38px', fontWeight: '900', marginTop: '10px' }}>Frequently Asked Questions</h2>
+                        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
+                            <span style={{ fontSize: '11px', fontWeight: '800', color: '#60a5fa', letterSpacing: '0.2em' }}>OUR STRATEGIC ADVANTAGE</span>
+                            <h2 style={{ fontSize: '38px', fontWeight: '900', marginTop: '8px' }}>Why Partner with JF Knowledge Centre?</h2>
                         </div>
-                        <div style={{ display: 'grid', gap: '24px' }}>
+
+                        <div style={{ position: 'relative', paddingLeft: '32px', borderLeft: '2px solid rgba(255,255,255,0.06)' }}>
                             {[
-                                { q: 'Can we cross-engage multiple divisions concurrently?', a: 'Yes. Our infrastructure model is deliberately built to allow seamless strategic integration across learning architecture, talent pipelines, and financial consultancy under a single unified master client file.' },
-                                { q: 'What compliance frameworks govern your financial consultancy services?', a: 'Our operations fully align with IFRS, US GAAP, and regional tax governance regulations across jurisdictions in the United Kingdom, United States, and the Gulf Cooperation Council.' }
-                            ].map((faq, index) => (
-                                <div key={index} style={{ padding: '30px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.06)' }}>
-                                    <h4 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '12px', color: '#FDB515' }}>{faq.q}</h4>
-                                    <p style={{ fontSize: '16px', lineHeight: '1.7', color: 'rgba(255,255,255,0.7)', margin: 0 }}>{faq.a}</p>
+                                { title: 'Integrated Expertise', desc: 'Three specialist divisions under one roof. Whether you need to train your people, hire the best, or manage your finances — we deliver it all with consistent quality and a single point of accountability.' },
+                                { title: 'Global Reach, Local Insight', desc: 'Active presence across US, UK, Europe, GCC, and India. We understand local market nuances, regulatory landscapes, and cultural contexts that drive results in each geography.' },
+                                { title: 'Technology-Driven Foundations', desc: 'We leverage AI, automation, and digital platforms to deliver faster, smarter, and more scalable solutions across all three divisions — from AI-powered candidate matching to real-time financial dashboards.' }
+                            ].map((phase, index) => (
+                                <div key={index} style={{ position: 'relative', marginBottom: '40px' }}>
+                                    <div style={{ position: 'absolute', left: '-42px', top: '4px', width: '18px', height: '18px', borderRadius: '50%', background: '#060B17', border: '2px solid #3b82f6', boxShadow: '0 0 10px rgba(59,130,246,0.5)' }} />
+                                    <h4 style={{ fontSize: '19px', fontWeight: '800', color: '#ffffff', marginBottom: '6px' }}>
+                                        {phase.title}
+                                    </h4>
+                                    <p style={{ fontSize: '15px', lineHeight: '1.6', color: '#94a3b8', margin: 0 }}>{phase.desc}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </section>
 
-                {/* 14. Large Premium Final Call To Action */}
-                <section style={{ padding: '140px 24px', background: 'radial-gradient(circle at 50% 50%, #111A30 0%, #060B17 100%)', position: 'relative', overflow: 'hidden' }}>
-                    <div style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: '600px',
-                        height: '600px',
-                        background: 'radial-gradient(circle, rgba(253,181,21,0.08), transparent 70%)',
-                        filter: 'blur(80px)',
-                        zIndex: 1,
-                        pointerEvents: 'none'
-                    }} />
-
-                    <div style={{ maxWidth: '820px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 2 }}>
-                        <h2 style={{ fontSize: '52px', fontWeight: '900', letterSpacing: '-0.03em', lineHeight: '1.15', marginBottom: '24px' }}>
-                            Let&apos;s Build Your <br />Growth Strategy.
-                        </h2>
-                        <p style={{ fontSize: '18px', lineHeight: '1.8', color: 'rgba(255,255,255,0.75)', maxWidth: '620px', margin: '0 auto 40px' }}>
-                            Partner with our multidisciplinary strategy architects to transform capability matrices, optimize human capital deployment, and maximize structural fiscal health.
-                        </p>
-                        <button 
-                            onClick={() => navigate('/contact')}
-                            style={{
-                                background: '#FDB515',
-                                color: '#060B17',
-                                padding: '20px 42px',
-                                borderRadius: '999px',
-                                fontWeight: '700',
-                                fontSize: '16px',
-                                border: 'none',
-                                cursor: 'pointer',
-                                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                                boxShadow: '0 15px 40px rgba(253,181,21,0.25)'
-                            }}
-                            className="primary-button-accent"
-                        >
-                            Book Consultation Matrix
-                        </button>
+                {/* ── 6. PARAMETER CLARITY HUB (FAQ) ── */}
+                <section style={{ padding: '100px 24px', background: '#0b1220', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+                    <div style={{ maxWidth: '860px', margin: '0 auto' }}>
+                        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+                            <span style={{ fontSize: '11px', fontWeight: '800', color: '#60a5fa', letterSpacing: '0.15em' }}>FAQ</span>
+                            <h2 style={{ fontSize: '34px', fontWeight: '900', marginTop: '8px' }}>Frequently Asked Parameters</h2>
+                        </div>
+                        <div style={{ display: 'grid', gap: '20px' }}>
+                            {[
+                                { q: 'What compliance frameworks govern your Custom eLearning outputs?', a: 'Our custom modules are fully SCORM 1.2, SCORM 2004, xAPI (Tin Can), and AICC compliant, utilizing top-tier authoring tools like Articulate Storyline and Adobe Captivate.' },
+                                { q: 'What specific timelines back your Contract and Temporary staffing placements?', a: 'We specialize in the rapid deployment of pre-vetted contract professionals within 24 to 72 hours, managing complete contractor payroll, tax compliance, and HR support requirements.' }
+                            ].map((faq, index) => (
+                                <div key={index} style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                    <h4 style={{ fontSize: '16.5px', fontWeight: '800', marginBottom: '8px', color: '#ffffff' }}>{faq.q}</h4>
+                                    <p style={{ fontSize: '14.5px', lineHeight: '1.6', color: '#94a3b8', margin: 0 }}>{faq.a}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </section>
-            </main>
-            
-            <Footer />
 
-            {/* Custom global CSS injection for clean interactions */}
-            <style dangerouslySetInnerHTML={{__html: `
-                .premium-hover-card:hover {
-                    transform: translateY(-10px);
-                    border-color: #FDB515 !important;
-                    box-shadow: 0 20px 40px rgba(253,181,21,0.08) !important;
-                }
-                .premium-hover-card:hover .arrow-icon {
-                    transform: translateX(6px);
-                }
-                .primary-button-accent:hover {
-                    transform: translateY(-3px);
-                    box-shadow: 0 20px 50px rgba(253,181,21,0.35) !important;
-                }
-                .secondary-glass-button:hover {
-                    background: rgba(255,255,255,.1) !important;
-                    border-color: rgba(255,255,255,.3) !important;
-                    transform: translateY(-2px);
-                }
-                .hero-scroll-indicator:hover {
-                    color: #FDB515 !important;
-                }
-                @keyframes bounce {
-                    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-                    40% { transform: translateY(-6px); }
-                    60% { transform: translateY(-3px); }
-                }
-            `}} />
+                <CTA />
+            </main>
+
+            <Footer />
         </div>
     );
 }

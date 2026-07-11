@@ -1,5 +1,5 @@
 import React from 'react';
-import { Laptop, Users, BarChart3, ArrowRight, Check } from 'lucide-react';
+import { Laptop, Users, BarChart3, ArrowRight } from 'lucide-react';
 
 const navigate = (href) => {
     window.history.pushState({}, '', href);
@@ -59,10 +59,10 @@ export default function ServiceGrid() {
                     isolation: isolate;
                     background:
                        linear-gradient(
-135deg,
-rgba(222, 232, 248, 0.82) 0%,
-rgba(195, 210, 232, 0.68) 100%
-),
+                        135deg,
+                        rgba(222, 232, 248, 0.82) 0%,
+                        rgba(195, 210, 232, 0.68) 100%
+                        ),
                         url('/assets/images/about/servicebg.png') center / cover no-repeat;
                 }
 
@@ -145,8 +145,6 @@ rgba(195, 210, 232, 0.68) 100%
                     background: linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.22) 100%);
                 }
 
-                /* icon overlay removed per design — previously top-right */
-
                 .sg-label-capsule {
                     position: absolute;
                     top: 16px;
@@ -180,7 +178,7 @@ rgba(195, 210, 232, 0.68) 100%
                 .sg-bullet-list {
                     display: flex;
                     flex-direction: column;
-                    gap: 10px;
+                    gap: 12px;
                     margin: 0;
                     padding: 0;
                 }
@@ -193,16 +191,14 @@ rgba(195, 210, 232, 0.68) 100%
                     color: rgba(255, 255, 255, 0.9);
                 }
 
-                .sg-bullet-check {
-                    width: 18px;
-                    height: 18px;
-                    border-radius: 4px;
-                    background: rgba(34,197,94,0.12);
-                    color: #16a34a;
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
+                /* Elegant White Bullet Point Style */
+                .sg-bullet-dot-white {
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background: #ffffff;
                     flex-shrink: 0;
+                    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
                 }
 
                 .sg-icon-wrap {
@@ -247,15 +243,6 @@ rgba(195, 210, 232, 0.68) 100%
                     line-height: 1.7;
                     margin-bottom: 20px;
                     flex: 1;
-                }
-
-                .sg-bullet-dot {
-                    width: 5px;
-                    height: 5px;
-                    border-radius: 50%;
-                    background: var(--gold);
-                    flex-shrink: 0;
-                    margin-top: 6px;
                 }
 
                 .sg-card-link {
@@ -316,76 +303,74 @@ rgba(195, 210, 232, 0.68) 100%
                 }
             `}</style>
 
-           <section className="sg-section theme-section theme-section--light">
-    <div className="sg-container">
-        <div className="sg-header section-intro">
-            <span className="jf-overline">Core Capabilities</span>
-            <h2 className="sg-headline section-title" style={{ fontWeight: 700, color: 'var(--primary)' }}>
-                Three Divisions.
-                 Infinite Scalability.
-            </h2>
-            <p className="sg-desc section-copy">
-                One unified partner engine accelerating your strategic hyper-growth
-                objectives across learning assets, talent engineering, and
-                institutional finances — globally.
-            </p>
-        </div>
-
-        <div className="sg-grid">
-            {services.map((s, i) => (
-                <div
-                    key={i}
-                    className="sg-card"
-                    onClick={() => navigate(s.href)}
-                >
-                    <div className="sg-card-image" style={{ backgroundImage: `url('${s.bgImage}')` }}>
-                        <div className="sg-label-capsule">{s.label}</div>
+            <section className="sg-section theme-section theme-section--light">
+                <div className="sg-container">
+                    <div className="sg-header section-intro">
+                        <span className="jf-overline">Core Capabilities</span>
+                        <h2 className="sg-headline section-title" style={{ fontWeight: 700, color: 'var(--primary)' }}>
+                            Three Divisions. Infinite Scalability.
+                        </h2>
+                        <p className="sg-desc section-copy">
+                            One unified partner engine accelerating your strategic hyper-growth
+                            objectives across learning assets, talent engineering, and
+                            institutional finances — globally.
+                        </p>
                     </div>
-                    <div className="sg-card-content">
-                        <h3 className="sg-card-title">{s.title}</h3>
-                        <div className="sg-bullet-list">
-                            {s.bullets?.map((b, bi) => (
-                                <div key={bi} className="sg-bullet-item">
-                                    <span className="sg-bullet-check">
-                                        <Check size={12} strokeWidth={2} />
-                                    </span>
-                                    <span>{b}</span>
+
+                    <div className="sg-grid">
+                        {services.map((s, i) => (
+                            <div
+                                key={i}
+                                className="sg-card"
+                                onClick={() => navigate(s.href)}
+                            >
+                                <div className="sg-card-image" style={{ backgroundImage: `url('${s.bgImage}')` }}>
+                                    <div className="sg-label-capsule">{s.label}</div>
+                                </div>
+                                <div className="sg-card-content">
+                                    <h3 className="sg-card-title">{s.title}</h3>
+                                    <div className="sg-bullet-list">
+                                        {s.bullets?.map((b, bi) => (
+                                            <div key={bi} className="sg-bullet-item">
+                                                {/* Replaced .sg-bullet-check with a sleek white bullet dot */}
+                                                <span className="sg-bullet-dot-white" />
+                                                <span>{b}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <p className="sg-card-desc" style={{ marginTop: 8 }}>{s.desc}</p>
+                                </div>
+                                <button className="sg-card-link" onClick={(e) => { e.stopPropagation(); navigate(s.href); }}>
+                                    Explore Division <ArrowRight size={14} />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="sg-bottom-bar">
+                        <div className="sg-bottom-stats">
+                            {[
+                                { val: '92%+', lbl: 'Talent Retention' },
+                                { val: '48h', lbl: 'Time-to-Shortlist' },
+                                { val: '30+', lbl: 'Languages Delivered' },
+                                { val: 'Big 4', lbl: 'Grade Financial Expertise' },
+                            ].map((s, i) => (
+                                <div key={i}>
+                                    <div className="sg-stat-val">{s.val}</div>
+                                    <div className="sg-stat-lbl">{s.lbl}</div>
                                 </div>
                             ))}
                         </div>
-                        <p className="sg-card-desc" style={{ marginTop: 8 }}>{s.desc}</p>
+                        <button className="jf-btn-outline" onClick={() => navigate('/contact')}>
+                            Start a Conversation
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="linear-gradient(135deg, #2563EB, #3B82F6)" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="12 5 19 12 12 19" />
+                            </svg>
+                        </button>
                     </div>
-                    <button className="sg-card-link" onClick={(e) => { e.stopPropagation(); navigate(s.href); }}>
-                        Explore Division <ArrowRight size={14} />
-                    </button>
                 </div>
-            ))}
-        </div>
-
-        <div className="sg-bottom-bar">
-            <div className="sg-bottom-stats">
-                {[
-                    { val: '92%+', lbl: 'Talent Retention' },
-                    { val: '48h', lbl: 'Time-to-Shortlist' },
-                    { val: '30+', lbl: 'Languages Delivered' },
-                    { val: 'Big 4', lbl: 'Grade Financial Expertise' },
-                ].map((s, i) => (
-                    <div key={i}>
-                        <div className="sg-stat-val">{s.val}</div>
-                        <div className="sg-stat-lbl">{s.lbl}</div>
-                    </div>
-                ))}
-            </div>
-            <button className="jf-btn-outline" onClick={() => navigate('/contact')}>
-                Start a Conversation
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                </svg>
-            </button>
-        </div>
-    </div>
-</section>
+            </section>
         </>
     );
 }

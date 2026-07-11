@@ -7,7 +7,6 @@ const navLinks = [
 
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);
-    const [activeDropdown, setActiveDropdown] = useState(null);
     const [mobileOpen, setMobileOpen] = useState(false);
     const navRef = useRef(null);
 
@@ -20,7 +19,7 @@ export default function Header() {
     useEffect(() => {
         const handleOutsideClick = (event) => {
             if (navRef.current && !navRef.current.contains(event.target)) {
-                setActiveDropdown(null);
+                setMobileOpen(false);
             }
         };
         document.addEventListener('mousedown', handleOutsideClick);
@@ -31,12 +30,12 @@ export default function Header() {
         window.history.pushState({}, '', href);
         window.dispatchEvent(new PopStateEvent('popstate'));
         setMobileOpen(false);
-        setActiveDropdown(null);
     };
 
     return (
         <>
             <style>{`
+                /* Full screen-width header pinned straight to the top */
                 .jf-header {
                     position: fixed;
                     top: 0;
@@ -46,69 +45,59 @@ export default function Header() {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding: 0 max(24px, 4vw);
-                    height: 80px;
-                    font-family: var(--font-family);
-                    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-                    background: rgba(1, 2, 10, 0.22);
-                    backdrop-filter: blur(8px);
-                    -webkit-backdrop-filter: blur(8px);
+                    
+                    /* Left and right edge spacing slightly decreased */
+                    padding: 0 max(16px, 3vw);
+                    
+                    /* Height decreased a little bit (68px default) */
+                    height: 68px;
+                    font-family: var(--font-family, sans-serif);
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    
+                    /* Custom Glassmorphism at 40% Opacity stretching full-width */
+                    background: rgba(8, 15, 30, 0.40); 
+                    backdrop-filter: blur(18px);
+                    -webkit-backdrop-filter: blur(18px);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
                 }
 
-                .jf-header.scrolled {
-                    height: 72px;
-                    background: rgba(1, 2, 10, 0.94);
-                    backdrop-filter: blur(20px);
-                    -webkit-backdrop-filter: blur(20px);
-                    border-bottom: 1px solid var(--border-dark);
-                    box-shadow: var(--shadow-sm);
+                /* Compact scroll transition state */
+                .jf-header.scrolled-state {
+                    height: 62px;
+                    background: rgba(7, 17, 31, 0.85);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.7);
                 }
 
                 .jf-logo-wrap {
                     display: flex;
                     align-items: center;
-                    gap: 14px;
                     cursor: pointer;
                     flex-shrink: 0;
                 }
 
+                /* Sophisticated White Logo with Opacity */
                 .jf-logo-img {
-                    height: 40px;
+                    height: 34px; /* Scaled down slightly to fit new height */
                     width: auto;
                     object-fit: contain;
-                    filter: brightness(0) invert(1);
-                    transition: height 0.3s ease;
+                    filter: brightness(1.05) invert(1);
+                    opacity: 0.82;
+                    transition: all 0.3s ease;
                 }
 
-                .jf-header.scrolled .jf-logo-img { height: 34px; }
-
-                .jf-brand-text {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 2px;
+                .jf-logo-wrap:hover .jf-logo-img {
+                    opacity: 1;
                 }
 
-                .jf-brand-name {
-                    font-size: 13px;
-                    font-weight: 800;
-                    letter-spacing: 0.14em;
-                    text-transform: uppercase;
-                    color: var(--text-primary);
-                    line-height: 1;
-                }
-
-                .jf-brand-tagline {
-                    font-size: 10px;
-                    font-weight: 500;
-                    letter-spacing: 0.08em;
-                    color: var(--text-secondary);
-                    line-height: 1;
+                .jf-header.scrolled-state .jf-logo-img { 
+                    height: 30px; 
                 }
 
                 .desktop-nav {
                     display: flex;
                     align-items: center;
-                    gap: 32px;
+                    gap: 28px; /* Slightly tighter link spacing */
                     height: 100%;
                     margin-left: auto;
                 }
@@ -116,182 +105,150 @@ export default function Header() {
                 .header-actions {
                     display: flex;
                     align-items: center;
-                    gap: 14px;
+                    gap: 10px; /* Reduced gap between custom buttons by 2px */
+                    margin-left: 28px;
                 }
 
-                .nav-item-container {
-                    position: relative;
-                    height: 100%;
-                    display: flex;
-                    align-items: center;
-                }
-
+                /* Enterprise Navigation Typography */
                 .jf-nav-link {
                     background: none;
                     border: none;
-                    font-family: var(--font-family);
+                    font-family: var(--font-family, sans-serif);
                     font-size: 13px;
                     font-weight: 500;
-                    color: var(--text-secondary);
+                    color: #D1D5DB;
                     cursor: pointer;
                     display: flex;
                     align-items: center;
-                    gap: 5px;
-                    padding: 8px 0;
-                    transition: color 0.2s ease;
+                    padding: 6px 0;
+                    transition: color 0.25s ease;
                 }
 
-                .jf-nav-link:hover,
-                .nav-item-container.active .jf-nav-link {
-                    color: var(--text-placeholder);
+                .jf-nav-link:hover {
+                    color: #FFFFFF;
                 }
 
-                .jf-dropdown-menu {
-                    position: absolute;
-                    top: calc(100% + 4px);
-                    left: 50%;
-                    transform: translateX(-50%) translateY(8px);
-                    min-width: 260px;
-                    background: var(--bg-elevated);
-                    border: 1px solid var(--border-dark);
-                    border-radius: 12px;
-                    padding: 8px;
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-                    pointer-events: none;
-                    box-shadow: var(--shadow-md);
+                .jf-nav-link.active {
+                    color: #3B82F6;
                 }
 
-                .nav-item-container.active .jf-dropdown-menu {
-                    opacity: 1;
-                    visibility: visible;
-                    transform: translateX(-50%) translateY(0);
-                    pointer-events: auto;
-                }
-
-                .jf-dropdown-item {
-                    width: 100%;
-                    text-align: left;
-                    background: none;
-                    border: none;
-                    border-radius: 8px;
-                    font-family: var(--font-family);
-                    font-size: 13px;
-                    font-weight: 500;
-                    color: var(--text-secondary);
-                    padding: 11px 14px;
-                    cursor: pointer;
-                    transition: all 0.18s ease;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                }
-
-                .jf-dropdown-item:hover {
-                    background: var(--primary-muted);
-                    color: var(--primary-light);
-                }
-
-                .chevron-icon {
-                    transition: transform 0.22s ease;
-                    color: var(--text-muted);
-                }
-
-                .nav-item-container.active .chevron-icon {
-                    transform: rotate(180deg);
-                    color: var(--primary-light);
-                }
-
-                .header-cta {
-                    padding: 12px 24px !important;
-                    border-radius: 100px !important;
+                /* Premium Button Frameworks with optimized top/bottom padding */
+                .header-cta-primary {
+                    background: linear-gradient(135deg, #2563EB, #3B82F6) !important;
+                    color: #ffffff !important;
+                    padding: 8px 18px !important; /* Shaved off internal padding height */
+                    border-radius: 16px !important;
                     font-size: 13px !important;
-                    letter-spacing: 0.04em !important;
-                    text-transform: none !important;
+                    font-weight: 600 !important;
+                    letter-spacing: 0.01em !important;
+                    border: none !important;
+                    cursor: pointer;
+                    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                }
+
+                .header-cta-primary:hover {
+                    transform: translateY(-1px);
+                    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+                }
+
+                .header-cta-secondary {
+                    background: transparent !important;
+                    color: #D1D5DB !important;
+                    padding: 8px 18px !important; /* Shaved off internal padding height */
+                    border-radius: 16px !important;
+                    font-size: 13px !important;
+                    font-weight: 600 !important;
+                    letter-spacing: 0.01em !important;
+                    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+                    cursor: pointer;
+                    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                }
+
+                .header-cta-secondary:hover {
+                    color: #FFFFFF !important;
+                    background: rgba(255, 255, 255, 0.05) !important;
+                    border-color: rgba(255, 255, 255, 0.25) !important;
+                    transform: translateY(-1px);
                 }
 
                 #jf-hamburger-btn {
                     display: none;
                     background: none;
                     border: none;
-                    color: var(--text-secondary);
+                    color: #D1D5DB;
                     cursor: pointer;
                     padding: 4px;
                 }
 
                 .mobile-menu {
                     position: fixed;
-                    top: 80px;
+                    top: 68px;
                     left: 0;
                     right: 0;
-                    background: var(--bg-main);
-                    border-bottom: 1px solid var(--border-dark);
-                    padding: 24px max(24px, 4vw) 32px;
+                    background: #07111F;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                    padding: 20px max(16px, 3vw) 24px;
                     display: flex;
                     flex-direction: column;
-                    gap: 8px;
+                    gap: 4px;
                     z-index: 999;
-                    max-height: calc(100vh - 80px);
+                    max-height: calc(100vh - 68px);
                     overflow-y: auto;
+                }
+
+                .jf-header.scrolled-state ~ .mobile-menu {
+                    top: 62px;
+                    max-height: calc(100vh - 62px);
                 }
 
                 .jf-mobile-link {
                     background: none;
                     border: none;
-                    border-bottom: 1px solid var(--border-dark);
-                    font-family: var(--font-family);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                    font-family: var(--font-family, sans-serif);
                     font-size: 14px;
                     font-weight: 500;
-                    color: var(--text-secondary);
+                    color: #D1D5DB;
                     text-align: left;
-                    padding: 14px 0;
+                    padding: 12px 0;
                     cursor: pointer;
                     width: 100%;
                     transition: color 0.2s ease;
                 }
 
-                .jf-mobile-link:hover { color: var(--primary-light); }
-
-                .mobile-dropdown-header {
-                    font-size: 11px;
-                    font-weight: 700;
-                    color: var(--primary-light);
-                    text-transform: uppercase;
-                    letter-spacing: 0.14em;
-                    margin-top: 12px;
-                    margin-bottom: 4px;
-                }
+                .jf-mobile-link:hover { color: #FFFFFF; }
 
                 @media (max-width: 960px) {
-                    .jf-brand-text { display: none; }
                     .desktop-nav { display: none !important; }
-                    #desktop-cta { display: none !important; }
+                    #desktop-actions-container { display: none !important; }
                     #jf-hamburger-btn { display: flex !important; }
                 }
             `}</style>
 
-            <header className={`jf-header ${scrolled ? 'scrolled' : ''}`} ref={navRef}>
+            <header className={`jf-header ${scrolled ? 'scrolled-state' : ''}`} ref={navRef}>
                 <div className="jf-logo-wrap" onClick={() => navigate('/')}>
                     <img src="/assets/images/about/logo.png" alt="JF Knowledge Centre" className="jf-logo-img" />
                 </div>
 
-                <div className="desktop-nav header-actions">
+                <div className="desktop-nav">
                     {navLinks.map((item, i) => (
                         <button
                             key={i}
-                            className="jf-nav-link"
+                            className={`jf-nav-link ${window.location.pathname === item.href ? 'active' : ''}`}
                             onClick={() => navigate(item.href)}
                         >
                             {item.label}
                         </button>
                     ))}
-                    <button className="jf-nav-link" onClick={() => navigate('/contact')}>
-                        Contact Us
-                    </button>
-                    <button id="desktop-cta" className="jf-btn-primary header-cta" onClick={() => navigate('/contact')}>
-                        Book Appointment
-                    </button>
+
+                    <div id="desktop-actions-container" className="header-actions">
+                        <button className="header-cta-secondary" onClick={() => navigate('/contact')}>
+                            Contact Us
+                        </button>
+                        <button className="header-cta-primary" onClick={() => navigate('/contact')}>
+                            Book Appointment
+                        </button>
+                    </div>
                 </div>
 
                 <button id="jf-hamburger-btn" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menu">
@@ -313,8 +270,11 @@ export default function Header() {
                                 {item.label}
                             </button>
                         ))}
-                        <button className="jf-btn-primary header-cta" style={{ marginTop: '16px', justifyContent: 'center', width: '100%' }} onClick={() => navigate('/contact')}>
+                        <button className="header-cta-secondary" style={{ marginTop: '16px', justifyContent: 'center', width: '100%', textAlign: 'center' }} onClick={() => navigate('/contact')}>
                             Contact Us
+                        </button>
+                        <button className="header-cta-primary" style={{ marginTop: '8px', justifyContent: 'center', width: '100%', textAlign: 'center' }} onClick={() => navigate('/contact')}>
+                            Book Appointment
                         </button>
                     </div>
                 )}
