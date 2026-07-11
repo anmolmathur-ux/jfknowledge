@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
-import CTA from '../components/sections/CTAsection';
+import CTA from '../components/sections/CTASection';
 import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const AnimatedCounter = ({ target, duration = 2000 }) => {
