@@ -89,7 +89,7 @@ export default function AboutPage() {
                     maxHeight: 800,
                     drawShadow: true,
                     flippingTime: 800,
-                    usePortrait: true,
+                    usePortrait: false,
                     startPage: 0,
                     showCover: true,
                     mobileScrollSupport: false
@@ -306,13 +306,8 @@ export default function AboutPage() {
                     </div>
                 </section>
 
-                {/* PREMIUM 4-PAGE EXECUTIVE HANDBOOK SECTION */}
+                {/* NOTEBOOK FLIPBOOK SECTION */}
                 <section className="handbook-hero-section">
-                    <div className="handbook-hero-blueprint"></div>
-                    <div className="handbook-hero-glow"></div>
-                    <div className="handbook-hero-particles"></div>
-                    <div className="handbook-hero-spotlight"></div>
-
                     <div className="handbook-hero-container">
                         {/* LEFT SIDE ONLY AS CONTEXT */}
                         <div className="handbook-text-panel">
@@ -328,262 +323,156 @@ export default function AboutPage() {
                             <div className="handbook-pedestal">
                                 <div ref={flipbookRef} className="stf__wrapper">
 
-                                    {/* PAGE 1: Hardcover Front */}
-                                    <div className="handbook-page book-cover-front" data-density="hard">
-                                        <div className="cover-leather-texture"></div>
-                                        <div className="cover-gold-overlay"></div>
-                                        <div className="cover-content-shell">
-                                            <div className="cover-logo-mark" style={{ width: 100, height: 100 }}><img src="/assets/images/about/logo-only.png" alt="" /></div>
-                                            <h3 className="cover-branding-main">JF KNOWLEDGE</h3>
-                                            <div className="cover-gold-divider"></div>
-                                            <h4 className="cover-title-main">Vision &amp; Mission</h4>                                            <div className="cover-date-stamp">2026</div>
-                                        </div>
-                                        <div className="page-edge-shimmer"></div>
-                                    </div>
+                                    {/* PAGE 1: Front Cover (Dark Blue) */}
+                                    <div className="handbook-page notebook-page-green" data-density="hard">
+                                        <div className="title-content-wrapper">
+                                            <div className="cover-logo-mark"><img src="/assets/images/about/logo-only.png" alt="" style={{ width: '60px', filter: 'brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(200deg)' }} /></div>
+                                            <h3 className="cover-branding-main" style={{ fontFamily: 'sans-serif', letterSpacing: '0.12em', fontSize: '24px', fontWeight: 800, margin: '20px 0 0' }}>JF KNOWLEDGE</h3>
+                                            <div style={{ width: '44px', height: '1.5px', background: '#d18d2b', margin: '24px auto' }}></div>
+                                            <h4 className="title-main" style={{ fontFamily: 'sans-serif', fontWeight: 800 }}>Vision & Mission</h4>
 
-                                    {/* PAGE 2: Mission */}
-                                    <div className="handbook-page book-page-internal page-state-mission" data-density="soft">
-                                        <div className="paper-grain-overlay"></div>
-                                        <div className="internal-page-padding">
-                                            <div className="page-inner-icon-wrapper scale-anim">
-                                                <Target size={36} className="handbook-icon-accent text-blue" />
-                                            </div>
-
-                                            <h4 className="page-large-heading fade-up-anim">MISSION</h4>
-
-                                            <p className="page-small-description">
-                                                Empowering individuals and organizations through innovative learning, strategic consulting, and measurable outcomes.
-                                            </p>
-
-                                            <div className="page-structural-divider"></div>
-
-                                            <div className="page-highlight-cards-container">
-                                                <div className="page-highlight-card stagger-1">
-                                                    <span className="card-check">✓</span>
-                                                    <span className="card-label">Future-ready Learning</span>
-                                                </div>
-                                                <div className="page-highlight-card stagger-2">
-                                                    <span className="card-check">✓</span>
-                                                    <span className="card-label">Business Excellence</span>
-                                                </div>
-                                                <div className="page-highlight-card stagger-3">
-                                                    <span className="card-check">✓</span>
-                                                    <span className="card-label">Sustainable Growth</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="page-handbook-footer">
-                                                <span>JF KNOWLEDGE</span>
-                                                <span>01</span>
+                                            <div style={{ position: 'absolute', bottom: '50px', left: '0', width: '100%', textAlign: 'center', color: '#d18d2b', fontWeight: 700, letterSpacing: '0.2em', fontSize: '14px' }}>
+                                                2026
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* PAGE 3: Vision */}
-                                    <div className="handbook-page book-page-internal page-state-vision" data-density="soft">
-                                        <div className="paper-grain-overlay"></div>
-                                        <div className="internal-page-padding">
-                                            <div className="page-inner-icon-wrapper eye-glow-anim">
-                                                <Eye size={36} className="handbook-icon-accent text-cyan" />
+                                    {/* PAGE 2: Mission (White) */}
+                                    <div className="handbook-page notebook-page-cream" data-density="soft">
+                                        <div className="cream-page-header">
+                                            <span className="page-num">01</span>
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                                            <div style={{ width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#112d20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
                                             </div>
+                                        </div>
+                                        <h3 className="faq-question" style={{ fontFamily: 'sans-serif', fontWeight: 900, fontSize: '32px', width: '100%', textAlign: 'center', marginBottom: '10px', letterSpacing: '-1px' }}>MISSION</h3>
+                                        <div className="faq-answer" style={{ textAlign: 'center', lineHeight: '1.6', marginBottom: '30px', color: '#4b5563', padding: '0 10px' }}>
+                                            <p style={{ lineHeight: '1.6', top: 0 }}>Empowering individuals and organizations through innovative learning, strategic consulting, and measurable outcomes.</p>
+                                        </div>
 
-                                            <h4 className="page-large-heading fade-up-anim">VISION</h4>
-
-                                            <p className="page-small-description">
-                                                To become the most trusted professional services partner across learning, talent and finance.
-                                            </p>
-
-                                            <div className="page-structural-divider"></div>
-
-                                            <div className="page-highlight-cards-container">
-                                                <div className="page-highlight-card stagger-1">
-                                                    <span className="card-check">✓</span>
-                                                    <span className="card-label">Global Impact</span>
-                                                </div>
-                                                <div className="page-highlight-card stagger-2">
-                                                    <span className="card-check">✓</span>
-                                                    <span className="card-label">Innovation</span>
-                                                </div>
-                                                <div className="page-highlight-card stagger-3">
-                                                    <span className="card-check">✓</span>
-                                                    <span className="card-label">Leadership</span>
-                                                </div>
+                                        <div className="highlight-cards" style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
+                                            <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '12px 20px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '14px', fontWeight: 500, color: '#374151' }}>
+                                                <span style={{ color: '#4b5563' }}>✓</span> Future-ready Learning
                                             </div>
-
-                                            <div className="page-handbook-footer">
-                                                <span>JF KNOWLEDGE</span>
-                                                <span>02</span>
+                                            <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '12px 20px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '14px', fontWeight: 500, color: '#374151' }}>
+                                                <span style={{ color: '#4b5563' }}>✓</span> Business Excellence
+                                            </div>
+                                            <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '12px 20px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '14px', fontWeight: 500, color: '#374151' }}>
+                                                <span style={{ color: '#4b5563' }}>✓</span> Sustainable Growth
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* PAGE 4: Hardcover Back */}
-                                    <div className="handbook-page book-cover-back" data-density="hard">
-                                        <div className="cover-leather-texture"></div>
-                                        <div className="cover-content-shell back-casing-center">
-                                            <div className="back-casing-logo"><img src="/assets/images/about/logo-only.png" alt="learning--v1 filter-invert: white" /></div>
-                                            <p className="back-casing-motto-headline">Together We Build</p>
-                                            <h5 className="back-casing-sub-motto">Future-ready Organizations</h5>
-                                            <div className="back-casing-web-link">jfknowledge.com</div>
+                                    {/* PAGE 3: Vision (White) */}
+                                    <div className="handbook-page notebook-page-cream" data-density="soft">
+                                        <div className="cream-page-header" style={{ justifyContent: 'flex-end' }}>
+                                            <span className="page-num">02</span>
                                         </div>
-                                        <div className="page-edge-shimmer left-oriented"></div>
+                                        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                                            <div style={{ width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#112d20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                            </div>
+                                        </div>
+                                        <h3 className="faq-question" style={{ fontFamily: 'sans-serif', fontWeight: 900, fontSize: '32px', width: '100%', textAlign: 'center', marginBottom: '10px', letterSpacing: '-1px' }}>VISION</h3>
+                                        <div className="faq-answer" style={{ textAlign: 'center', lineHeight: '1.6', marginBottom: '30px', color: '#4b5563', padding: '0 10px' }}>
+                                            <p style={{ lineHeight: '1.6', top: 0 }}>To become the most trusted professional services partner across learning, talent and finance.</p>
+                                        </div>
+
+                                        <div className="highlight-cards" style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
+                                            <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '12px 20px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '14px', fontWeight: 500, color: '#374151' }}>
+                                                <span style={{ color: '#4b5563' }}>✓</span> Global Impact
+                                            </div>
+                                            <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '12px 20px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '14px', fontWeight: 500, color: '#374151' }}>
+                                                <span style={{ color: '#4b5563' }}>✓</span> Innovation
+                                            </div>
+                                            <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '12px 20px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '12px', fontSize: '14px', fontWeight: 500, color: '#374151' }}>
+                                                <span style={{ color: '#4b5563' }}>✓</span> Leadership
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* PAGE 4: Back Cover (Dark Blue) */}
+                                    <div className="handbook-page notebook-page-green" data-density="hard">
+                                        <div className="title-content-wrapper" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                                            <div className="cover-logo-mark" style={{ marginBottom: '20px' }}><img src="/assets/images/about/logo-only.png" alt="" style={{ width: '70px', opacity: 0.15 }} /></div>
+                                            <p className="faq-overline" style={{ color: '#8c9d96', letterSpacing: '0.15em', marginBottom: '10px' }}>TOGETHER WE BUILD</p>
+                                            <h2 className="title-main" style={{ fontFamily: 'sans-serif', fontSize: '24px', fontWeight: 700, margin: '0 0 40px 0' }}>Future-ready Organizations</h2>
+
+                                            <div style={{ color: '#d18d2b', fontSize: '13px', fontWeight: 600, letterSpacing: '0.05em' }}>
+                                                jfknowledge.com
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
                             </div>
-
-                            {/* FLOATING GLASS PILL NAVIGATION */}
-                            <div className="handbook-floating-pill-nav">
-                                <button
-                                    onClick={prevSide}
-                                    disabled={currentPage === 0}
-                                    className="pill-nav-arrow"
-                                    aria-label="Previous Page"
-                                >
-                                    ←
-                                </button>
-                                <span className="pill-nav-indicator">
-                                    {formatPageNumber(currentPage, totalPages)}
-                                </span>
-                                <button
-                                    onClick={nextSide}
-                                    disabled={currentPage === totalPages - 1}
-                                    className="pill-nav-arrow"
-                                    aria-label="Next Page"
-                                >
-                                    →
-                                </button>
-                            </div>
                         </div>
                     </div>
-
                     <style>{`
+                        
                         .handbook-hero-section {
                             position: relative;
                             width: 100%;
                             min-height: 980px;
                             display: flex;
                             align-items: center;
+                            justify-content: center;
                             background-image: url("/assets/images/about/aboutcta.jpg");
-                            overflow: hidden;
-                            background-gradient: linear-gradient(to right, #43a1b1ff, #cee3e7ff);
-                            background-repeat: no-repeat;
                             background-size: cover;
-                            padding: 80px 0 120px 0;
-                        }
-                        .handbook-hero-blueprint {
-                            position: absolute;
-                            inset: 0;
-                            background-image: linear-gradient(rgba(59, 130, 246, 0.025) 1px, transparent 1px),
-                                            linear-gradient(90deg, rgba(59, 130, 246, 0.025) 1px, transparent 1px);
-                            background-size: 50px 50px;
-                            z-index: 1;
-                        }
-                        .handbook-hero-glow {
-                            position: absolute;
-                            top: 40%;
-                            right: 15%;
-                            transform: translate(50%, -50%);
-                            width: 800px;
-                            height: 800px;
-                            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
-                            z-index: 2;
-                            pointer-events: none;
-                        }
-                        .handbook-hero-particles {
-                            position: absolute;
-                            inset: 0;
-                            background: radial-gradient(circle at 75% 35%, rgba(14, 165, 233, 0.04), transparent 45%),
-                                        radial-gradient(circle at 30% 70%, rgba(99, 102, 241, 0.03), transparent 50%);
-                            z-index: 2;
-                            pointer-events: none;
-                        }
-                        .handbook-hero-spotlight {
-                            position: absolute;
-                            top: 0;
-                            left: 50%;
-                            transform: translateX(-50%);
-                            width: 100%;
-                            max-width: 1400px;
-                            height: 100%;
-                            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.02), transparent 60%);
-                            z-index: 2;
-                            pointer-events: none;
+                            background-blend-mode: overlay;
+                            padding: 80px 0;
                         }
                         .handbook-hero-container {
                             position: relative;
                             z-index: 5;
                             width: 100%;
-                            max-width: 1440px;
+                            max-width: 1200px;
                             margin: 0 auto;
-                            padding: 0 60px;
+                            padding: 0 40px;
                             display: grid;
-                            grid-template-columns: 0.85fr 1.15fr;
+                            grid-template-columns: 1fr 1.2fr;
                             gap: 40px;
                             align-items: center;
                         }
                         .handbook-text-panel {
-                            max-width: 480px;
+                            text-align: left;
                         }
                         .handbook-overline {
-                            font-size: 12px;
+                            font-size: 13px;
                             font-weight: 800;
                             letter-spacing: 0.25em;
-                            color: #b2c9eeff;
-                            display: inline-block;
+                            color: #b2c9ee;
+                            display: block;
                             margin-bottom: 16px;
                         }
                         .handbook-title {
-                            font-size: clamp(38px, 4.5vw, 56px);
-                            font-weight: 850;
+                            font-size: clamp(38px, 4.5vw, 64px);
+                            font-weight: 900;
                             color: #ffffff;
-                            line-height: 1.15;
+                            line-height: 1.1;
                             margin: 0 0 24px 0;
                             letter-spacing: -0.03em;
+                            font-family: sans-serif;
                         }
                         .handbook-desc {
-                            font-size: 17px;
-                            line-height: 1.7;
-                            color: #cee3e7ff;
+                            font-size: 18px;
+                            line-height: 1.6;
+                            color: #cee3e7;
                             margin-bottom: 36px;
-                        }
-                        .handbook-feature-pills {
-                            list-style: none;
-                            padding: 0;
-                            margin: 0;
-                            display: flex;
-                            flex-direction: column;
-                            gap: 14px;
-                        }
-                        .handbook-feature-pills li {
-                            display: flex;
-                            align-items: center;
-                            gap: 12px;
-                            font-size: 14px;
-                            font-weight: 500;
-                            color: #cbd5e1;
-                        }
-                        .pill-dot {
-                            width: 6px;
-                            height: 6px;
-                            border-radius: 50%;
-                            background: transparent;
-                            border: 2px solid #3b82f6;
+                            max-width: 90%;
                         }
                         .handbook-book-wrapper {
                             position: relative;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            justify-content: center;
                         }
                         .handbook-pedestal {
                             position: relative;
-                            padding: 10px;
-                            border-radius: 8px;
+                            border-radius: 4px;
                             background: transparent;
-                            box-shadow: 0 60px 120px rgba(0,0,0,.45);
+                            padding: 0;
                         }
+
                         .stf__wrapper {
                             background: transparent;
                         }
@@ -595,312 +484,215 @@ export default function AboutPage() {
                             position: relative;
                         }
                         
-                        /* COVER STRUCTURES */
-                        .book-cover-front, .book-cover-back {
-                            background: linear-gradient(145deg, #081932, #102d59, #081932);
-                            color: #ffffff;
-                            border: 1px solid rgba(255,255,255,.08);
-                            border-radius: 0 6px 6px 0;
+                        /* BROWN BLANK PAGE */
+                        .notebook-page-brown {
+                            background: #4a2e1b;
+                            box-shadow: none;
                         }
-                        .book-cover-back {
-                            border-radius: 6px 0 0 6px;
-                        }
-                        .cover-leather-texture {
-                            position: absolute;
-                            inset: 0;
-                            opacity: 0.07;
-                            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-                            pointer-events: none;
-                        }
-                        .cover-gold-overlay {
-                            position: absolute;
-                            inset: 0;
-                            background: radial-gradient(circle at top, rgba(59,130,246,.2), transparent 70%);
-                            pointer-events: none;
-                        }
-                        .cover-content-shell {
-                            height: 100%;
+
+                        /* DARK GREEN PAGE */
+                        .notebook-page-green {
+                            background: #0d1f3b;
+                            color: #fdfaf6;
                             display: flex;
-                            flex-direction: column;
-                            justify-content: center;
                             align-items: center;
+                            justify-content: center;
+                        }
+                        
+                        .title-content-wrapper {
                             padding: 60px;
                             text-align: center;
-                            position: relative;
-                            z-index: 3;
+                            width: 100%;
                         }
-                        .cover-logo-mark {
-                            font-size: 26px;
-                            font-weight: 900;
-                            color: #f59e0b;
-                            border: 2.5px solid #f59e0b;
-                            width: 64px;
-                            height: 64px;
+                        .lc-logo {
+                            width: 50px;
+                            height: 50px;
+                            border: 1px solid #c9933b;
+                            border-radius: 50%;
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            border-radius: 50%;
+                            margin: 0 auto 15px;
+                            color: #c9933b;
+                            font-size: 18px;
+                            font-family: "Georgia", serif;
+                        }
+                        .subtitle {
+                            font-size: 11px;
+                            letter-spacing: 2px;
+                            color: #8c9d96;
                             margin-bottom: 30px;
                         }
-                        .cover-branding-main {
-                            font-size: 24px;
-                            font-weight: 800;
-                            letter-spacing: 0.12em;
-                            color: #ffffff;
-                            margin: 0;
-                        }
-                        .cover-gold-divider {
-                            width: 44px;
-                            height: 1.5px;
-                            background: #f59e0b;
-                            margin: 28px 0;
-                        }
-                        .cover-title-main {
-                            font-size: 36px;
-                            font-weight: 750;
-                            letter-spacing: -0.02em;
-                            color: #ffffff;
-                            margin: 0 0 16px 0;
-                        }
-                        .cover-subtitle-badge {
-                            font-size: 13px;
-                            font-weight: 600;
-                            letter-spacing: 0.06em;
-                            color: #94a3b8;
-                            text-transform: uppercase;
-                            margin: 0;
-                        }
-                        .cover-date-stamp {
-                            position: absolute;
-                            bottom: 50px;
-                            font-size: 14px;
+                        .faq-overline {
+                            color: #d18d2b;
+                            font-size: 12px;
                             font-weight: 700;
-                            letter-spacing: 0.2em;
-                            color: #f59e0b;
+                            letter-spacing: 1px;
+                            margin-bottom: 10px;
                         }
-                        
-                        /* INTERNAL PREMIUM ARCHITECTURAL PAPER STYLE */
-                        .book-page-internal {
-                            background: #FCFBF7;
-                            color: #0f172a;
-                        }
-                        .paper-grain-overlay {
-                            position: absolute;
-                            inset: 0;
-                            opacity: 0.02;
-                            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-                            pointer-events: none;
-                        }
-                        .internal-page-padding {
-    padding: 45px 45px 30px 45px; /* Reduced top/bottom padding to gain vertical space */
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 3;
-    box-sizing: border-box;
-}
-                        .page-inner-icon-wrapper {
-    margin-bottom: 18px; /* Reduced from 36px */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.page-large-heading {
-    font-size: 34px; /* Slightly scaled down from 40px */
-    font-weight: 900;
-    letter-spacing: -0.01em;
-    color: #0f172a;
-    margin: 0 0 14px 0; /* Reduced from 24px */
-}
-
-.page-small-description {
-    font-size: 16px; /* Optimized from 18px */
-    line-height: 1.6;
-    color: #475569;
-    margin: 0 0 20px 0; /* Reduced from 40px */
-}
-
-.page-structural-divider {
-    width: 100%;
-    height: 1px;
-    background: #e2e8f0;
-    margin-bottom: 20px; /* Reduced from 40px */
-}
-
-.page-highlight-cards-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Reduced gap from 16px to prevent spilling */
-    flex-grow: 1;
-}
-
-.page-highlight-card {
-    background: rgba(15, 23, 42, 0.03);
-    border: 1px solid rgba(15, 23, 42, 0.05);
-    padding: 12px 20px; /* Streamlined layout padding from 20px 24px */
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.page-handbook-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #e2e8f0;
-    padding-top: 14px;
-    margin-top: auto; /* Solidifies placement at the absolute bottom */
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: #94a3b8;
-}
-                        
-                        /* BACK CASING */
-                        .back-casing-center {
-                            justify-content: center;
-                        }
-                        .back-casing-logo {
+                        .title-main {
+                            font-family: "Georgia", serif;
                             font-size: 32px;
-                            font-weight: 900;
-                            color: rgba(255, 255, 255, 0.08);
-                            border: 2.5px solid rgba(255, 255, 255, 0.08);
-                            width: 76px;
-                            height: 76px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            border-radius: 50%;
-                            margin-bottom: 24px;
+                            line-height: 1.2;
+                            margin-bottom: 20px;
+                            color: #fdfaf6;
                         }
-                        .back-casing-motto-headline {
+                        .title-desc {
                             font-size: 14px;
+                            line-height: 1.6;
+                            color: #e5e5e5;
+                            margin-bottom: 40px;
+                        }
+                        .stat-block {
+                            border-top: 1px solid rgba(255,255,255,0.1);
+                            padding: 15px 0;
+                            text-align: left;
+                        }
+                        .border-none { border-bottom: 1px solid rgba(255,255,255,0.1); }
+                        .stat-value {
+                            color: #d18d2b;
+                            font-size: 18px;
                             font-weight: 600;
-                            letter-spacing: 0.15em;
-                            color: #94a3b8;
-                            text-transform: uppercase;
-                            margin: 0 0 8px 0;
+                            margin-bottom: 5px;
                         }
-                        .back-casing-sub-motto {
-                            font-size: 20px;
-                            font-weight: 700;
-                            color: #ffffff;
-                            margin: 0 0 40px 0;
+                        .stat-label {
+                            color: #8c9d96;
+                            font-size: 10px;
+                            letter-spacing: 1px;
+                            font-weight: 600;
                         }
-                        .back-casing-web-link {
-                            font-size: 13px;
-                            font-weight: 500;
-                            color: #f59e0b;
-                            letter-spacing: 0.05em;
-                        }
-                        
-                        /* EDGE SHIMMERS */
-                        .page-edge-shimmer {
-                            position: absolute;
-                            top: 0;
-                            right: 0;
-                            bottom: 0;
-                            width: 14px;
-                            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03));
-                        }
-                        .page-edge-shimmer.left-oriented {
-                            right: auto;
-                            left: 0;
-                            background: linear-gradient(90deg, rgba(255,255,255,0.03), transparent);
-                        }
-                        
-                        /* FLOATING GLASS PILL CONTROLS */
-                        .handbook-floating-pill-nav {
+                        .open-book-btn {
                             margin-top: 40px;
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 24px;
-                            padding: 10px 24px;
-                            border-radius: 999px;
-                            background: rgba(15, 23, 42, 0.4);
-                            border: 1px solid rgba(255, 255, 255, 0.08);
-                            backdrop-filter: blur(16px);
-                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                            z-index: 10;
-                        }
-                        .pill-nav-arrow {
-                            background: transparent;
-                            border: none;
-                            color: #ffffff;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
+                            font-size: 12px;
+                            color: #8c9d96;
+                            letter-spacing: 1px;
                             cursor: pointer;
-                            font-size: 16px;
-                            opacity: 0.7;
-                            transition: all 0.2s ease;
-                        }
-                        .pill-nav-arrow:hover:not(:disabled) {
-                            opacity: 1;
-                            transform: scale(1.15);
-                            color: #3b82f6;
-                        }
-                        .pill-nav-arrow:disabled {
-                            opacity: 0.15;
-                            cursor: not-allowed;
-                        }
-                        .pill-nav-indicator {
-                            font-size: 13px;
-                            font-weight: 600;
-                            color: #94a3b8;
-                            letter-spacing: 0.15em;
-                            min-width: 65px;
-                            text-align: center;
-                        }
-                        
-                        /* ANIMATIONS */
-                        .scale-anim {
-                            animation: scaleUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-                        }
-                        .eye-glow-anim {
-                            animation: glowEye 2s infinite ease-in-out;
-                        }
-                        .fade-up-anim {
-                            opacity: 0;
-                            transform: translateY(12px);
-                            animation: fadeUp 0.5s ease-out forwards;
-                            animation-delay: 0.1s;
-                        }
-                        .stagger-1 { animation: itemFade 0.4s ease forwards; animation-delay: 0.2s; opacity: 0; }
-                        .stagger-2 { animation: itemFade 0.4s ease forwards; animation-delay: 0.28s; opacity: 0; }
-                        .stagger-3 { animation: itemFade 0.4s ease forwards; animation-delay: 0.36s; opacity: 0; }
-                        
-                        @keyframes scaleUp {
-                            0% { transform: scale(0.6) rotate(-8deg); opacity: 0; }
-                            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-                        }
-                        @keyframes glowEye {
-                            0%, 100% { filter: drop-shadow(0 0 2px rgba(14,165,233,0.1)); opacity: 0.9; }
-                            50% { filter: drop-shadow(0 0 12px rgba(14,165,233,0.4)); opacity: 1; }
-                        }
-                        @keyframes fadeUp {
-                            to { opacity: 1; transform: translateY(0); }
-                        }
-                        @keyframes itemFade {
-                            to { opacity: 1; transform: translateY(0); }
                         }
 
-                        @media (max-width: 1024px) {
-                            .handbook-hero-container {
-                                grid-template-columns: 1fr;
-                                gap: 60px;
-                                padding: 0 30px;
-                                text-align: center;
-                            }
-                            .handbook-text-panel {
-                                max-width: 100%;
-                            }
-                            .handbook-feature-pills {
-                                align-items: center;
-                            }
+                        /* CREAM PAGE */
+                        .notebook-page-cream {
+                            background-color: #ffffff;
+                            color: #2b3b32;
+                            /* background-image: repeating-linear-gradient(
+                                transparent,
+                                transparent 47px,
+                                #e6e2d8 47px,
+                                #e6e2d8 48px
+                            ); */
+                            background-attachment: local;
+                            padding: 50px 40px;
+                        }
+                        .cream-page-header {
+                            display: flex;
+                            justify-content: space-between;
+                            font-size: 12px;
+                            font-weight: 700;
+                            letter-spacing: 2px;
+                            margin-bottom: 40px;
+                        }
+                        .faq-tag {
+                            color: #d18d2b;
+                        }
+                        .page-num {
+                            color: #a0a095;
+                        }
+                        .faq-question {
+                            font-family: "Georgia", serif;
+                            font-size: 24px;
+                            font-weight: 400;
+                            line-height: 1.3;
+                            color: #112d20;
+                            margin-bottom: 20px;
+                            padding-right: 10px;
+                            background: #ffffff;
+                            display: inline-block;
+                        }
+                        .faq-answer {
+                            font-size: 14px;
+                            line-height: 48px;
+                            color: #4a5d53;
+                        }
+                        .faq-answer p {
+                            margin: 0;
+                            line-height: 48px;
+                            position: relative;
+                            top: -10px;
+                        }
+                        .faq-answer ul {
+                            margin: 0;
+                            padding-left: 20px;
+                            list-style: none;
+                        }
+                        .faq-answer li {
+                            line-height: 48px;
+                            margin: 0;
+                            position: relative;
+                            top: -10px;
+                        }
+                        
+                        /* NEXT STEP PAGE */
+                        .next-step-wrapper {
+                            padding: 60px;
+                            text-align: center;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            height: 100%;
+                            width: 100%;
+                        }
+                        .next-step-overline {
+                            color: #d18d2b;
+                            font-size: 12px;
+                            font-weight: 700;
+                            letter-spacing: 2px;
+                            margin-bottom: 15px;
+                        }
+                        .next-step-title {
+                            font-family: "Georgia", serif;
+                            font-size: 32px;
+                            color: #fdfaf6;
+                            margin-bottom: 50px;
+                        }
+                        .btn-primary-orange {
+                            background-color: #f18d05;
+                            color: #0f271a;
+                            border: none;
+                            border-radius: 30px;
+                            padding: 16px 40px;
+                            font-size: 14px;
+                            font-weight: 700;
+                            width: 100%;
+                            max-width: 250px;
+                            margin-bottom: 15px;
+                            cursor: pointer;
+                            transition: background-color 0.2s;
+                        }
+                        .btn-primary-orange:hover {
+                            background-color: #f7a02b;
+                        }
+                        .btn-secondary-green {
+                            background-color: transparent;
+                            color: #fdfaf6;
+                            border: 1px solid rgba(255,255,255,0.3);
+                            border-radius: 30px;
+                            padding: 16px 40px;
+                            font-size: 14px;
+                            font-weight: 700;
+                            width: 100%;
+                            max-width: 250px;
+                            margin-bottom: 60px;
+                            cursor: pointer;
+                            transition: background-color 0.2s;
+                        }
+                        .btn-secondary-green:hover {
+                            background-color: rgba(255,255,255,0.05);
+                        }
+                        .flip-back-link {
+                            color: #6a7b74;
+                            font-size: 11px;
+                            letter-spacing: 1px;
+                            text-transform: uppercase;
                         }
                     `}</style>
                 </section>
@@ -1048,7 +840,7 @@ export default function AboutPage() {
                 rgba(28, 45, 82, .55),
                 rgba(18, 31, 61, .55)
             ),
-            url("/assets/images/about/aboutcta.jpg") center/cover no-repeat`,
+            url("/assets/images/about/ctaabt.jpg") center/cover no-repeat`,
                         position: 'relative',
                         overflow: 'hidden'
                     }}

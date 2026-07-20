@@ -59,12 +59,12 @@ export default function ServicesPage() {
 
                     <div style={{ height: 210, position: 'relative', overflow: 'hidden' }}>
                         <img src={meta.img} alt={title} className="wcu-card-img-mask" />
-                        <div style={{ 
-                            position: 'absolute', 
-                            inset: 0, 
-                            background: isLight 
-                                ? 'linear-gradient(to top, #ffffff 5%, transparent 70%)' 
-                                : 'linear-gradient(to top, #0b1220 5%, transparent 70%)' 
+                        <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: isLight
+                                ? 'linear-gradient(to top, #ffffff 5%, transparent 70%)'
+                                : 'linear-gradient(to top, #0b1220 5%, transparent 70%)'
                         }} />
                     </div>
 
@@ -695,7 +695,12 @@ export default function ServicesPage() {
                             </div>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '32px' }}>
+                        {/* 3 Cards Redesigned into One Row */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                            gap: '32px'
+                        }}>
                             {[
                                 { title: 'Accounting, Bookkeeping & Reporting Services', desc: 'Accurate, timely, and fully compliant transaction logging and management information generation across cloud accounting ecosystems.', f1: 'Xero & QuickBooks', f2: 'IFRS & GAAP Compliance', f3: 'AP/AR Management' },
                                 { title: 'Tax Planning, Compliance & Advisory', desc: 'Navigating domestic and international tax obligations with precision, ensuring corporate and personal compliance across jurisdictions.', f1: 'VAT / GST Filings', f2: 'Transfer Pricing Docs', f3: 'Cross-Border Planning' },
