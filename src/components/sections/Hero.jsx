@@ -70,247 +70,261 @@ export default function Hero() {
         <>
             <style>{`
                 /* Container fits viewport minus custom navbar height */
-                .hero-shell {
-                    position: relative;
-                    width: 100%;
-                    height: calc(100vh - 90px);
-                    min-height: 620px;
-                    display: flex;
-                    align-items: center;
-                    overflow: hidden;
-                    font-family: var(--font-family);
-                    background: #000;
-                }
+            .hero-shell {
+    position: relative;
+    width: 100%;
+    /* 1. Account for the header height so the hero fits the remaining viewport exactly */
+    height: calc(100vh - 68px); 
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    font-family: var(--font-family);
+    background: #000;
+    
+    /* 2. Push the entire element down so it clears the fixed header frame */
+    margin-top: 68px; 
+}
 
-                /* Fixed base video element layer */
-                .hero-video-wrapper {
-                    position: absolute;
-                    inset: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 1;
-                }
+/* Fixed base video element layer */
+.hero-video-wrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
 
-                .hero-video {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                    object-position: right center;
-                }
+/* Change object-fit from contain to cover */
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This covers the full area, eliminating black bars */
+    object-position: center center; /* Optional: centers the video crop */
+}
 
-                /* Translucent shadow panel to optimize left-side typography contrast */
-                .hero-left-gradient {
-                    position: absolute;
-                    inset: 0;
-                    background: linear-gradient(
-                        90deg,
-                        rgba(0, 0, 0, 0.85) 0%,
-                        rgba(0, 0, 0, 0.4) 45%,
-                        transparent 75%
-                    );
-                    z-index: 2;
-                    pointer-events: none;
-                }
+/* Translucent vignette panel framing the entire scene nicely */
+.hero-left-gradient {
+    position: absolute;
+    inset: 0;
+    /* Rich tech-blue vignette framing content perfectly across both edges */
+    background: linear-gradient(
+        90deg,
+        rgba(5, 12, 28, 0.95) 0%,
+        rgba(6, 15, 34, 0.85) 30%,
+        rgba(7, 20, 45, 0.3) 60%,
+        rgba(5, 12, 28, 0.25) 85%,
+        rgba(5, 12, 28, 0.65) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
 
-                /* Grid shell mapping space across the frame */
-                .hero-inner {
-                    position: relative;
-                    z-index: 5;
-                    width: 100%;
-                    max-width: 1280px;
-                    margin: 0 auto;
-                    padding: 0 max(24px, 4vw);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: flex-start;
-                }
+/* Grid shell mapping space across the frame */
+.hero-inner {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 max(24px, 4vw);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
 
-                /* Content slide block structure */
-                .hero-content-block {
-                    max-width: 540px;
-                    text-align: left;
-                    opacity: 0;
-                    transform: translateX(-20px);
-                    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-                }
+/* Content slide block structure */
+.hero-content-block {
+    max-width: 540px;
+    text-align: left;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
 
-                .hero-content-block.visible {
-                    opacity: 1;
-                    transform: translateX(0);
-                }
+.hero-content-block.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
 
-                .hero-overline {
-                    margin-bottom: 20px;
-                    display: inline-block;
-                }
+.hero-overline {
+    margin-bottom: 20px;
+    display: inline-block;
+}
 
-                .hero-headline {
-                    font-size: clamp(34px, 4.2vw, 54px);
-                    font-weight: 800;
-                    letter-spacing: -0.03em;
-                    line-height: 1.12;
-                    color: var(--text-heading, #fff);
-                    margin: 0 0 20px 0;
-                }
+.hero-headline {
+    font-size: clamp(34px, 4.2vw, 54px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    /* Main text color is pure white */
+    color: #ffffff; 
+    margin: 0 0 20px 0;
+}
 
-                .hero-headline em {
-                    font-style: normal;
-                    background: var(--gold-gradient-hero, linear-gradient(90deg, #f59e0b, #d97706));
-                    -webkit-background-clip: text;
-                    background-clip: text;
-                    color: transparent;
-                }
+.hero-headline em {
+    font-style: normal;
+    /* Matching the precise neon cyan/blue hue from the reference image */
+    background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: block; /* Forces it to its own line exactly like the design layout */
+    margin: 4px 0;
+}
 
-                .hero-subtext {
-                    font-size: clamp(15px, 1.2vw, 16px);
-                    line-height: 1.65;
-                    color: var(--text-secondary, #cbd5e1);
-                    margin: 0 0 32px 0;
-                    min-height: 80px; /* Reserves uniform spacing for varying text lengths */
-                }
+.hero-subtext {
+    font-size: clamp(15px, 1.2vw, 16px);
+    line-height: 1.65;
+    color: var(--text-secondary, #cbd5e1);
+    margin: 0 0 32px 0;
+    min-height: 80px; /* Reserves uniform spacing for varying text lengths */
+}
 
-                .hero-cta-row {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
-                    gap: 16px;
-                    flex-wrap: wrap;
-                }
+.hero-cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+}
 
-                /* Left-aligned pagination dots */
-                .hero-slide-indicators {
-                    display: flex;
-                    gap: 12px;
-                    margin-top: 40px;
-                    justify-content: flex-start;
-                }
+/* Left-aligned pagination dots */
+.hero-slide-indicators {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+    justify-content: flex-start;
+}
 
-                .hero-indicator {
-                    width: 12px;
-                    height: 12px;
-                    border-radius: 999px;
-                    background: rgba(255, 255, 255, 0.25);
-                    border: 1px solid rgba(255, 255, 255, 0.15);
-                    cursor: pointer;
-                    padding: 0;
-                    transition: transform 0.2s ease, background 0.2s ease, width 0.2s ease;
-                }
+.hero-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease, background 0.2s ease, width 0.2s ease;
+}
 
-                .hero-indicator.active {
-                    width: 22px;
-                    background: var(--gold, #f59e0b);
-                    transform: scale(1.02);
-                }
+.hero-indicator.active {
+    width: 22px;
+    background: var(--gold, #f59e0b);
+    transform: scale(1.02);
+}
 
-                /* Sound controls HUD */
-                .hero-audio-btn {
-                    position: absolute;
-                    right: 32px;
-                    bottom: 32px;
-                    width: 54px;
-                    height: 54px;
-                    border-radius: 50%;
-                    border: 1px solid rgba(255, 255, 255, .15);
-                    background: rgba(8, 15, 30, .6);
-                    backdrop-filter: blur(12px);
-                    -webkit-backdrop-filter: blur(12px);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: #fff;
-                    cursor: pointer;
-                    transition: .3s ease;
-                    z-index: 10;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
-                }
+/* Sound controls HUD */
+.hero-audio-btn {
+    position: absolute;
+    right: 32px;
+    bottom: 32px;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .15);
+    background: rgba(8, 15, 30, .6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    transition: .3s ease;
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .4);
+}
 
-                .hero-audio-btn:hover {
-                    transform: scale(1.05);
-                    background: #2563EB;
-                    border-color: #2563EB;
-                }
+.hero-audio-btn:hover {
+    transform: scale(1.05);
+    background: #2563EB;
+    border-color: #2563EB;
+}
 
-                .hero-audio-hint {
-                    position: absolute;
-                    right: 98px;
-                    bottom: 42px;
-                    background: rgba(0, 0, 0, 0.8);
-                    color: #fff;
-                    padding: 6px 14px;
-                    border-radius: 20px;
-                    font-size: 12px;
-                    font-weight: 500;
-                    pointer-events: none;
-                    z-index: 10;
-                    white-space: nowrap;
-                    opacity: 1;
-                    transition: opacity 0.4s ease, transform 0.4s ease;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                }
+.hero-audio-hint {
+    position: absolute;
+    right: 98px;
+    bottom: 42px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    pointer-events: none;
+    z-index: 10;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-                .hero-audio-hint.fade-out {
-                    opacity: 0;
-                    transform: translateX(10px);
-                }
+.hero-audio-hint.fade-out {
+    opacity: 0;
+    transform: translateX(10px);
+}
 
-                /* Responsive formatting fallback for smaller viewports */
-                @media (max-width: 820px) {
-                    .hero-shell {
-                        height: auto;
-                        min-height: 100vh;
-                        padding-top: 60px;
-                        padding-bottom: 90px;
-                    }
-                    .hero-video {
-                        object-position: center center;
-                    }
-                    .hero-left-gradient {
-                        background: linear-gradient(
-                            180deg,
-                            rgba(0, 0, 0, 0.85) 0%,
-                            rgba(0, 0, 0, 0.65) 60%,
-                            rgba(0, 0, 0, 0.5) 100%
-                        );
-                    }
-                    .hero-inner {
-                        align-items: center;
-                    }
-                    .hero-content-block {
-                        text-align: center;
-                        max-width: 100%;
-                    }
-                    .hero-subtext {
-                        min-height: auto;
-                    }
-                    .hero-cta-row {
-                        justify-content: center;
-                    }
-                    .hero-slide-indicators {
-                        justify-content: center;
-                        margin-top: 30px;
-                    }
-                    .hero-audio-btn {
-                        right: 20px;
-                        bottom: 20px;
-                    }
-                    .hero-audio-hint {
-                        right: 84px;
-                        bottom: 30px;
-                    }
-                }
+/* Responsive formatting fallback for smaller viewports */
+@media (max-width: 820px) {
+    .hero-shell {
+        height: auto;
+        min-height: calc(100vh - 68px);
+        padding-top: 60px;
+        padding-bottom: 90px;
+        margin-top: 68px; 
+    }
+    .hero-video {
+        object-position: center center;
+    }
+    .hero-left-gradient {
+        /* Fades from top to bottom beautifully on vertical screen profiles */
+        background: linear-gradient(
+            180deg,
+            rgba(5, 12, 28, 0.95) 0%,
+            rgba(6, 15, 34, 0.85) 60%,
+            rgba(7, 20, 45, 0.7) 100%
+        );
+    }
+    .hero-inner {
+        align-items: center;
+    }
+    .hero-content-block {
+        text-align: center;
+        max-width: 100%;
+    }
+    .hero-subtext {
+        min-height: auto;
+    }
+    .hero-cta-row {
+        justify-content: center;
+    }
+    .hero-slide-indicators {
+        justify-content: center;
+        margin-top: 30px;
+    }
+    .hero-audio-btn {
+        right: 20px;
+        bottom: 20px;
+    }
+    .hero-audio-hint {
+        right: 84px;
+        bottom: 30px;
+    }
+}
             `}</style>
 
             <section className="hero-shell">
                 {/* Background Video Frame Canvas */}
                 <div className="hero-video-wrapper">
-                    <video 
+                    <video
                         ref={videoRef}
-                        className="hero-video" 
-                        autoPlay 
-                        loop 
-                        muted 
-                        playsInline 
+                        className="hero-video"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
                         preload="auto"
                     >
                         <source src="/assets/images/about/hero.mp4" type="video/mp4" />
@@ -323,9 +337,9 @@ export default function Hero() {
                 {/* Left Aligned Dynamic Slide Track */}
                 <div className="hero-inner">
                     {slides.map((slide, index) => (
-                        <div 
-                            key={slide.title} 
-                            className={`hero-content-block ${loaded && activeSlide === index ? 'visible' : ''}`} 
+                        <div
+                            key={slide.title}
+                            className={`hero-content-block ${loaded && activeSlide === index ? 'visible' : ''}`}
                             style={{ display: activeSlide === index ? 'block' : 'none' }}
                         >
                             <span className="jf-overline hero-overline">{slide.eyebrow}</span>
@@ -334,7 +348,7 @@ export default function Hero() {
                                 <em>{slide.accent}</em>
                             </h1>
                             <p className="hero-subtext">{slide.description}</p>
-                            
+
                             <div className="hero-cta-row hero-cta">
                                 <button className="jf-btn-primary jf-btn-primary-hero" onClick={() => navigate(slide.href)}>
                                     {slide.cta}
@@ -367,8 +381,8 @@ export default function Hero() {
                     🔊 Tap for sound
                 </div>
 
-                <button 
-                    className="hero-audio-btn" 
+                <button
+                    className="hero-audio-btn"
                     onClick={toggleAudio}
                     aria-label={muted ? "Unmute sound" : "Mute sound"}
                 >
