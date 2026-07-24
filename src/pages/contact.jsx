@@ -38,17 +38,41 @@ const channels = [
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
+        fullName: '',
+        workEmail: '',
         company: '',
-        division: 'E-Learning',
-        message: '',
+        interest: '',
+        summary: '',
     });
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setFormData((prev) => ({ ...prev, [id]: value }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setSubmitted(true);
+        setIsSubmitting(true);
+
+        // Simulate API call/transmission
+        setTimeout(() => {
+            setIsSubmitting(false);
+            setSubmitted(true);
+
+            setTimeout(() => {
+                setSubmitted(false);
+                setFormData({
+                    fullName: '',
+                    workEmail: '',
+                    company: '',
+                    interest: '',
+                    summary: '',
+                });
+            }, 3000);
+        }, 1500);
     };
 
     return (
@@ -169,7 +193,6 @@ export default function ContactPage() {
                     margin-bottom: 20px;
                 }
 
-                /* Compact & Indented Headline Variant */
                 .contact-hero-headline {
                     font-size: clamp(38px, 4.5vw, 56px);
                     font-weight: 900;
@@ -196,7 +219,6 @@ export default function ContactPage() {
                     animation: lineWidth 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                 }
 
-                /* Left Aligned Clean Glass Panel */
                 .contact-hero-paragraph-glass {
                     background: rgba(255, 255, 255, .04);
                     backdrop-filter: blur(12px);
@@ -302,7 +324,6 @@ export default function ContactPage() {
                     letter-spacing: 0.01em;
                 }
 
-                /* ── COMPACT DATA INPUT HOUSING FRAMEWORK ── */
                 .compact-form-card {
                     background: #ffffff;
                     border: 1px solid #e2e8f0;
@@ -387,6 +408,10 @@ export default function ContactPage() {
                     box-shadow: 0 10px 22px rgba(37,99,235,0.25);
                     filter: brightness(1.05);
                 }
+                .submit-btn:disabled {
+                    opacity: 0.8;
+                    cursor: not-allowed;
+                }
                 .form-label {
                     display: block;
                     font-size: 11px;
@@ -415,7 +440,7 @@ export default function ContactPage() {
 
             <main style={{ flex: 1 }}>
 
-                {/* ── LEFT INDENTED & SCALED HERO PANEL ── */}
+                {/* Hero Panel */}
                 <section className="contact-hero-section">
                     <div className="contact-hero-bg-wrapper">
                         <video autoPlay loop muted playsInline className="contact-hero-video">
@@ -473,7 +498,7 @@ export default function ContactPage() {
                     </div>
                 </section>
 
-                {/* ── MAIN COMPACT CONFIGURATION SECTION ── */}
+                {/* Main Configuration Section */}
                 <section style={{
                     padding: '60px 24px',
                     background: '#f8fafc',
@@ -490,7 +515,7 @@ export default function ContactPage() {
                         alignItems: 'stretch',
                     }}>
 
-                        {/* ── LEFT COLUMN INFORMATION INTERFACE ── */}
+                        {/* Left Column Information */}
                         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '20px' }}>
                             <div>
                                 <p style={{
@@ -586,128 +611,135 @@ export default function ContactPage() {
                             </div>
                         </div>
 
-                        {/* ── COMPACTED DATA INPUT CARD ── */}
+                        {/* Updated Contact Form */}
                         <div id="message-form-panel" className="compact-form-card">
-                            {submitted ? (
-                                <div style={{ padding: '40px 10px', textAlign: 'center' }}>
-                                    <div style={{
-                                        width: '56px', height: '56px',
-                                        borderRadius: '50%',
-                                        background: '#dcfce7',
-                                        border: '1px solid #bbf7d0',
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        margin: '0 auto 20px',
-                                        color: '#15803d',
-                                    }}>
-                                        <Check size={24} strokeWidth={2.5} />
+                            <div style={{ marginBottom: '14px' }}>
+                                <h2 style={{
+                                    fontSize: '22px',
+                                    fontWeight: 800,
+                                    letterSpacing: '-0.02em',
+                                    color: '#0f172a',
+                                    margin: '0 0 4px',
+                                }}>
+                                    Send Us a Message
+                                </h2>
+                                <p style={{ fontSize: '13px', color: '#64748b', margin: 0 }}>
+                                    Required options are annotated with <span style={{ color: '#2563EB' }}>*</span>.
+                                </p>
+                            </div>
+
+                            <div style={{
+                                height: '2px',
+                                background: 'linear-gradient(90deg, #2563EB, transparent)',
+                                marginBottom: '20px',
+                            }} />
+
+                            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                                    <div>
+                                        <label className="form-label" htmlFor="fullName">
+                                            Full Name <span style={{ color: '#2563EB' }}>*</span>
+                                        </label>
+                                        <input
+                                            id="fullName"
+                                            type="text"
+                                            required
+                                            className="contact-input"
+                                            value={formData.fullName}
+                                            onChange={handleChange}
+                                            placeholder="Your full name"
+                                        />
                                     </div>
-                                    <h3 style={{
-                                        fontSize: '20px', fontWeight: '800',
-                                        color: '#0f172a', marginBottom: '10px', letterSpacing: '-0.02em',
-                                    }}>
-                                        Submission Received
-                                    </h3>
-                                    <p style={{
-                                        fontSize: '14px', lineHeight: 1.5,
-                                        color: '#475569', maxWidth: '340px', margin: '0 auto',
-                                    }}>
-                                        The details for our <strong style={{ color: '#2563EB' }}>{formData.division}</strong> desk have been locked in. Expect an update within 24 business hours.
-                                    </p>
+                                    <div>
+                                        <label className="form-label" htmlFor="workEmail">
+                                            Work Email <span style={{ color: '#2563EB' }}>*</span>
+                                        </label>
+                                        <input
+                                            id="workEmail"
+                                            type="email"
+                                            required
+                                            className="contact-input"
+                                            value={formData.workEmail}
+                                            onChange={handleChange}
+                                            placeholder="work@company.com"
+                                        />
+                                    </div>
                                 </div>
-                            ) : (
-                                <>
-                                    <div style={{ marginBottom: '14px' }}>
-                                        <h2 style={{
-                                            fontSize: '22px',
-                                            fontWeight: 800,
-                                            letterSpacing: '-0.02em',
-                                            color: '#0f172a',
-                                            margin: '0 0 4px',
-                                        }}>
-                                            Send Us a Message
-                                        </h2>
-                                        <p style={{
-                                            fontSize: '13px', color: '#64748b', margin: 0,
-                                        }}>
-                                            Required options are annotated with <span style={{ color: '#2563EB' }}>*</span>.
-                                        </p>
-                                    </div>
 
-                                    <div style={{
-                                        height: '2px',
-                                        background: 'linear-gradient(90deg, #2563EB, transparent)',
-                                        marginBottom: '20px',
-                                    }} />
+                                <div>
+                                    <label className="form-label" htmlFor="company">
+                                        Company / Organisation
+                                    </label>
+                                    <input
+                                        id="company"
+                                        type="text"
+                                        className="contact-input"
+                                        value={formData.company}
+                                        onChange={handleChange}
+                                        placeholder="Your organisation name"
+                                    />
+                                </div>
 
-                                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                                            <div>
-                                                <label className="form-label">Full Name <span style={{ color: '#2563EB' }}>*</span></label>
-                                                <input
-                                                    type="text" required
-                                                    className="contact-input"
-                                                    value={formData.name}
-                                                    onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                                    placeholder="Your full name"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className="form-label">Work Email <span style={{ color: '#2563EB' }}>*</span></label>
-                                                <input
-                                                    type="email" required
-                                                    className="contact-input"
-                                                    value={formData.email}
-                                                    onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                                    placeholder="work@company.com"
-                                                />
-                                            </div>
-                                        </div>
+                                <div>
+                                    <label className="form-label" htmlFor="interest">
+                                        Area of Corporate Interest <span style={{ color: '#2563EB' }}>*</span>
+                                    </label>
+                                    <select
+                                        id="interest"
+                                        required
+                                        className="contact-input"
+                                        style={{ cursor: 'pointer' }}
+                                        value={formData.interest}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="" disabled>Select an option</option>
+                                        <option value="e-learning">E-Learning &amp; Digital Learning Solutions</option>
+                                        <option value="recruitment">Recruitment, Staffing &amp; Talent Solutions</option>
+                                        <option value="financial">Financial Consultancy &amp; Accounting Services</option>
+                                        <option value="enquiry">General Corporate Enquiry</option>
+                                    </select>
+                                </div>
 
-                                        <div>
-                                            <label className="form-label">Company / Organisation</label>
-                                            <input
-                                                type="text"
-                                                className="contact-input"
-                                                value={formData.company}
-                                                onChange={e => setFormData({ ...formData, company: e.target.value })}
-                                                placeholder="Your organisation name"
-                                            />
-                                        </div>
+                                <div>
+                                    <label className="form-label" htmlFor="summary">
+                                        Requirements Blueprint Summary <span style={{ color: '#2563EB' }}>*</span>
+                                    </label>
+                                    <textarea
+                                        id="summary"
+                                        rows="3"
+                                        required
+                                        className="contact-input"
+                                        style={{ resize: 'vertical', minHeight: '75px' }}
+                                        value={formData.summary}
+                                        onChange={handleChange}
+                                        placeholder="Describe your project scaling specifications..."
+                                    />
+                                </div>
 
-                                        <div>
-                                            <label className="form-label">Area of Corporate Interest <span style={{ color: '#2563EB' }}>*</span></label>
-                                            <select
-                                                className="contact-input"
-                                                style={{ cursor: 'pointer' }}
-                                                value={formData.division}
-                                                onChange={e => setFormData({ ...formData, division: e.target.value })}
-                                            >
-                                                <option value="E-Learning">E-Learning &amp; Digital Learning Solutions</option>
-                                                <option value="Recruitment">Recruitment, Staffing &amp; Talent Solutions</option>
-                                                <option value="Financial Consultancy">Financial Consultancy &amp; Accounting Services</option>
-                                                <option value="General">General Corporate Enquiry</option>
-                                            </select>
-                                        </div>
-
-                                        <div>
-                                            <label className="form-label">Requirements Blueprint Summary <span style={{ color: '#2563EB' }}>*</span></label>
-                                            <textarea
-                                                rows="3" required
-                                                className="contact-input"
-                                                style={{ resize: 'vertical', minHeight: '75px' }}
-                                                value={formData.message}
-                                                onChange={e => setFormData({ ...formData, message: e.target.value })}
-                                                placeholder="Describe your project scaling specifications..."
-                                            />
-                                        </div>
-
-                                        <button type="submit" className="submit-btn" style={{ marginTop: '4px' }}>
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="submit-btn"
+                                    style={{
+                                        marginTop: '4px',
+                                        background: submitted ? '#16a34a' : 'linear-gradient(135deg, #2563EB, #3B82F6)',
+                                    }}
+                                >
+                                    {isSubmitting ? (
+                                        'Processing Architecture...'
+                                    ) : submitted ? (
+                                        <>
+                                            <Check size={16} strokeWidth={2.5} />
+                                            Transmission Successful
+                                        </>
+                                    ) : (
+                                        <>
                                             Submit Request
                                             <ArrowRight size={14} strokeWidth={2.5} />
-                                        </button>
-                                    </form>
-                                </>
-                            )}
+                                        </>
+                                    )}
+                                </button>
+                            </form>
                         </div>
 
                     </div>

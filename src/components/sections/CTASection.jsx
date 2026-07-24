@@ -3,9 +3,6 @@ import {
     GraduationCap,
     Users,
     TrendingUp,
-    User,
-    Mail,
-    Building,
     ShieldCheck,
     ArrowRight
 } from 'lucide-react';
@@ -101,7 +98,7 @@ export default function CTASectionVibrant() {
                     margin: 0 auto;
                     padding: 0 32px;
                     display: grid;
-                    grid-template-columns: 1.2fr 0.8fr; /* Shifted balance slightly to allow smaller right column */
+                    grid-template-columns: 1.2fr 0.8fr;
                     gap: 60px;
                     align-items: center;
                     position: relative;
@@ -126,21 +123,6 @@ export default function CTASectionVibrant() {
                     display: flex;
                     flex-direction: column;
                     align-items: flex-start;
-                }
-
-                /* Trust Badge Setup */
-                .vibrant-trust-badge {
-                    background: rgba(255, 255, 255, 0.08);
-                    border: 1px solid rgba(255, 255, 255, 0.15);
-                    backdrop-filter: blur(20px);
-                    -webkit-backdrop-filter: blur(20px);
-                    padding: 6px 14px;
-                    border-radius: 50px;
-                    font-size: 13px;
-                    font-weight: 600;
-                    color: #FFFFFF;
-                    margin-bottom: 20px;
-                    letter-spacing: 0.02em;
                 }
 
                 /* Heading setup with distinct line modifications */
@@ -256,17 +238,16 @@ export default function CTASectionVibrant() {
                     background: linear-gradient(180deg, rgba(28, 40, 66, 0.94), rgba(9, 16, 28, 0.96));
                     border: 1px solid rgba(255, 255, 255, 0.08);
                     border-radius: 20px;
-                    padding: 32px 28px; /* Compacted from 56px layout footprint */
+                    padding: 32px 28px;
                     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
                     backdrop-filter: blur(20px);
                     -webkit-backdrop-filter: blur(20px);
                     position: relative;
-                    max-width: 400px; /* Limits excessive horizontal expansion */
+                    max-width: 400px;
                     justify-self: end;
                     width: 100%;
                 }
 
-                /* Radial Blue Glow Effect for Card Background */
                 .vibrant-form-card::after {
                     content: "";
                     position: absolute;
@@ -282,7 +263,7 @@ export default function CTASectionVibrant() {
                 }
 
                 .vibrant-form-title {
-                    font-size: 22px; /* Slightly downscaled for scale-compactness */
+                    font-size: 22px;
                     font-weight: 800;
                     color: #fff;
                     letter-spacing: -0.02em;
@@ -313,7 +294,7 @@ export default function CTASectionVibrant() {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding: 10px 16px; /* Reduced button padding padding */
+                    padding: 10px 16px;
                     border-radius: 10px;
                     background: rgba(255, 255, 255, 0.03);
                     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -365,7 +346,7 @@ export default function CTASectionVibrant() {
                 .vibrant-input-group {
                     display: flex;
                     flex-direction: column;
-                    gap: 12px; /* Denser element stacks */
+                    gap: 12px;
                 }
 
                 .vibrant-input-wrapper {
@@ -374,17 +355,10 @@ export default function CTASectionVibrant() {
                     align-items: center;
                 }
 
-                .vibrant-input-icon {
-                    position: absolute;
-                    left: 14px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
+                /* Updated input padding without icons */
                 .vibrant-input {
                     width: 100%;
-                    padding: 11px 14px 11px 38px; /* Tighter input text elements */
+                    padding: 11px 16px;
                     background: rgba(255, 255, 255, 0.04);
                     border: 1px solid rgba(255, 255, 255, 0.10);
                     backdrop-filter: blur(8px);
@@ -550,7 +524,7 @@ export default function CTASectionVibrant() {
                                         onClick={() => setSelectedFocus(opt.key)}
                                     >
                                         <div className="vibrant-btn-content">
-                                            <IconComponent className="w-4 h-4 text-slate-400 group-hover:text-white" style={{ color: selectedFocus === opt.key ? '#3B82F6' : undefined }} />
+                                            <IconComponent className="w-4 h-4 text-white" style={{ color: selectedFocus === opt.key ? '#3B82F6' : undefined }} />
                                             <span>{opt.label}</span>
                                         </div>
                                         {selectedFocus === opt.key ? (
@@ -567,23 +541,14 @@ export default function CTASectionVibrant() {
 
                         <div className="vibrant-input-group">
                             <div className="vibrant-input-wrapper">
-                                <span className="vibrant-input-icon">
-                                    <User className="w-3.5 h-3.5 text-slate-500" />
-                                </span>
                                 <input className="vibrant-input" type="text" placeholder="Name" />
                             </div>
 
                             <div className="vibrant-input-wrapper">
-                                <span className="vibrant-input-icon">
-                                    <Mail className="w-3.5 h-3.5 text-slate-500" />
-                                </span>
                                 <input className="vibrant-input" type="email" placeholder="Email" />
                             </div>
 
                             <div className="vibrant-input-wrapper">
-                                <span className="vibrant-input-icon">
-                                    <Building className="w-3.5 h-3.5 text-slate-500" />
-                                </span>
                                 <input className="vibrant-input" type="text" placeholder="Company" />
                             </div>
 

@@ -57,15 +57,8 @@ export default function ServicesPage() {
                 <div className="wcu-premium-card-inner">
                     <div className="wcu-card-dots">{'● ● ● ●\n● ● ● ●'}</div>
 
-                    <div style={{ height: 210, position: 'relative', overflow: 'hidden' }}>
+                    <div className="wcu-card-img-wrapper">
                         <img src={meta.img} alt={title} className="wcu-card-img-mask" />
-                        <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            background: isLight
-                                ? 'linear-gradient(to top, #ffffff 5%, transparent 70%)'
-                                : 'linear-gradient(to top, #0b1220 5%, transparent 70%)'
-                        }} />
                     </div>
 
                     <div style={{ padding: '28px' }}>
@@ -97,351 +90,260 @@ export default function ServicesPage() {
 
     return (
         <div style={{ background: '#060B17', color: '#ffffff', fontFamily: 'var(--font-family, "Inter", sans-serif)', overflowX: 'hidden' }}>
+            {/* Google Fonts Material Symbols Support */}
+            <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+
             <Header />
 
             <style dangerouslySetInnerHTML={{
                 __html: `
-                @keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.5); opacity: 1; } }
-                @keyframes fadeInUp {
-                    from { opacity: 0; transform: translateY(30px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
+    @keyframes pulseDot { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.5); opacity: 1; } }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-                .animate-on-load {
-                    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-                }
+    .animate-on-load {
+        animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
 
-                .wcu-premium-bg {
-                    position: relative;
-                    background: radial-gradient(circle at top, #14284f 0%, #060B17 60%);
-                }
-                .wcu-noise-layer {
-                    position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0.02; mix-blend-mode: overlay;
-                    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-                }
-                .wcu-animated-divider {
-                    display: flex; align-items: center; justify-content: center; margin: 40px 0; width: 100%; opacity: 0.4;
-                }
-                .wcu-divider-line { height: 1px; flex: 1; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); }
-                .wcu-divider-dot { width: 6px; height: 6px; background: #3b82f6; border-radius: 50%; margin: 0 20px; box-shadow: 0 0 10px #3b82f6; animation: pulseDot 2s infinite ease-in-out; }
-                
-                /* PREMIUM FROSTED APPLE/OPENAI STYLE SPOTLIGHT CARD */
-                .wcu-spotlight-card {
-                    position: relative; 
-                    overflow: hidden; 
-                    z-index: 5;
-                    padding: 64px; 
-                    border-radius: 32px;
-                    background: linear-gradient(180deg, rgba(17, 24, 39, 0.35), rgba(17, 24, 39, 0.22));
-                    border: 1px solid rgba(255, 255, 255, 0.12);
-                    backdrop-filter: blur(14px); 
-                    -webkit-backdrop-filter: blur(14px);
-                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
-                    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-                }
-                
-                .wcu-spotlight-card::before {
-                    content: "";
-                    position: absolute; 
-                    inset: 0;
-                    background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.14), transparent 45%);
-                    pointer-events: none;
-                    z-index: -1;
-                }
-                
-                .wcu-spotlight-card::after {
-                    content: "";
-                    position: absolute; 
-                    inset: 1px; 
-                    border-radius: 30px;
-                    border: 1px solid rgba(255, 255, 255, 0.04);
-                    pointer-events: none;
-                    z-index: -1;
-                }
-                
-                .wcu-spotlight-card:hover {
-                    transform: translateY(-4px);
-                    border-color: rgba(59, 130, 246, 0.28);
-                    box-shadow: 0 35px 90px rgba(37, 99, 235, 0.18);
-                }
-                
-                .wcu-spotlight-video-bg {
-                    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -3; 
-                    opacity: 0.45; filter: brightness(0.95) contrast(1.1) saturate(1.15);
-                }
-                
-                .wcu-spotlight-video-overlay {
-                    position: absolute; inset: 0; 
-                    background: linear-gradient(90deg, rgba(4, 12, 28, 0.50) 40%, rgba(4, 12, 28, 0.35) 100%); 
-                    z-index: -2; pointer-events: none;
-                }
-                
-                .wcu-spotlight-label { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: #60a5fa; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-                
-                .wcu-spotlight-title { 
-                    font-size: clamp(36px, 4.5vw, 58px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; color: #ffffff; margin: 0 0 20px 0;
-                    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
-                }
-                
-                .wcu-spotlight-desc {
-                    font-size: 16.5px; line-height: 1.7; color: rgba(255, 255, 255, 0.78); margin: 0 0 28px 0;
-                    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-                }
-                
-                .wcu-bullet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 32px 0; }
-                .wcu-bullet-item { padding: 16px 20px; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 12px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-                .wcu-bullet-item:hover { transform: translateY(-4px); background: rgba(37,99,235,0.08); border-color: rgba(59,130,246,0.4); }
-                
-                .wcu-pill-cta { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(90deg, #2563eb, #3b82f6); color: #ffffff; padding: 14px 28px; border-radius: 999px; font-weight: 700; font-size: 15px; border: none; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(37,99,235,0.3); text-decoration: none; }
-                .wcu-pill-cta:hover { transform: translateX(3px); filter: brightness(1.1); box-shadow: 0 12px 30px rgba(37,99,235,0.45); }
-                
-                /* THEME-SPECIFIC CARD WRAPPERS */
-                .wcu-premium-card-wrapper { 
-                    position: relative; 
-                    border-radius: 24px; 
-                    padding: 1px; 
-                    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
-                }
-                .wcu-premium-card-inner { 
-                    border-radius: 23px; 
-                    overflow: hidden; 
-                    height: 100%; 
-                    position: relative;
-                    transition: background 0.4s ease, box-shadow 0.4s ease;
-                }
-                
-                /* Dark Cards styling */
-                .wcu-premium-card-wrapper.wcu-dark-theme {
-                    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); 
-                }
-                .wcu-premium-card-wrapper.wcu-dark-theme .wcu-premium-card-inner {
-                    background: #0b1220; 
-                }
-                .wcu-premium-card-wrapper.wcu-dark-theme .wcu-card-title { color: #ffffff; }
-                .wcu-premium-card-wrapper.wcu-dark-theme .wcu-card-desc { color: #94a3b8; }
-                .wcu-premium-card-wrapper.wcu-dark-theme .wcu-kpi-val { color: #ffffff; }
-                .wcu-premium-card-wrapper.wcu-dark-theme .wcu-card-mini-chip { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); color: #94a3b8; }
-                
-                .wcu-premium-card-wrapper.wcu-dark-theme:hover { 
-                    transform: translateY(-8px); 
-                    background: linear-gradient(135deg, rgba(59,130,246,0.4), transparent 60%); 
-                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-                }
+    .wcu-premium-bg {
+        position: relative;
+        background: radial-gradient(circle at top, #14284f 0%, #060B17 60%);
+    }
+    .wcu-noise-layer {
+        position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0.02; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+    .wcu-animated-divider {
+        display: flex; align-items: center; justify-content: center; margin: 40px 0; width: 100%; opacity: 0.4;
+    }
+    .wcu-divider-line { height: 1px; flex: 1; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); }
+    .wcu-divider-dot { width: 6px; height: 6px; background: #3b82f6; border-radius: 50%; margin: 0 20px; box-shadow: 0 0 10px #3b82f6; animation: pulseDot 2s infinite ease-in-out; }
 
-                /* Light Cards styling */
-                .wcu-premium-card-wrapper.wcu-light-theme {
-                    background: linear-gradient(180deg, rgba(15,23,42,0.08), rgba(15,23,42,0.03)); 
-                    box-shadow: 0 4px 20px rgba(15,23,42,0.02);
-                }
-                .wcu-premium-card-wrapper.wcu-light-theme .wcu-premium-card-inner {
-                    background: #ffffff; 
-                }
-                .wcu-premium-card-wrapper.wcu-light-theme .wcu-card-title { color: #0f172a; }
-                .wcu-premium-card-wrapper.wcu-light-theme .wcu-card-desc { color: #475569; }
-                .wcu-premium-card-wrapper.wcu-light-theme .wcu-kpi-val { color: #0f172a; }
-                .wcu-premium-card-wrapper.wcu-light-theme .wcu-card-mini-chip { background: #f1f5f9; border: 1px solid #e2e8f0; color: #475569; }
-                
-                .wcu-premium-card-wrapper.wcu-light-theme:hover { 
-                    transform: translateY(-8px); 
-                    background: linear-gradient(135deg, rgba(59,130,246,0.3), transparent 60%); 
-                    box-shadow: 0 25px 50px rgba(15,23,42,0.08);
-                }
+    /* SPOTLIGHT MAIN CARD */
+    .wcu-spotlight-card {
+        position: relative; 
+        overflow: hidden; 
+        z-index: 5;
+        padding: 64px; 
+        border-radius: 32px;
+        background: linear-gradient(180deg, #0F172A, #111827);
+        box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .wcu-spotlight-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.14);
+    }
 
-                .wcu-card-dots { position: absolute; top: 20px; right: 20px; opacity: 0.05; font-size: 10px; line-height: 1.4; letter-spacing: 3px; color: #fff; }
-                .wcu-premium-card-wrapper.wcu-light-theme .wcu-card-dots { color: #0f172a; opacity: 0.08; }
+    .wcu-spotlight-video-bg {
+        position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -3; 
+        opacity: 0.45; filter: brightness(0.98) saturate(1.08) contrast(1.02);
+    }
 
-                .wcu-card-img-mask { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.05) brightness(0.9); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-                .wcu-premium-card-wrapper:hover .wcu-card-img-mask { transform: scale(1.06); }
-                
-                .wcu-card-title { font-size: 22px; font-weight: 800; line-height: 1.3; marginBottom: 12px; transition: color 0.3s ease; }
-                .wcu-card-desc { font-size: 14.5px; line-height: 1.65; marginBottom: 20px; transition: color 0.3s ease; }
-                .wcu-card-kpi-row { display: flex; flex-direction: column; gap: 2px; padding-left: 14px; margin-bottom: 22px; }
-                .wcu-kpi-val { font-size: 24px; font-weight: 900; line-height: 1; transition: color 0.3s ease; }
-                .wcu-kpi-label { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: '0.05em'; }
-                .wcu-card-mini-chip { padding: 5px 12px; border-radius: 99px; font-size: 12.5px; transition: all 0.3s ease; }
+    .wcu-spotlight-video-overlay {
+        position: absolute; inset: 0; 
+        background: linear-gradient(90deg, rgba(4, 12, 28, 0.50) 40%, rgba(4, 12, 28, 0.35) 100%); 
+        z-index: -2; pointer-events: none;
+    }
 
-                /* SECTION LAYOUT SYSTEM */
-                .wcu-section-dark {
-                    background: #060B17;
-                    color: #ffffff;
-                }
-                .wcu-section-light {
-                    background: #f8fafc;
-                    color: #0f172a;
-                }
+    .wcu-spotlight-label { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: #60a5fa; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
 
-                .wcu-section-light h2 {
-                    color: #0f172a !important;
-                }
-                .wcu-section-light p {
-                    color: #475569 !important;
-                }
+    .wcu-spotlight-title { 
+        font-size: clamp(36px, 4.5vw, 58px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; color: #ffffff; margin: 0 0 20px 0;
+    }
 
-                /* SMOOTH MEDIA CONTENT COMPONENT TRIMS */
-                .wcu-media-wrapper {
-                    border-radius: 24px; 
-                    overflow: hidden; 
-                    height: 380px; 
-                    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-                }
-                .wcu-section-dark .wcu-media-wrapper {
-                    border: 1px solid rgba(255, 255, 255, 0.08); 
-                    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-                }
-                .wcu-section-light .wcu-media-wrapper {
-                    border: 1px solid rgba(15, 23, 42, 0.08); 
-                    box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
-                }
-                .wcu-media-wrapper:hover {
-                    transform: scale(1.02);
-                }
+    .wcu-spotlight-desc {
+        font-size: 16.5px; line-height: 1.7; color: rgba(255, 255, 255, 0.78); margin: 0 0 28px 0;
+    }
 
-                /* GEOGRAPHIC HONEYCOMB GRAPHICS */
-                .geo-footprint-board {
-                    width: 100%;
-                    max-width: 850px;
-                    height: 760px;
-                    margin: auto;
-                    position: relative;
-                    z-index: 5;
-                }
-                .geo-network-lines {
-                    position: absolute;
-                    inset: 0;
-                    pointer-events: none;
-                    opacity: 0.25;
-                    background-size: 300px 170px;
-                    z-index: 1;
-                }
-                .hex-card {
-                    width: 260px;
-                    height: 290px;
-                    position: absolute;
-                    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
-                    background: linear-gradient(180deg, #0e1a38 0%, #060b14 100%);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    overflow: hidden;
-                    cursor: default;
-                    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), inset 0 0 25px rgba(255, 255, 255, 0.02);
-                    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, background 0.4s ease;
-                    z-index: 10;
-                }
-                .node-uk     { left: 285px; top: 0px; }
-                .node-usa    { left: 120px; top: 145px; }
-                .node-eu     { left: 450px; top: 145px; }
-                .node-gcc    { left: 285px; top: 290px; }
-                .node-global { left: 120px; top: 435px; }
-                .node-india  { left: 450px; top: 435px; }
+    .wcu-bullet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 32px 0; }
+    .wcu-bullet-item { padding: 16px 20px; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 12px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    .wcu-bullet-item:hover { transform: translateY(-4px); background: rgba(37,99,235,0.08); border-color: rgba(59,130,246,0.4); }
 
-                .hex-card::before {
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    background: radial-gradient(circle at center, rgba(0, 194, 199, 0.15), transparent 70%);
-                    opacity: 0.3;
-                    transition: opacity 0.4s;
-                    z-index: 1;
-                }
-                .hex-card::after {
-                    content: '';
-                    position: absolute;
-                    top: -100%;
-                    left: -100%;
-                    width: 60%;
-                    height: 300%;
-                    background: linear-gradient(90deg, transparent, rgba(0, 194, 199, 0.15), transparent);
-                    transform: rotate(45deg);
-                    z-index: 2;
-                }
-                .hex-card:hover {
-                    transform: scale(1.04) !important;
-                    box-shadow: 0 0 35px rgba(0, 194, 199, 0.35), 0 0 0 2px rgba(0, 194, 199, 0.5);
-                    background: linear-gradient(180deg, #11254f 0%, #091224 100%);
-                    z-index: 30;
-                }
-                .hex-card:hover::before { opacity: 0.8; }
-                .hex-card:hover::after {
-                    top: 100%;
-                    left: 100%;
-                    transition: all 0.75s ease;
-                }
-                .hex-center {
-                    transform: scale(1.08);
-                    background: linear-gradient(180deg, #133868 0%, #0a1b38 100%);
-                    box-shadow: 0 0 50px rgba(0, 194, 199, 0.35);
-                    z-index: 20;
-                }
-                .hex-center::before {
-                    background: radial-gradient(circle at center, rgba(0, 194, 199, 0.4), transparent 70%);
-                    opacity: 1;
-                }
-                .hex-center:hover {
-                    transform: scale(1.11) !important;
-                    box-shadow: 0 0 60px rgba(0, 194, 199, 0.5), 0 0 0 2px rgba(0, 194, 199, 0.65);
-                }
-                .hex-content-wrap {
-                    position: relative;
-                    z-index: 3;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    text-align: center;
-                    padding: 0 22px;
-                    width: 100%;
-                }
-                .hex-icon-box {
-                    margin-bottom: 14px;
-                    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                }
-                .hex-card:hover .hex-icon-box {
-                    transform: scale(1.15);
-                }
-                .hex-title {
-                    color: #ffffff;
-                    font-size: 19px;
-                    font-weight: 700;
-                    letter-spacing: -0.01em;
-                    margin-bottom: 6px;
-                    transition: color 0.3s;
-                }
-                .hex-center .hex-title, .hex-card:hover .hex-title {
-                    color: #00C2C7;
-                }
-                .hex-sub {
-                    color: #94a3b8;
-                    font-size: 12px;
-                    line-height: 1.45;
-                    max-width: 85%;
-                    transition: color 0.3s;
-                }
-                .hex-card:hover .hex-sub {
-                    color: #e2e8f0;
-                }
+    /* FLOATING INFORMATION CARD SYSTEM */
+    .wcu-premium-card-wrapper { 
+        position: relative; 
+        border-radius: 24px; 
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+        box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+    }
 
-                @media (max-width: 840px) {
-                    .geo-footprint-board {
-                        height: auto;
-                        display: flex;
-                        flex-wrap: wrap;
-                        justify-content: center;
-                        gap: 16px;
-                        padding: 20px;
-                    }
-                    .hex-card {
-                        position: relative !important;
-                        left: auto !important;
-                        top: auto !important;
-                        margin: 0 !important;
-                        transform: none !important;
-                    }
-                    .hex-center {
-                        transform: scale(1) !important;
-                    }
-                }
-            ` }} />
+    .wcu-premium-card-wrapper:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.14);
+    }
+
+    .wcu-premium-card-inner { 
+        border-radius: 24px; 
+        overflow: hidden; 
+        height: 100%; 
+        position: relative;
+        transition: background 0.4s ease;
+    }
+
+    .wcu-premium-card-inner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        z-index: 10;
+        background: linear-gradient(90deg, #2563eb, #60a5fa, transparent);
+    }
+
+    /* DARK THEME CONFIG */
+    .wcu-premium-card-wrapper.wcu-dark-theme .wcu-premium-card-inner {
+        background: linear-gradient(180deg, #0F172A, #111827); 
+    }
+    .wcu-premium-card-wrapper.wcu-dark-theme .wcu-card-title { color: #ffffff; }
+    .wcu-premium-card-wrapper.wcu-dark-theme .wcu-card-desc { color: #94a3b8; }
+    .wcu-premium-card-wrapper.wcu-dark-theme .wcu-kpi-val { color: #ffffff; }
+    .wcu-premium-card-wrapper.wcu-dark-theme .wcu-card-mini-chip { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); color: #94a3b8; }
+
+    /* LIGHT THEME CONFIG */
+    .wcu-premium-card-wrapper.wcu-light-theme .wcu-premium-card-inner {
+        background: #ffffff; 
+    }
+    .wcu-premium-card-wrapper.wcu-light-theme .wcu-card-title { color: #0f172a; }
+    .wcu-premium-card-wrapper.wcu-light-theme .wcu-card-desc { color: #475569; }
+    .wcu-premium-card-wrapper.wcu-light-theme .wcu-kpi-val { color: #0f172a; }
+    .wcu-premium-card-wrapper.wcu-light-theme .wcu-card-mini-chip { background: #f1f5f9; border: 1px solid #e2e8f0; color: #475569; }
+
+    /* IMAGE STYLING AND CLEAN BOUNDARIES */
+    .wcu-card-img-wrapper {
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .wcu-card-img-mask { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover; 
+        display: block;
+        filter: brightness(0.98) saturate(1.08) contrast(1.02); 
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+    }
+
+    .wcu-premium-card-wrapper:hover .wcu-card-img-mask { 
+        transform: scale(1.08); 
+    }
+
+    .wcu-card-dots { position: absolute; top: 20px; right: 20px; opacity: 0.05; font-size: 10px; line-height: 1.4; letter-spacing: 3px; color: #fff; }
+    .wcu-premium-card-wrapper.wcu-light-theme .wcu-card-dots { color: #0f172a; opacity: 0.08; }
+
+    .wcu-card-title { font-size: 22px; font-weight: 800; line-height: 1.3; margin-bottom: 12px; transition: color 0.3s ease; }
+    .wcu-card-desc { font-size: 14.5px; line-height: 1.65; margin-bottom: 20px; transition: color 0.3s ease; }
+    .wcu-card-kpi-row { display: flex; flex-direction: column; gap: 2px; padding-left: 14px; margin-bottom: 22px; }
+    .wcu-kpi-val { font-size: 24px; font-weight: 900; line-height: 1; transition: color 0.3s ease; }
+    .wcu-kpi-label { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; }
+    .wcu-card-mini-chip { padding: 5px 12px; border-radius: 99px; font-size: 12.5px; transition: all 0.3s ease; }
+
+    /* SECTION LAYOUT SYSTEM */
+    .wcu-section-dark {
+        background: #060B17;
+        color: #ffffff;
+    }
+    .wcu-section-light {
+        background: #f8fafc;
+        color: #0f172a;
+    }
+
+    .wcu-section-light h2 {
+        color: #0f172a !important;
+    }
+    .wcu-section-light p {
+        color: #475569 !important;
+    }
+
+    .wcu-media-wrapper {
+        border-radius: 24px; 
+        overflow: hidden; 
+        height: 380px; 
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .wcu-section-dark .wcu-media-wrapper {
+        border: 1px solid rgba(255, 255, 255, 0.08); 
+        box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    }
+    .wcu-section-light .wcu-media-wrapper {
+        border: 1px solid rgba(15, 23, 42, 0.08); 
+        box-shadow: 0 30px 60px rgba(15, 23, 42, 0.08);
+    }
+    .wcu-media-wrapper:hover {
+        transform: scale(1.02);
+    }
+
+    /* HONEYCOMB STYLES */
+    .hexagon {
+      width: 280px;
+      height: 320px;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      transition: all 0.3s ease-in-out;
+      position: relative;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      cursor: default;
+    }
+
+    .hexagon::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 2px;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.3), transparent);
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .hexagon-center {
+      background: radial-gradient(circle at center, rgba(14, 165, 233, 0.2) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      z-index: 10;
+    }
+
+    .hexagon-center::before {
+      background: linear-gradient(180deg, #0ea5e9, transparent);
+    }
+
+    .hexagon:hover {
+      transform: scale(1.05);
+      z-index: 50;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(30, 58, 138, 0.5) 100%);
+    }
+
+    .hexagon:hover::before {
+      background: linear-gradient(180deg, #38bdf8, #0ea5e9);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+    }
+
+    .honeycomb-container {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    .icon-cyan { color: #38bdf8; }
+    .icon-center { color: #22d3ee; }
+` }} />
 
             <main style={{ flex: 1 }} className="wcu-premium-bg">
                 <div className="wcu-noise-layer" />
@@ -495,99 +397,79 @@ export default function ServicesPage() {
                             <div className="wcu-divider-line" />
                         </div>
 
-                        {/* Geographic Footprint Block (Keep Dark) */}
-                        <div style={{ position: 'relative', marginTop: '60px', width: '100%', minHeight: '840px' }}>
-                            <div className="geo-footprint-board">
-                                <div className="geo-network-lines" />
+                        {/* Geographic Footprint / Scale Section - CENTER ALIGNED */}
+                        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: '32px' }}>
+                            <header style={{ textAlign: 'center', marginBottom: '40px', maxWidth: '750px', padding: '0 16px' }}>
+                                <h2 style={{
+                                    fontSize: 'clamp(28px, 4vw, 44px)',
+                                    fontWeight: '800',
+                                    marginBottom: '16px',
+                                    background: 'linear-gradient(180deg, #ffffff 0%, #94a3b8 100%)',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    textAlign: 'center'
+                                }}>
+                                    Driven by Impact &amp; Proven Scale
+                                </h2>
+                                <p style={{ fontSize: '16.5px', color: '#94a3b8', lineHeight: '1.6', margin: '0 auto', textAlign: 'center' }}>
+                                    Quantifying our commitment to global excellence, enterprise transformation, and operational reliability across sectors.
+                                </p>
+                            </header>
 
-                                {/* Tier 1: UK (Top Center) */}
-                                <div className="hex-card node-uk">
-                                    <div className="hex-content-wrap">
-                                        <div className="hex-icon-box">
-                                            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#2AABDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M3 22h18" /><path d="M6 18v-7a6 6 0 0 1 12 0v7" />
-                                                <path d="M9 22v-4h6v4" /><path d="M4 18h16" /><path d="M12 2v2" />
-                                            </svg>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', paddingBottom: '48px' }}>
+                                <div className="honeycomb-container" data-purpose="network-grid">
+                                    {/* Node: Experience */}
+                                    <div className="hexagon" data-purpose="fact-card">
+                                        <div className="mb-4">
+                                            <span className="material-symbols-outlined icon-cyan text-5xl">history_edu</span>
                                         </div>
-                                        <div className="hex-title">United Kingdom</div>
-                                        <div className="hex-sub">IR35 Ecosystem & GDPR Data Shield</div>
+                                        <h3 className="text-3xl font-bold mb-1 text-white"><AnimatedCounter target="15+" /> Years</h3>
+                                        <p className="text-sm text-slate-400 px-4 uppercase tracking-wider font-semibold">Industry Experience</p>
                                     </div>
-                                </div>
 
-                                {/* Tier 2 Left: USA */}
-                                <div className="hex-card node-usa">
-                                    <div className="hex-content-wrap">
-                                        <div className="hex-icon-box">
-                                            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#2AABDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
-                                                <path d="M6 12H4a2 2 0 0 0-2 2v8" />
-                                                <path d="M18 16h2a2 2 0 0 1 2 2v4" />
-                                                <path d="M10 6h4" /><path d="M10 10h4" /><path d="M10 14h4" /><path d="M10 18h4" />
-                                            </svg>
+                                    {/* Node: Clients */}
+                                    <div className="hexagon" data-purpose="fact-card">
+                                        <div className="mb-4">
+                                            <span className="material-symbols-outlined icon-cyan text-5xl">public</span>
                                         </div>
-                                        <div className="hex-title">United States</div>
-                                        <div className="hex-sub">EEO & ITAR Compliant Architecture</div>
+                                        <h3 className="text-3xl font-bold mb-1 text-white"><AnimatedCounter target="500+" /></h3>
+                                        <p className="text-sm text-slate-400 px-4 uppercase tracking-wider font-semibold">Global Clients</p>
                                     </div>
-                                </div>
 
-                                {/* Tier 2 Right: Europe */}
-                                <div className="hex-card node-eu">
-                                    <div className="hex-content-wrap">
-                                        <div className="hex-icon-box">
-                                            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#2AABDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <circle cx="12" cy="12" r="10" />
-                                                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-                                                <path d="M2 12h20" />
-                                            </svg>
+                                    {/* Node: End Users (Center Focal Point) */}
+                                    <div className="hexagon hexagon-center" data-purpose="center-fact-card">
+                                        <div className="mb-4">
+                                            <span className="material-symbols-outlined icon-center text-6xl">groups</span>
                                         </div>
-                                        <div className="hex-title">Europe</div>
-                                        <div className="hex-sub">Cross-Border Talent Pooling Pipelines</div>
+                                        <h3 className="text-4xl font-bold mb-1 text-cyan-400"><AnimatedCounter target="1M+" /></h3>
+                                        <p className="text-sm font-bold text-cyan-100 px-4 uppercase tracking-widest">Active End Users</p>
                                     </div>
-                                </div>
 
-                                {/* Tier 3: GCC (Focal Center Node) */}
-                                <div className="hex-card hex-center node-gcc">
-                                    <div className="hex-content-wrap">
-                                        <div className="hex-icon-box">
-                                            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#00C2C7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                                                <circle cx="12" cy="10" r="3" />
-                                                <path d="M8 10h8" />
-                                            </svg>
+                                    {/* Node: Uptime */}
+                                    <div className="hexagon" data-purpose="fact-card">
+                                        <div className="mb-4">
+                                            <span className="material-symbols-outlined icon-cyan text-5xl">speed</span>
                                         </div>
-                                        <div className="hex-title">GCC Region</div>
-                                        <div className="hex-sub" style={{ color: '#a5f3fc' }}>Localized Visa & Relocation Hub</div>
+                                        <h3 className="text-3xl font-bold mb-1 text-white"><AnimatedCounter target="99.9%" /></h3>
+                                        <p className="text-sm text-slate-400 px-4 uppercase tracking-wider font-semibold">Service Uptime</p>
                                     </div>
-                                </div>
 
-                                {/* Tier 4 Left: Global Network */}
-                                <div className="hex-card node-global">
-                                    <div className="hex-content-wrap">
-                                        <div className="hex-icon-box">
-                                            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#2AABDB" strokeWidth="1.5">
-                                                <circle cx="12" cy="12" r="10" strokeDasharray="3 3" />
-                                                <circle cx="12" cy="12" r="6" fill="rgba(42,171,219,0.1)" />
-                                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" strokeWidth="1" />
-                                            </svg>
+                                    {/* Node: Support */}
+                                    <div className="hexagon" data-purpose="fact-card">
+                                        <div className="mb-4">
+                                            <span className="material-symbols-outlined icon-cyan text-5xl">support_agent</span>
                                         </div>
-                                        <div className="hex-title">Global Network</div>
-                                        <div className="hex-sub">Synchronized Delivery Infrastructure</div>
+                                        <h3 className="text-3xl font-bold mb-1 text-white">24/7</h3>
+                                        <p className="text-sm text-slate-400 px-4 uppercase tracking-wider font-semibold">Managed Support</p>
                                     </div>
-                                </div>
 
-                                {/* Tier 4 Right: India */}
-                                <div className="hex-card node-india">
-                                    <div className="hex-content-wrap">
-                                        <div className="hex-icon-box">
-                                            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#2AABDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <rect x="16" y="16" width="6" height="6" rx="1" />
-                                                <rect x="2" y="16" width="6" height="6" rx="1" />
-                                                <rect x="9" y="2" width="6" height="6" rx="1" />
-                                                <path d="M12 8v8" /><path d="M5 16v-4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4" />
-                                            </svg>
+                                    {/* Node: Partners */}
+                                    <div className="hexagon" data-purpose="fact-card">
+                                        <div className="mb-4">
+                                            <span className="material-symbols-outlined icon-cyan text-5xl">handshake</span>
                                         </div>
-                                        <div className="hex-title">India Hub</div>
-                                        <div className="hex-sub">High-Scale Enterprise Delivery Base</div>
+                                        <h3 className="text-3xl font-bold mb-1 text-white"><AnimatedCounter target="50+" /></h3>
+                                        <p className="text-sm text-slate-400 px-4 uppercase tracking-wider font-semibold">Tech Partners</p>
                                     </div>
                                 </div>
                             </div>
@@ -695,7 +577,6 @@ export default function ServicesPage() {
                             </div>
                         </div>
 
-                        {/* 3 Cards Redesigned into One Row */}
                         <div style={{
                             display: 'grid',
                             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
